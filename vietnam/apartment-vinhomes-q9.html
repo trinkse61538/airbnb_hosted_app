@@ -181,6 +181,149 @@ p{margin:0 0 14px}
   .detail{grid-template-columns:42px 1fr}
   .detail .copy-btn{grid-column:2}
 }
+
+/* Floating host support */
+body{padding-bottom:18px}
+.info-grid{grid-template-columns:1fr}
+.copy-btn{
+  transition:background .18s ease,color .18s ease,border-color .18s ease,transform .15s ease;
+}
+.copy-btn:active{transform:scale(.98)}
+.copy-btn.copied{
+  background:#e9f9f2;
+  color:#08775a;
+  border-color:#a9e5d0;
+}
+.floating-support{
+  position:fixed;
+  right:18px;
+  bottom:calc(18px + env(safe-area-inset-bottom));
+  z-index:1600;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:10px;
+}
+.support-menu{
+  width:285px;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:rgba(255,255,255,.97);
+  box-shadow:0 22px 65px rgba(17,24,39,.22);
+  backdrop-filter:blur(14px);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translateY(10px) scale(.97);
+  transform-origin:bottom right;
+  transition:.18s ease;
+}
+.floating-support.open .support-menu{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:none;
+}
+.support-head{
+  padding:8px 8px 11px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:8px;
+}
+.support-head strong{display:block;font-size:.94rem}
+.support-head span{display:block;color:var(--muted);font-size:.78rem;margin-top:2px}
+.support-action{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-height:52px;
+  padding:9px 10px;
+  border-radius:14px;
+  text-decoration:none;
+  transition:background .15s ease;
+}
+.support-action:hover{background:#f5f7fa}
+.support-action-icon{
+  width:38px;height:38px;flex:0 0 38px;
+  display:grid;place-items:center;
+  border-radius:12px;
+  font-size:1.08rem;
+}
+.support-action.call .support-action-icon{background:#edf4ff}
+.support-action.zalo .support-action-icon{background:#eaf8f3}
+.support-action strong{display:block;font-size:.88rem}
+.support-action small{display:block;color:var(--muted);font-size:.74rem;margin-top:1px}
+.support-toggle{
+  min-height:56px;
+  padding:0 17px;
+  border:0;
+  border-radius:999px;
+  background:#111827;
+  color:#fff;
+  box-shadow:0 14px 35px rgba(17,24,39,.27);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  font:inherit;
+  font-weight:900;
+  cursor:pointer;
+}
+.support-toggle .support-dot{
+  width:26px;height:26px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  background:#fff;
+  color:#111827;
+  font-size:.88rem;
+}
+.support-toggle:focus-visible,
+.copy-btn:focus-visible,
+.support-action:focus-visible{
+  outline:3px solid rgba(37,99,235,.25);
+  outline-offset:3px;
+}
+.toast{
+  bottom:calc(88px + env(safe-area-inset-bottom)) !important;
+  max-width:min(420px,calc(100vw - 34px));
+  text-align:center;
+}
+@media(max-width:640px){
+  body{padding-bottom:88px}
+  .floating-support{
+    right:13px;
+    bottom:calc(13px + env(safe-area-inset-bottom));
+  }
+  .support-menu{
+    width:min(300px,calc(100vw - 26px));
+  }
+  .support-toggle{
+    width:58px;
+    height:58px;
+    min-height:58px;
+    padding:0;
+    border-radius:50%;
+  }
+  .support-toggle .support-label{display:none}
+  .support-toggle .support-dot{
+    width:32px;height:32px;font-size:1.05rem
+  }
+  .toast{
+    bottom:calc(84px + env(safe-area-inset-bottom)) !important;
+  }
+  .nav{min-height:64px}
+  .brand{font-size:.92rem}
+  .brand-mark{width:34px;height:34px;border-radius:11px}
+  .nav-actions .primary{font-size:.78rem;min-height:40px;padding:0 11px}
+  .hero{padding-top:22px}
+  h1{font-size:clamp(1.85rem,9.5vw,2.6rem)}
+  .hero-media{padding:10px}
+  .thumb-row{grid-template-columns:repeat(3,1fr)}
+  .section{padding:20px 0}
+  .wifi-box{padding:16px}
+  .amenity{min-height:96px;padding:14px}
+}
+
 </style>
 </head>
 <body>
@@ -192,7 +335,7 @@ p{margin:0 0 14px}
       </a>
       <div class="nav-actions">
         <a class="btn secondary" href="/">← Trang chủ</a>
-        <a class="btn primary" href="tel:+84367676119">☎ Gọi host</a>
+        <a class="btn primary" href="#checkin">Hướng dẫn check-in</a>
       </div>
     </div>
   </header>
@@ -280,7 +423,7 @@ p{margin:0 0 14px}
         <div class="detail-value">1205#</div>
         
       </div>
-      <button class="copy-btn" type="button" onclick="copyText("1205#", "M\u00e3 kh\u00f3a c\u1eeda")">Sao chép</button>
+      <button class="copy-btn" type="button" data-copy="1205#" data-label="Mã khóa cửa">Sao chép</button>
     </div>
     
 
@@ -302,21 +445,10 @@ p{margin:0 0 14px}
         <div class="detail-value">0367676119</div>
         <div class="action-row"><a class="btn green" href="https://zalo.me/0367676119" target="_blank" rel="noopener">Nhắn Zalo</a></div>
       </div>
-      <button class="copy-btn" type="button" onclick="copyText("0367676119", "Host")">Sao chép</button>
+      <button class="copy-btn" type="button" data-copy="0367676119" data-label="Host">Sao chép</button>
     </div>
     </div>
         </div>
-
-        <aside class="contact-card">
-          <div class="label" style="color:#b9c4d3">Liên hệ host</div>
-          <h2 style="color:#fff">Cần hỗ trợ?</h2>
-          <p class="muted">Nếu gặp vấn đề khi check-in, khóa cửa, Wi‑Fi hoặc thiết bị trong nhà, hãy liên hệ trực tiếp.</p>
-          <div style="font-size:1.35rem;font-weight:900;margin:12px 0">0367676119</div>
-          <div class="contact-actions">
-            <a class="btn secondary" href="tel:+84367676119">☎ Gọi điện</a>
-            <a class="btn green" href="https://zalo.me/0367676119" target="_blank" rel="noopener">💬 Zalo</a>
-          </div>
-        </aside>
       </div>
     </section>
 
@@ -380,12 +512,12 @@ p{margin:0 0 14px}
           <div class="wifi-box">
             <div class="wifi-label">Tên Wi‑Fi</div>
             <div class="wifi-value">GrandPark-1205</div>
-            <button class="copy-btn" type="button" onclick="copyText("GrandPark-1205",'Tên Wi‑Fi')">Sao chép tên mạng</button>
+            <button class="copy-btn" type="button" data-copy="GrandPark-1205" data-label="Tên Wi‑Fi">Sao chép tên mạng</button>
           </div>
           <div class="wifi-box">
             <div class="wifi-label">Mật khẩu</div>
             <div class="wifi-value">Stay@1205</div>
-            <button class="copy-btn" type="button" onclick="copyText("Stay@1205",'Mật khẩu Wi‑Fi')">Sao chép mật khẩu</button>
+            <button class="copy-btn" type="button" data-copy="Stay@1205" data-label="Mật khẩu Wi‑Fi">Sao chép mật khẩu</button>
           </div>
         </div>
       </div>
@@ -488,7 +620,7 @@ p{margin:0 0 14px}
         <div class="detail-value">0367676119</div>
         
       </div>
-      <button class="copy-btn" type="button" onclick="copyText("0367676119", "Host")">Sao chép</button>
+      <button class="copy-btn" type="button" data-copy="0367676119" data-label="Host">Sao chép</button>
     </div>
     
             
@@ -499,7 +631,7 @@ p{margin:0 0 14px}
         <div class="detail-value">1205#</div>
         
       </div>
-      <button class="copy-btn" type="button" onclick="copyText("1205#", "M\u00e3 c\u1eeda")">Sao chép</button>
+      <button class="copy-btn" type="button" data-copy="1205#" data-label="Mã cửa">Sao chép</button>
     </div>
     
           </div>
@@ -520,29 +652,102 @@ p{margin:0 0 14px}
     <div class="container">© 2026 AirbnbHosted · Guest Guide demo cho thị trường Việt Nam</div>
   </footer>
 
-  <div class="toast" id="toast"></div>
+  
+  <div class="floating-support" id="floatingSupport">
+    <div class="support-menu" id="supportMenu" aria-hidden="true">
+      <div class="support-head">
+        <strong>Cần host hỗ trợ?</strong>
+        <span>Liên hệ nhanh khi gặp vấn đề check-in hoặc trong thời gian lưu trú.</span>
+      </div>
+      <a class="support-action call" href="tel:+84367676119">
+        <span class="support-action-icon">☎</span>
+        <span><strong>Gọi 0367676119</strong><small>Gọi trực tiếp cho host</small></span>
+      </a>
+      <a class="support-action zalo" href="https://zalo.me/0367676119" target="_blank" rel="noopener">
+        <span class="support-action-icon">💬</span>
+        <span><strong>Nhắn Zalo</strong><small>Mở chat với host</small></span>
+      </a>
+    </div>
+    <button class="support-toggle" id="supportToggle" type="button" aria-expanded="false" aria-controls="supportMenu" aria-label="Liên hệ host hỗ trợ">
+      <span class="support-dot">?</span>
+      <span class="support-label">Cần hỗ trợ?</span>
+    </button>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script>
+
 const toast = document.getElementById('toast');
+
 function showToast(message){
   toast.textContent = message;
   toast.classList.add('show');
   clearTimeout(window.__toastTimer);
-  window.__toastTimer = setTimeout(()=>toast.classList.remove('show'),1800);
+  window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 1900);
 }
-async function copyText(value,label){
-  try{
-    if(navigator.clipboard && window.isSecureContext){
-      await navigator.clipboard.writeText(value);
-    }else{
-      const t=document.createElement('textarea');
-      t.value=value;t.style.position='fixed';t.style.opacity='0';
-      document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();
-    }
-    showToast((label||'Nội dung')+' đã được sao chép');
-  }catch(e){
-    showToast(value);
+
+async function writeClipboard(value){
+  if(navigator.clipboard && window.isSecureContext){
+    await navigator.clipboard.writeText(value);
+    return;
   }
+  const temp = document.createElement('textarea');
+  temp.value = value;
+  temp.setAttribute('readonly','');
+  temp.style.position = 'fixed';
+  temp.style.opacity = '0';
+  temp.style.pointerEvents = 'none';
+  document.body.appendChild(temp);
+  temp.select();
+  document.execCommand('copy');
+  temp.remove();
 }
+
+document.querySelectorAll('[data-copy]').forEach(button => {
+  button.addEventListener('click', async () => {
+    const value = button.dataset.copy || '';
+    const label = button.dataset.label || 'Nội dung';
+    const original = button.dataset.originalText || button.textContent.trim();
+    button.dataset.originalText = original;
+
+    try{
+      await writeClipboard(value);
+      button.classList.add('copied');
+      button.textContent = '✓ Đã sao chép';
+      showToast('Đã sao chép ' + label + ' ✓');
+
+      clearTimeout(button.__copyTimer);
+      button.__copyTimer = setTimeout(() => {
+        button.classList.remove('copied');
+        button.textContent = original;
+      }, 1800);
+    }catch(error){
+      showToast('Không thể tự sao chép. ' + label + ': ' + value);
+    }
+  });
+});
+
+const floatingSupport = document.getElementById('floatingSupport');
+const supportToggle = document.getElementById('supportToggle');
+const supportMenu = document.getElementById('supportMenu');
+
+function setSupportOpen(open){
+  floatingSupport.classList.toggle('open', open);
+  supportToggle.setAttribute('aria-expanded', String(open));
+  supportMenu.setAttribute('aria-hidden', String(!open));
+}
+
+supportToggle.addEventListener('click', (event) => {
+  event.stopPropagation();
+  setSupportOpen(!floatingSupport.classList.contains('open'));
+});
+
+supportMenu.addEventListener('click', event => event.stopPropagation());
+document.addEventListener('click', () => setSupportOpen(false));
+document.addEventListener('keydown', event => {
+  if(event.key === 'Escape') setSupportOpen(false);
+});
+
 </script>
 </body>
 </html>
