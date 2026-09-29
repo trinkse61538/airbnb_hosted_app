@@ -1,537 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Property Locations in Sydney</title>
-    <style>
-        :root {
-            --primary-color: #1a365d;
-            --accent-color: #e28743;
-            --bg-color: #f7fafc;
-            --card-bg: #ffffff;
-            --text-color: #2d3748;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 10px; /* Giảm padding trên mobile để tăng không gian */
-            background-color: var(--bg-color);
-            color: var(--text-color);
-        }
-
-        @media (min-width: 768px) {
-            body {
-                padding: 20px;
-            }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        @media (min-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-        }
-
-        h1 {
-            text-align: center;
-            color: var(--primary-color);
-            margin-top: 10px;
-            margin-bottom: 5px;
-            font-size: 22px; /* Thu nhỏ tiêu đề trên mobile */
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        @media (min-width: 768px) {
-            h1 {
-                font-size: 28px;
-            }
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #718096;
-            margin-bottom: 25px;
-            font-style: italic;
-            font-size: 14px;
-        }
-
-        /* Map Container and Interactive Overlay */
-        .map-container {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-            line-height: 0;
-        }
-
-        .map-image {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Hotspot Pins */
-        .pin-hotspot {
-            position: absolute;
-            width: 24px; /* Thu nhỏ ghim một chút trên mobile */
-            height: 24px;
-            margin-left: -12px;
-            margin-top: -24px;
-            cursor: pointer;
-            z-index: 10;
-            border-radius: 50%;
-            transition: transform 0.2s ease;
-            background: rgba(230, 126, 34, 0.2); /* Thêm nền mờ giúp dễ chạm trúng trên đt */
-        }
-
-        @media (min-width: 768px) {
-            .pin-hotspot {
-                width: 32px;
-                height: 32px;
-                margin-left: -16px;
-                margin-top: -32px;
-                background: transparent;
-            }
-        }
-
-        .pin-hotspot:hover, .pin-hotspot:active {
-            transform: scale(1.3);
-            z-index: 20;
-        }
-
-        /* Tooltip Style */
-        .custom-tooltip {
-            position: absolute;
-            background: rgba(25, 42, 86, 0.98);
-            color: #fff;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 13px;
-            line-height: 1.4;
-            width: 240px;
-            pointer-events: none;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s ease, visibility 0.2s ease;
-            z-index: 100;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            border-left: 4px solid var(--accent-color);
-        }
-
-        @media (min-width: 768px) {
-            .custom-tooltip {
-                width: 260px;
-            }
-        }
-
-        .custom-tooltip h4 {
-            margin: 0 0 6px 0;
-            color: #ffda79;
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        .custom-tooltip p {
-            margin: 4px 0;
-        }
-
-        .custom-tooltip .guests {
-            display: inline-block;
-            background: #44bd32;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: bold;
-            margin-top: 4px;
-        }
-
-        /* Properties List Section */
-        .list-section {
-            margin-top: 20px;
-        }
-
-        .list-section h2 {
-            color: var(--primary-color);
-            font-size: 18px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-
-        @media (min-width: 768px) {
-            .list-section h2 {
-                font-size: 20px;
-            }
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 12px 15px; /* Tăng padding xíu cho mobile dễ tương tác */
-            margin-bottom: 15px;
-            border: 1px solid #cbd5e0;
-            border-radius: 6px;
-            font-size: 15px; /* Tránh iOS tự động zoom vào ô input */
-            box-sizing: border-box;
-        }
-
-        /* --- PHẦN ĐỔI THÀNH RESPONSIVE CARD CHO MOBILE --- */
-        .property-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        .property-table th, .property-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e2e8f0;
-            font-size: 14px;
-        }
-
-        .property-table th {
-            background-color: #f7fafc;
-            color: #4a5568;
-            font-weight: 600;
-        }
-
-        .property-table tr {
-            transition: background-color 0.2s;
-        }
-
-        .property-table tr:hover {
-            background-color: #f8fafc;
-        }
-
-        .property-table tr.highlight-row {
-            background-color: #fef3c7 !important;
-            transition: background-color 0.5s ease;
-        }
-
-        /* Responsive Table sang Cards trên Mobile */
-        @media (max-width: 767px) {
-            .property-table, .property-table thead, .property-table tbody, .property-table th, .property-table td, .property-table tr {
-                display: block;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            .property-table thead {
-                display: none; /* Ẩn header của table trên mobile */
-            }
-            .property-table tr {
-                margin-bottom: 15px;
-                border: 1px solid #e2e8f0;
-                border-radius: 8px;
-                padding: 12px;
-                background: #fff;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-            }
-            .property-table td {
-                border-bottom: none;
-                padding: 6px 0;
-                font-size: 14px;
-            }
-            /* Thêm nhãn giả trước dữ liệu */
-            .property-table td:nth-child(1) {
-                display: inline-block;
-                width: auto;
-                padding-right: 10px;
-            }
-            .property-table td:nth-child(2) {
-                display: inline-block;
-                width: auto;
-            }
-            .property-table td:nth-child(3) {
-                border-top: 1px dashed #edf2f7;
-                padding-top: 8px;
-                margin-top: 4px;
-            }
-            .property-table td:nth-child(5) {
-                text-align: left !important;
-                padding-top: 10px;
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-            }
-            .btn-action, .btn-airbnb {
-                display: block !important;
-                text-align: center;
-                margin-right: 0 !important;
-                padding: 10px 12px !important; /* Nút to hơn trên mobile để dễ bấm */
-                font-size: 13px !important;
-            }
-        }
-        /* ------------------------------------------------ */
-
-        .region-badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .badge-north { background-color: #ebf4ff; color: #2b6cb0; }
-        .badge-cbd { background-color: #ebf8ff; color: #2b6cb0; }
-        .badge-pyrmont { background-color: #feebc8; color: #c05621; }
-        .badge-wool { background-color: #f0fff4; color: #2f855a; }
-        .badge-ultimo { background-color: #fed7d7; color: #9b2c2c; }
-
-        .btn-action {
-            display: inline-block;
-            background-color: #3182ce;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: 500;
-            transition: background-color 0.2s;
-            margin-right: 5px;
-        }
-
-        .btn-action:hover {
-            background-color: #2b6cb0;
-        }
-
-        .btn-airbnb {
-            display: inline-block;
-            background-color: #ff5a5f;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: 500;
-            transition: background-color 0.2s;
-        }
-
-        .btn-airbnb:hover {
-            background-color: #e04b50;
-        }
-
-        .pin-id {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background: #4a5568;
-            color: #fff;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 20px;
-            font-size: 11px;
-            font-weight: bold;
-            margin-right: 5px;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Personalized digital guest guides for Airbnb and short-stay hosts. Check-in, parking, Wi-Fi and checkout in one mobile-friendly link." />
+  <title>AirbnbHosted | Personalized Digital Guest Guides</title>
+  <style>
+    :root{--ink:#171717;--muted:#666b73;--line:#e8e8e8;--surface:#fff;--soft:#f7f7f7;--pink:#ff385c;--pink-dark:#d92f4f;--teal:#008489;--green:#0d8b6f;--shadow:0 22px 60px rgba(20,20,20,.09);--radius:28px;--radius-sm:18px;--max:1160px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:92px}body{margin:0;color:var(--ink);background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}body::before{content:"";position:fixed;inset:0 0 auto 0;height:520px;z-index:-1;background:radial-gradient(circle at 14% 5%,rgba(255,56,92,.11),transparent 28%),radial-gradient(circle at 84% 8%,rgba(0,132,137,.09),transparent 27%),linear-gradient(180deg,#fff 0%,#fff 72%,rgba(247,247,247,.6) 100%);pointer-events:none}a{color:inherit}.container{width:min(calc(100% - 36px),var(--max));margin-inline:auto}
+    .topbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.9);border-bottom:1px solid rgba(0,0,0,.06);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}.nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:850;letter-spacing:-.03em;font-size:1.13rem;white-space:nowrap}.brand-mark{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(145deg,var(--pink),#ff7690);color:#fff;box-shadow:0 8px 20px rgba(255,56,92,.22);font-size:17px}.navlinks{display:flex;align-items:center;gap:26px}.navlinks a{color:#474b52;text-decoration:none;font-size:.89rem;font-weight:700}.nav-actions{display:flex;align-items:center;gap:10px}.lang{display:flex;align-items:center;padding:3px;border:1px solid var(--line);background:#fff;border-radius:999px}.lang button{border:0;background:transparent;cursor:pointer;min-width:38px;height:31px;border-radius:999px;font:inherit;font-size:.76rem;font-weight:850;color:#777}.lang button.active{background:var(--ink);color:#fff}.mini-cta{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 16px;border-radius:999px;text-decoration:none;background:var(--ink);color:#fff;font-size:.82rem;font-weight:800}
+    .hero{min-height:690px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(390px,.95fr);align-items:center;gap:56px;padding:70px 0 76px}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border:1px solid #ffd7df;border-radius:999px;color:#a52640;background:#fff5f7;font-size:.75rem;font-weight:850;letter-spacing:.03em;text-transform:uppercase}.eyebrow-dot{width:7px;height:7px;border-radius:50%;background:var(--pink)}h1{margin:18px 0;font-size:clamp(2.75rem,6.3vw,5.65rem);line-height:.98;letter-spacing:-.065em;max-width:760px}.gradient-word{background:linear-gradient(90deg,var(--pink),#a844d8 48%,var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}.hero-copy>p{max-width:640px;margin:0;color:var(--muted);font-size:clamp(1.03rem,1.9vw,1.23rem)}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:52px;padding:0 21px;border-radius:14px;text-decoration:none;font-weight:850;font-size:.93rem;border:1px solid transparent;transition:.2s ease}.btn:hover{transform:translateY(-2px)}.btn-primary{background:var(--pink);color:#fff;box-shadow:0 12px 28px rgba(255,56,92,.22)}.btn-secondary{background:#fff;border-color:#dedede;color:var(--ink)}.tiny-proof{display:flex;flex-wrap:wrap;gap:13px 22px;margin-top:24px;color:#696d74;font-size:.82rem;font-weight:700}.tiny-proof span::before{content:"✓";margin-right:7px;color:var(--green);font-weight:950}
+    .device-stage{position:relative;min-height:560px;display:grid;place-items:center}.blob{position:absolute;width:440px;height:440px;border-radius:42% 58% 65% 35% / 37% 40% 60% 63%;background:linear-gradient(135deg,#fff0f3,#eefbfb);transform:rotate(-9deg)}.phone{position:relative;z-index:2;width:310px;height:586px;border:9px solid #171717;border-radius:42px;padding:11px;background:#171717;box-shadow:0 35px 70px rgba(15,15,15,.22);transform:rotate(2deg)}.phone::before{content:"";position:absolute;z-index:4;top:10px;left:50%;transform:translateX(-50%);width:92px;height:23px;border-radius:999px;background:#171717}.phone-screen{height:100%;overflow:hidden;border-radius:27px;background:#f7f7f7;display:flex;flex-direction:column}.phone-hero{height:188px;position:relative;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.18)),linear-gradient(135deg,#cedce8,#f7d7d7 58%,#c5d8d7)}.phone-hero::after{content:"Harbour Stay";position:absolute;left:16px;bottom:13px;color:#fff;font-size:1.28rem;font-weight:850;text-shadow:0 2px 10px rgba(0,0,0,.25)}.phone-body{padding:14px}.preview-kicker{color:var(--pink);font-size:.62rem;font-weight:900;text-transform:uppercase;letter-spacing:.09em}.preview-title{font-size:1rem;font-weight:900;margin:2px 0 9px}.preview-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.preview-pill{min-height:54px;border:1px solid #e6e6e6;border-radius:13px;background:#fff;display:grid;place-items:center;text-align:center;padding:6px;font-size:.6rem;font-weight:800;color:#51545b}.preview-pill b{display:block;font-size:1.05rem;line-height:1.05}.preview-card{margin-top:9px;padding:11px;border-radius:14px;background:#fff;border:1px solid #eaeaea}.preview-card strong{font-size:.72rem}.preview-card p{margin:5px 0 0;color:#74777d;font-size:.6rem;line-height:1.35}.float-card{position:absolute;z-index:3;padding:13px 15px;border-radius:16px;background:#fff;box-shadow:var(--shadow);border:1px solid #ededed;font-size:.75rem;font-weight:800}.float-card span{display:block;margin-top:3px;color:#777;font-size:.66rem;font-weight:650}.fc1{left:0;top:115px}.fc2{right:0;bottom:116px}
+    .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}.stats-grid{min-height:120px;display:grid;grid-template-columns:repeat(4,1fr);align-items:center}.stat{padding:20px 24px;text-align:center;border-right:1px solid var(--line)}.stat:last-child{border-right:0}.stat strong{display:block;font-size:1.08rem}.stat span{display:block;margin-top:3px;color:var(--muted);font-size:.78rem}section.block{padding:105px 0}.section-head{max-width:720px;margin-bottom:38px}.section-label{color:var(--pink);font-size:.76rem;font-weight:900;text-transform:uppercase;letter-spacing:.09em}h2{margin:9px 0 12px;font-size:clamp(2rem,4.2vw,3.65rem);line-height:1.05;letter-spacing:-.045em}.section-head p{margin:0;color:var(--muted);font-size:1.03rem}.pain-grid,.feature-grid,.audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{padding:26px;border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;box-shadow:0 7px 25px rgba(0,0,0,.035)}.card-icon{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:#fff2f4;font-size:1.25rem;margin-bottom:18px}.card h3{margin:0 0 8px;font-size:1.05rem;letter-spacing:-.02em}.card p{margin:0;color:var(--muted);font-size:.89rem}.soft-section{background:var(--soft)}
+    .demo-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center;padding:42px;border-radius:32px;background:#181818;color:#fff;overflow:hidden;position:relative}.demo-wrap::after{content:"";position:absolute;width:460px;height:460px;border-radius:50%;right:-140px;top:-230px;background:radial-gradient(circle,rgba(255,56,92,.32),transparent 66%);pointer-events:none}.demo-copy{position:relative;z-index:2}.demo-copy .section-label{color:#ff8096}.demo-copy h2{font-size:clamp(2rem,4vw,3.35rem)}.demo-copy p{color:#bfc1c5;margin:0 0 22px}.checks{display:grid;gap:11px;margin:22px 0 28px}.checks div{font-size:.88rem;color:#e5e5e5}.checks div::before{content:"✓";display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;margin-right:9px;background:#243c35;color:#8de1c5;font-weight:900}.demo-shot{position:relative;z-index:2;min-height:440px;display:grid;place-items:center}.browser{width:min(100%,560px);border:1px solid #444;border-radius:19px;background:#fff;box-shadow:0 30px 70px rgba(0,0,0,.34);overflow:hidden;transform:rotate(1deg)}.browser-top{height:34px;background:#efefef;display:flex;align-items:center;gap:6px;padding:0 12px}.dot{width:8px;height:8px;border-radius:50%;background:#c9c9c9}.addressbar{height:17px;margin-left:8px;flex:1;border-radius:8px;background:#fff;color:#999;font-size:.5rem;display:flex;align-items:center;padding:0 8px}.browser-body{padding:16px;background:#f7f7f7;color:#222}.browser-banner{height:130px;border-radius:14px;background:linear-gradient(135deg,#b8d0d2,#f6c8ce 52%,#d4d4ef)}.browser-title{font-size:1.05rem;font-weight:900;margin:11px 0 9px}.browser-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.browser-card{height:72px;border-radius:11px;background:#fff;border:1px solid #e8e8e8;padding:10px;font-size:.62rem;font-weight:800}.browser-card span{display:block;margin-top:6px;height:5px;width:72%;border-radius:5px;background:#ececec}
+    .feature-grid{grid-template-columns:repeat(3,1fr)}.feature-card{min-height:200px;padding:25px;border:1px solid var(--line);border-radius:20px;background:#fff}.feature-card b{font-size:1.65rem;display:block;margin-bottom:22px}.feature-card h3{font-size:1rem;margin:0 0 8px}.feature-card p{color:var(--muted);font-size:.86rem;margin:0}.process{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;counter-reset:step}.process-step{position:relative;padding:24px 22px 25px;border:1px solid var(--line);border-radius:18px;background:#fff}.process-step::before{counter-increment:step;content:"0" counter(step);display:inline-block;color:var(--pink);font-size:.75rem;font-weight:950;letter-spacing:.07em;margin-bottom:28px}.process-step h3{font-size:1rem;margin:0 0 7px}.process-step p{margin:0;color:var(--muted);font-size:.83rem}.audience-card{min-height:168px;padding:25px;border:1px solid var(--line);border-radius:20px;background:#fff}.audience-card h3{margin:0 0 8px;font-size:1rem}.audience-card p{margin:0;color:var(--muted);font-size:.86rem}.cta-panel{padding:54px;border-radius:32px;background:linear-gradient(135deg,#fff0f3,#f1fbfb);display:flex;align-items:center;justify-content:space-between;gap:32px;border:1px solid #f0e7e7}.cta-panel h2{max-width:650px;margin:0 0 11px;font-size:clamp(2rem,4vw,3.4rem)}.cta-panel p{max-width:640px;color:var(--muted);margin:0}.cta-actions{display:flex;flex-direction:column;gap:10px;min-width:195px}footer{padding:42px 0 54px;border-top:1px solid var(--line);color:#777;font-size:.78rem}.footer-row{display:flex;justify-content:space-between;gap:24px;align-items:flex-start}.footer-brand{font-weight:850;color:var(--ink);margin-bottom:6px}.footer-note{max-width:620px}.reveal{opacity:0;transform:translateY(18px);transition:.6s ease}.reveal.visible{opacity:1;transform:none}
+    @media(max-width:920px){.navlinks{display:none}.hero{grid-template-columns:1fr;gap:24px;padding-top:54px}.hero-copy{text-align:center}.hero-copy>p,.section-head{margin-inline:auto}.hero-actions,.tiny-proof{justify-content:center}.device-stage{min-height:520px}.stats-grid{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}.pain-grid,.feature-grid,.audience-grid{grid-template-columns:1fr 1fr}.demo-wrap{grid-template-columns:1fr}.process{grid-template-columns:1fr 1fr}.cta-panel{align-items:flex-start;flex-direction:column}.cta-actions{flex-direction:row;min-width:0}}
+    @media(max-width:620px){.container{width:min(calc(100% - 26px),var(--max))}.nav{min-height:66px}.mini-cta{display:none}h1{font-size:clamp(2.65rem,14vw,4.1rem)}.hero{min-height:auto;padding:44px 0 54px}.hero-actions{flex-direction:column}.btn{width:100%}.device-stage{min-height:470px}.blob{width:350px;height:350px}.phone{width:260px;height:492px;border-width:8px}.phone-hero{height:150px}.fc1{left:-2px;top:90px}.fc2{right:-1px;bottom:83px}.float-card{font-size:.67rem;padding:10px 12px}section.block{padding:76px 0}.pain-grid,.feature-grid,.audience-grid,.process{grid-template-columns:1fr}.demo-wrap{padding:26px 20px;border-radius:24px}.demo-shot{min-height:330px}.browser{transform:none}.browser-banner{height:100px}.cta-panel{padding:34px 22px;border-radius:24px}.cta-actions{width:100%;flex-direction:column}.footer-row{flex-direction:column}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+  </style>
 </head>
 <body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#top"><span class="brand-mark">⌂</span><span>AirbnbHosted</span></a>
+      <nav class="navlinks" aria-label="Main navigation">
+        <a href="#features" data-en="Features" data-vi="Tính năng">Features</a>
+        <a href="#demo" data-en="Live demo" data-vi="Demo thực tế">Live demo</a>
+        <a href="#process" data-en="How it works" data-vi="Cách hoạt động">How it works</a>
+        <a href="#for-who" data-en="For hosts" data-vi="Dành cho host">For hosts</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="lang"><button type="button" id="lang-en" class="active">EN</button><button type="button" id="lang-vi">VI</button></div>
+        <a class="mini-cta" href="/australia/48high.html" data-en="View demo" data-vi="Xem demo">View demo</a>
+      </div>
+    </div>
+  </header>
 
-<div class="container">
-    <h1>Sydney Property Interactive Map</h1>
-    <p class="subtitle">Hover over map pins for previews. Click a pin to locate it instantly in the directory below.</p>
-
-    <div class="map-container" id="mapContainer">
-        <img src="https://raw.githubusercontent.com/trinkse61538/Test/1901e81462806bb9572c13ef1937a055455b49a3/Sydney_Map.png" alt="Sydney Property Map" class="map-image" id="mapImg">
-        
-        <div class="pin-hotspot" style="left: 47.7%; top: 8.5%;" data-id="1"></div>
-        <div class="pin-hotspot" style="left: 58.2%; top: 13.5%;" data-id="2"></div>
-        <div class="pin-hotspot" style="left: 59.8%; top: 18.5%;" data-id="3"></div>
-
-        <div class="pin-hotspot" style="left: 50.4%; top: 53.6%;" data-id="4"></div>
-        <div class="pin-hotspot" style="left: 58.5%; top: 39.5%;" data-id="5"></div>
-        <div class="pin-hotspot" style="left: 52.3%; top: 68.2%;" data-id="6"></div>
-        <div class="pin-hotspot" style="left: 46.8%; top: 37.2%;" data-id="7"></div>
-        <div class="pin-hotspot" style="left: 61.2%; top: 77.2%;" data-id="8"></div>
-
-        <div class="pin-hotspot" style="left: 34.2%; top: 51.5%;" data-id="9"></div>
-        <div class="pin-hotspot" style="left: 32.5%; top: 57.5%;" data-id="10"></div>
-        <div class="pin-hotspot" style="left: 30.2%; top: 65.5%;" data-id="11"></div>
-        <div class="pin-hotspot" style="left: 33.6%; top: 74.5%;" data-id="12"></div>
-        <div class="pin-hotspot" style="left: 38.0%; top: 81.2%;" data-id="12-2"></div>
-        <div class="pin-hotspot" style="left: 41.8%; top: 68.0%;" data-id="13"></div>
-        <div class="pin-hotspot" style="left: 42.4%; top: 81.2%;" data-id="14"></div>
-        <div class="pin-hotspot" style="left: 39.5%; top: 61.5%;" data-id="15"></div>
-
-        <div class="pin-hotspot" style="left: 81.0%; top: 70.8%;" data-id="16"></div>
-        <div class="pin-hotspot" style="left: 83.2%; top: 64.5%;" data-id="17"></div>
-
-        <div class="pin-hotspot" style="left: 43.8%; top: 87.2%;" data-id="18"></div>
-
-        <div class="custom-tooltip" id="mapTooltip"></div>
+  <main id="top">
+    <div class="container hero">
+      <div class="hero-copy reveal">
+        <div class="eyebrow"><span class="eyebrow-dot"></span><span data-en="Digital guest guide for short-stay hosts" data-vi="Guest Guide điện tử cho chủ căn hộ lưu trú">Digital guest guide for short-stay hosts</span></div>
+        <h1 data-en-html="A better way to <span class='gradient-word'>welcome guests.</span>" data-vi-html="Cách tốt hơn để <span class='gradient-word'>chào đón khách.</span>">A better way to <span class="gradient-word">welcome guests.</span></h1>
+        <p data-en="Give every guest one beautiful, mobile-friendly link for check-in, parking, Wi-Fi, house information and checkout — personalized for your property." data-vi="Gửi cho mỗi vị khách một đường link đẹp, tối ưu trên điện thoại với đầy đủ hướng dẫn check-in, đỗ xe, Wi-Fi, thông tin căn hộ và checkout — được cá nhân hóa riêng cho căn của bạn.">Give every guest one beautiful, mobile-friendly link for check-in, parking, Wi-Fi, house information and checkout — personalized for your property.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="/australia/48high.html"><span data-en="Open live demo" data-vi="Mở demo thực tế">Open live demo</span> ↗</a><a class="btn btn-secondary" href="#process"><span data-en="See how it works" data-vi="Xem cách hoạt động">See how it works</span> ↓</a></div>
+        <div class="tiny-proof"><span data-en="No app required" data-vi="Không cần cài app">No app required</span><span data-en="Built for mobile" data-vi="Tối ưu cho điện thoại">Built for mobile</span><span data-en="Personalized for each stay" data-vi="Cá nhân hóa từng căn">Personalized for each stay</span></div>
+      </div>
+      <div class="device-stage reveal" aria-label="Guest guide preview"><div class="blob"></div><div class="float-card fc1">🔑 <span data-en="Clear check-in steps" data-vi="Check-in từng bước rõ ràng">Clear check-in steps</span></div><div class="float-card fc2">📶 <span data-en="Wi-Fi in one tap" data-vi="Wi-Fi chỉ với một chạm">Wi-Fi in one tap</span></div><div class="phone"><div class="phone-screen"><div class="phone-hero"></div><div class="phone-body"><div class="preview-kicker">Guest guide</div><div class="preview-title">Modern Harbour Retreat</div><div class="preview-nav"><div class="preview-pill"><b>🔑</b><span data-en="Entry" data-vi="Vào nhà">Entry</span></div><div class="preview-pill"><b>🚗</b><span data-en="Parking" data-vi="Đỗ xe">Parking</span></div><div class="preview-pill"><b>📶</b>Wi-Fi</div><div class="preview-pill"><b>📍</b><span data-en="Map" data-vi="Bản đồ">Map</span></div><div class="preview-pill"><b>🏠</b><span data-en="Amenities" data-vi="Tiện nghi">Amenities</span></div><div class="preview-pill"><b>🧳</b>Checkout</div></div><div class="preview-card"><strong data-en="Everything in one place" data-vi="Mọi thông tin trong một nơi">Everything in one place</strong><p data-en="Guests open one link and immediately find the information they need." data-vi="Khách chỉ cần mở một link và tìm ngay thông tin họ cần.">Guests open one link and immediately find the information they need.</p></div></div></div></div></div>
     </div>
 
-    <div class="list-section">
-        <h2>Property Details Directory</h2>
-        <input type="text" id="searchInput" class="search-box" placeholder="Quick search by address, area or ID...">
-        
-        <div style="overflow-x: auto;">
-            <table class="property-table">
-                <thead>
-                    <tr>
-                        <th style="width: 80px;">ID</th>
-                        <th>Region</th>
-                        <th>Detailed Address</th>
-                        <th style="width: 150px;">Max Capacity</th>
-                        <th style="width: 280px; text-align: center;">Action</th>
-                    </tr>
-                </thead>
-                <tbody id="propertyTableBody">
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+    <div class="stats"><div class="container stats-grid"><div class="stat"><strong data-en="One link" data-vi="Một link">One link</strong><span data-en="for the entire stay" data-vi="cho toàn bộ kỳ lưu trú">for the entire stay</span></div><div class="stat"><strong data-en="Mobile first" data-vi="Mobile-first">Mobile first</strong><span data-en="made for guests on the go" data-vi="thiết kế cho khách đang di chuyển">made for guests on the go</span></div><div class="stat"><strong data-en="No download" data-vi="Không tải app">No download</strong><span data-en="opens instantly in a browser" data-vi="mở ngay trên trình duyệt">opens instantly in a browser</span></div><div class="stat"><strong data-en="Your property" data-vi="Căn của bạn">Your property</strong><span data-en="your content and identity" data-vi="nội dung và phong cách riêng">your content and identity</span></div></div></div>
 
-<script>
-    const propertiesData = [
-        { id: "1", region: "North Sydney & Kirribilli", badge: "badge-north", address: "Unit 28/2A Henry Lawson Ave, McMahons Point", guests: 3, houseName: "Blue Horizon • $1 Million View", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1367172216638193295?guests=1&adults=1&s=67&unique_share_id=3bed48b3-ea82-4678-9205-441defb958d5" },
-        { id: "2", region: "North Sydney & Kirribilli", badge: "badge-north", address: "35/48 Upper Pitt Street, Kirribilli", guests: 5, houseName: "Fireworks & Billion $ Views", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1365881491618793764?guests=1&adults=1&s=67&unique_share_id=d828d57e-2ca5-43bf-a9a0-db81a7c8a439" },
-        { id: "3", region: "North Sydney & Kirribilli", badge: "badge-north", address: "Unit 2/122 Kirribilli Ave, Kirribilli", guests: 5, houseName: "Waterside Enclave Home • $Million view", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" },
-        { id: "4", region: "Sydney CBD & The Rocks", badge: "badge-cbd", address: "Unit 1306/60 Bathurst St, Sydney", guests: 5, houseName: "Luxury 1BDR | Sparkling Harbourside", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" },
-        { id: "5", region: "Sydney CBD & The Rocks", badge: "badge-cbd", address: "Not Available", guests: "Not Available", houseName: "Not Available", link: "Not Available", airbnbLink: "Not Available" },
-        { id: "6", region: "Sydney CBD & The Rocks", badge: "badge-cbd", address: "Unit 1409/98 Gloucester St, Sydney (The Sebel Quay West Suites)", guests: 4, houseName: "Heavens Panorama | Water Views", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" },
-        { id: "7", region: "Sydney CBD & The Rocks", badge: "badge-cbd", address: "48 High St, Millers Point", guests: 8, houseName: "Millers Manor Terrace | 3BR", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" },
-        { id: "8", region: "Sydney CBD & The Rocks", badge: "badge-cbd", address: "3002/38 York St, Sydney", guests: 7, houseName: "uxury 3BR Skyline | Water Views", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" },
-        { id: "9", region: "Pyrmont", badge: "badge-pyrmont", address: "278 Harris St, Pyrmont", guests: 7, houseName: "Blue Enclave | Casino & Darling Harbour Walk", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" },
-        { id: "10", region: "Pyrmont", badge: "badge-pyrmont", address: "55 Little Mount St, Pyrmont", guests: 8, houseName: "Bliss Enclave | 3BR Casino Home", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" },
-        { id: "11", region: "Pyrmont", badge: "badge-pyrmont", address: "805/50 Murray St, Pyrmont", guests: 6, houseName: "Bayside Enclave | Casino & Harbour", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" },
-        { id: "12", region: "Pyrmont", badge: "badge-pyrmont", address: "17/30 Saunders Street, Pyrmont", guests: 9, houseName: "3-Floor Penthouse | Casino & Harbor", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" },
-        { id: "13", region: "Pyrmont", badge: "badge-pyrmont", address: "1/175 Harris St, Pyrmont", guests: 3, houseName: "Bliss Terrace City Pad | 2 Balcony", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" },
-        { id: "14", region: "Pyrmont", badge: "badge-pyrmont", address: "345/243 Pyrmont Street, Pyrmont", guests: 4, houseName: "Sun-Lit Oasis | Darling Harbour", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" },
-        { id: "15", region: "Pyrmont", badge: "badge-pyrmont", address: "7 Little Mount St, Pyrmont", guests: 8, houseName: "Casino Enclave | Prime 3BR + Fish Market", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" },
-        { id: "16", region: "Woolloomooloo", badge: "badge-wool", address: "32 Bland St, Woolloomooloo", guests: 6, houseName: "Maritime Manor | Coastal Terrace", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" },
-        { id: "17", region: "Woolloomooloo", badge: "badge-wool", address: "7 Corfu St, Woolloomooloo", guests: 6, houseName: "Corfu House | Steps of CBD", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" },
-        { id: "18", region: "Ultimo", badge: "badge-ultimo", address: "18/333 Bulwara Road, Ultimo", guests: 5, houseName: "2BR Blissful City Pad | Darling Harbour", link: "https://airbnbhosted.com/australia/48high.html", airbnbLink: "https://www.airbnb.com/rooms/1468489639638800590?guests=1&adults=1&s=67&unique_share_id=ce9bc54e-743a-4720-bb60-ca8ee6ef4744" }
-    ];
+    <section class="block"><div class="container"><div class="section-head reveal"><div class="section-label" data-en="The problem" data-vi="Vấn đề">The problem</div><h2 data-en="Stop repeating the same instructions." data-vi="Không cần lặp lại cùng một hướng dẫn cho từng khách.">Stop repeating the same instructions.</h2><p data-en="Long chat messages, screenshots and PDFs are easy to miss — especially when a guest is standing outside with luggage." data-vi="Tin nhắn dài, ảnh chụp màn hình và file PDF rất dễ bị bỏ sót — đặc biệt khi khách đang đứng ngoài cửa với hành lý.">Long chat messages, screenshots and PDFs are easy to miss — especially when a guest is standing outside with luggage.</p></div><div class="pain-grid"><article class="card reveal"><div class="card-icon">💬</div><h3 data-en="Too many messages" data-vi="Quá nhiều tin nhắn">Too many messages</h3><p data-en="Guests keep asking where to park, how to enter, what the Wi-Fi password is and what to do at checkout." data-vi="Khách liên tục hỏi chỗ đỗ xe, cách vào nhà, mật khẩu Wi-Fi và cần làm gì khi checkout.">Guests keep asking where to park, how to enter, what the Wi-Fi password is and what to do at checkout.</p></article><article class="card reveal"><div class="card-icon">🧩</div><h3 data-en="Scattered information" data-vi="Thông tin rời rạc">Scattered information</h3><p data-en="Important details are spread across booking messages, images, PDFs and old conversations." data-vi="Thông tin quan trọng nằm rải rác trong tin nhắn đặt phòng, hình ảnh, PDF và các cuộc trò chuyện cũ.">Important details are spread across booking messages, images, PDFs and old conversations.</p></article><article class="card reveal"><div class="card-icon">🧳</div><h3 data-en="Arrival friction" data-vi="Check-in dễ gây bối rối">Arrival friction</h3><p data-en="Guests need simple, visual instructions at the exact moment they arrive — not another wall of text." data-vi="Khi vừa đến nơi, khách cần hướng dẫn trực quan và đơn giản — không phải thêm một đoạn văn dài.">Guests need simple, visual instructions at the exact moment they arrive — not another wall of text.</p></article></div></div></section>
 
-    const tableBody = document.getElementById('propertyTableBody');
-    const tooltip = document.getElementById('mapTooltip');
-    const mapContainer = document.getElementById('mapContainer');
-    const searchInput = document.getElementById('searchInput');
+    <section class="block soft-section" id="demo"><div class="container"><div class="demo-wrap reveal"><div class="demo-copy"><div class="section-label" data-en="Live demo" data-vi="Demo thực tế">Live demo</div><h2 data-en="See the guest experience before you build yours." data-vi="Xem trải nghiệm thực tế trước khi làm Guest Guide của bạn.">See the guest experience before you build yours.</h2><p data-en="Our public Sydney demo shows how arrival information can be organized into a clean, easy-to-use guide." data-vi="Demo công khai tại Sydney cho thấy cách toàn bộ thông tin lưu trú có thể được sắp xếp thành một hướng dẫn gọn gàng và dễ sử dụng.">Our public Sydney demo shows how arrival information can be organized into a clean, easy-to-use guide.</p><div class="checks"><div data-en="Step-by-step entry instructions" data-vi="Hướng dẫn vào nhà từng bước">Step-by-step entry instructions</div><div data-en="Parking guide and map links" data-vi="Hướng dẫn đỗ xe và liên kết bản đồ">Parking guide and map links</div><div data-en="Wi-Fi details with copy button" data-vi="Thông tin Wi-Fi với nút sao chép">Wi-Fi details with copy button</div><div data-en="Amenities and checkout checklist" data-vi="Tiện nghi và checklist checkout">Amenities and checkout checklist</div></div><a class="btn btn-primary" href="/australia/48high.html"><span data-en="Explore the live demo" data-vi="Khám phá demo">Explore the live demo</span> ↗</a></div><div class="demo-shot"><div class="browser"><div class="browser-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><div class="addressbar">airbnbhosted.com/australia/48high.html</div></div><div class="browser-body"><div class="browser-banner"></div><div class="browser-title">Modern 3-Bedroom Harbour Retreat</div><div class="browser-grid"><div class="browser-card">🔑 &nbsp; Entry Instructions<span></span></div><div class="browser-card">🚗 &nbsp; Parking Guide<span></span></div><div class="browser-card">📶 &nbsp; Wi-Fi Details<span></span></div><div class="browser-card">🧳 &nbsp; Checkout<span></span></div></div></div></div></div></div></div></section>
 
-    // 1. Render Table List
-    function renderTable(data) {
-        tableBody.innerHTML = '';
-        data.forEach(item => {
-            const row = document.createElement('tr');
-            row.id = `row-${item.id}`;
-            
-            // Kiểm tra trạng thái dữ liệu có sẵn hay không
-            const isAvailable = item.link !== 'Not Available' && item.airbnbLink !== 'Not Available';
-            
-            // Xử lý link và thuộc tính nút Directions
-            const directionHref = isAvailable ? item.link : '#';
-            const directionStyle = isAvailable ? '' : 'background-color: #cbd5e0; cursor: not-allowed; pointer-events: none;';
-            
-            // Xử lý link và thuộc tính nút AirBnB Booking
-            const airbnbHref = isAvailable ? item.airbnbLink : '#';
-            const airbnbStyle = isAvailable ? '' : 'background-color: #cbd5e0; cursor: not-allowed; pointer-events: none;';
-            
-            const targetAttr = isAvailable ? '_blank' : '_self';
+    <section class="block" id="features"><div class="container"><div class="section-head reveal"><div class="section-label" data-en="One link, everything guests need" data-vi="Một link, đủ mọi thông tin khách cần">One link, everything guests need</div><h2 data-en="Built around your property." data-vi="Được xây dựng riêng cho căn của bạn.">Built around your property.</h2><p data-en="Each guide can be customized to match the way your property actually works, instead of forcing guests into a generic template." data-vi="Mỗi Guest Guide có thể tùy chỉnh theo đúng cách căn hộ của bạn vận hành, thay vì bắt khách sử dụng một mẫu chung cứng nhắc.">Each guide can be customized to match the way your property actually works, instead of forcing guests into a generic template.</p></div><div class="feature-grid"><article class="feature-card reveal"><b>🔑</b><h3 data-en="Check-in & access" data-vi="Check-in & vào nhà">Check-in & access</h3><p data-en="Lockbox, key, intercom, building access and visual step-by-step arrival instructions." data-vi="Lockbox, chìa khóa, intercom, quyền vào tòa nhà và hướng dẫn trực quan từng bước.">Lockbox, key, intercom, building access and visual step-by-step arrival instructions.</p></article><article class="feature-card reveal"><b>🚗</b><h3 data-en="Parking" data-vi="Đỗ xe">Parking</h3><p data-en="Garage entry, parking bay, access cards, height limits and useful map links." data-vi="Lối vào garage, vị trí đỗ, thẻ ra vào, giới hạn chiều cao và liên kết bản đồ.">Garage entry, parking bay, access cards, height limits and useful map links.</p></article><article class="feature-card reveal"><b>📶</b><h3>Wi-Fi</h3><p data-en="Network and password displayed clearly, with quick-copy controls for guests." data-vi="Tên mạng và mật khẩu hiển thị rõ ràng, kèm nút sao chép nhanh cho khách.">Network and password displayed clearly, with quick-copy controls for guests.</p></article><article class="feature-card reveal"><b>📍</b><h3 data-en="Directions & maps" data-vi="Chỉ đường & bản đồ">Directions & maps</h3><p data-en="Direct links to the property, parking, key pickup points or other useful locations." data-vi="Link trực tiếp đến căn hộ, chỗ đỗ xe, điểm lấy chìa khóa hoặc các địa điểm cần thiết.">Direct links to the property, parking, key pickup points or other useful locations.</p></article><article class="feature-card reveal"><b>🏠</b><h3 data-en="House guide" data-vi="Hướng dẫn sử dụng căn hộ">House guide</h3><p data-en="Amenities, appliances, pool, gym, rubbish, house rules and property-specific notes." data-vi="Tiện nghi, thiết bị, hồ bơi, gym, rác thải, nội quy và các lưu ý riêng của căn.">Amenities, appliances, pool, gym, rubbish, house rules and property-specific notes.</p></article><article class="feature-card reveal"><b>🧳</b><h3>Checkout</h3><p data-en="A simple checklist for keys, rubbish, appliances and final departure." data-vi="Checklist đơn giản về chìa khóa, rác, thiết bị và các bước trước khi rời đi.">A simple checklist for keys, rubbish, appliances and final departure.</p></article></div></div></section>
 
-            // Giữ nguyên logic hiển thị text/badge của bạn
-            row.innerHTML = `
-                <td><span class="pin-id">${item.id.split('-')[0]}</span></td>
-                <td><span class="region-badge ${item.badge}">${item.houseName}</span></td>
-                <td><strong>${item.address}</strong></td>
-                <td><span style="color:#2f855a; font-weight:600;">${item.guests} Guests</span></td>
-                <td style="text-align: center; white-space: nowrap;">
-                    <a href="${directionHref}" target="${targetAttr}" class="btn-action" style="${directionStyle}">Directions & Check-in</a>
-                    <a href="${airbnbHref}" target="${targetAttr}" class="btn-airbnb" style="${airbnbStyle}">AirBnB Booking</a>
-                </td>
-            `;
-            tableBody.appendChild(row);
-        });
-    }
+    <section class="block soft-section" id="process"><div class="container"><div class="section-head reveal"><div class="section-label" data-en="How it works" data-vi="Cách hoạt động">How it works</div><h2 data-en="From property details to one simple guest link." data-vi="Từ thông tin căn hộ thành một đường link đơn giản cho khách.">From property details to one simple guest link.</h2><p data-en="You provide the information. We organize it into a polished guest experience that can be shared before every stay." data-vi="Bạn cung cấp thông tin. Chúng tôi sắp xếp thành trải nghiệm Guest Guide hoàn chỉnh để gửi cho khách trước mỗi kỳ lưu trú.">You provide the information. We organize it into a polished guest experience that can be shared before every stay.</p></div><div class="process"><article class="process-step reveal"><h3 data-en="Send property details" data-vi="Gửi thông tin căn hộ">Send property details</h3><p data-en="Photos, address, arrival steps, parking, Wi-Fi, amenities and checkout notes." data-vi="Hình ảnh, địa chỉ, cách vào nhà, đỗ xe, Wi-Fi, tiện nghi và hướng dẫn checkout.">Photos, address, arrival steps, parking, Wi-Fi, amenities and checkout notes.</p></article><article class="process-step reveal"><h3 data-en="We build your guide" data-vi="Xây dựng Guest Guide">We build your guide</h3><p data-en="The content is organized into a clean mobile-first layout tailored to your property." data-vi="Nội dung được sắp xếp thành giao diện mobile-first, rõ ràng và phù hợp riêng với căn của bạn.">The content is organized into a clean mobile-first layout tailored to your property.</p></article><article class="process-step reveal"><h3 data-en="Review & refine" data-vi="Kiểm tra & chỉnh sửa">Review & refine</h3><p data-en="You check the instructions and we refine the presentation before it goes live." data-vi="Bạn kiểm tra hướng dẫn và nội dung được tinh chỉnh trước khi đưa lên sử dụng.">You check the instructions and we refine the presentation before it goes live.</p></article><article class="process-step reveal"><h3 data-en="Share one link" data-vi="Gửi một link duy nhất">Share one link</h3><p data-en="Add it to your pre-arrival message so guests always know where to find the latest information." data-vi="Thêm link vào tin nhắn trước check-in để khách luôn biết nơi xem thông tin mới nhất.">Add it to your pre-arrival message so guests always know where to find the latest information.</p></article></div></div></section>
 
-    renderTable(propertiesData);
+    <section class="block" id="for-who"><div class="container"><div class="section-head reveal"><div class="section-label" data-en="Made for hosts" data-vi="Dành cho host">Made for hosts</div><h2 data-en="Useful whether you manage one stay or a portfolio." data-vi="Hữu ích dù bạn quản lý một căn hay cả danh mục nhiều căn.">Useful whether you manage one stay or a portfolio.</h2></div><div class="audience-grid"><article class="audience-card reveal"><h3 data-en="Individual hosts" data-vi="Host cá nhân">Individual hosts</h3><p data-en="Give guests a more polished arrival experience without adding another app." data-vi="Mang lại trải nghiệm check-in chuyên nghiệp hơn mà không cần thêm một ứng dụng khác.">Give guests a more polished arrival experience without adding another app.</p></article><article class="audience-card reveal"><h3 data-en="Co-hosts" data-vi="Co-host">Co-hosts</h3><p data-en="Standardize guest instructions while still keeping each property's unique details." data-vi="Chuẩn hóa hướng dẫn cho khách nhưng vẫn giữ được thông tin riêng của từng căn.">Standardize guest instructions while still keeping each property's unique details.</p></article><article class="audience-card reveal"><h3 data-en="Property managers" data-vi="Đơn vị quản lý căn hộ">Property managers</h3><p data-en="Create a consistent guest experience across multiple short-stay properties." data-vi="Tạo trải nghiệm nhất quán cho khách trên nhiều căn hộ lưu trú ngắn hạn.">Create a consistent guest experience across multiple short-stay properties.</p></article></div></div></section>
 
-    // 2. Interactive Tooltip & Hover Effects + CLICK TO SCROLL
-    const hotspots = document.querySelectorAll('.pin-hotspot');
-    
-    hotspots.forEach(hotspot => {
-        // Hover/Touch Action
-        hotspot.addEventListener('mouseenter', function(e) {
-            let targetId = this.getAttribute('data-id');
-            if(targetId.includes('-')) targetId = targetId.split('-')[0];
+    <section class="block"><div class="container"><div class="cta-panel reveal"><div><h2 data-en="Make arrival easier for your next guest." data-vi="Giúp lần check-in tiếp theo của khách trở nên dễ dàng hơn.">Make arrival easier for your next guest.</h2><p data-en="Start by exploring the live guest guide, then build a personalized version around your own property." data-vi="Bắt đầu bằng cách xem Guest Guide demo, sau đó xây dựng phiên bản cá nhân hóa dành riêng cho căn của bạn.">Start by exploring the live guest guide, then build a personalized version around your own property.</p></div><div class="cta-actions"><a class="btn btn-primary" href="/australia/48high.html"><span data-en="View live demo" data-vi="Xem demo">View live demo</span> ↗</a><a class="btn btn-secondary" href="#features" data-en="Explore features" data-vi="Xem tính năng">Explore features</a></div></div></div></section>
+  </main>
 
-            const prop = propertiesData.find(p => p.id === targetId);
-            
-            if (prop) {
-                tooltip.innerHTML = `
-                    <h4>Location #${prop.id}</h4>
-                    <p style="font-weight:600; color:#e28743; margin-bottom:4px;">${prop.region}</p>
-                    <p style="font-size:12px; color:#e2e8f0;">Name: <strong>${prop.houseName}</strong></p>
-                    <p style="font-size:12px; color:#e2e8f0;">Address: ${prop.address}</p>
-                    <div class="guests">Capacity: ${prop.guests} guests</div>
-                `;
-                
-                tooltip.style.opacity = '1';
-                tooltip.style.visibility = 'visible';
-            }
-        });
+  <footer><div class="container footer-row"><div><div class="footer-brand">AirbnbHosted</div><div>© 2026 AirbnbHosted</div></div><div class="footer-note" data-en="Independent digital guest-guide service for short-stay hosts. AirbnbHosted is not affiliated with, endorsed by, or sponsored by Airbnb, Inc." data-vi="Dịch vụ Guest Guide điện tử độc lập dành cho chủ căn hộ lưu trú ngắn hạn. AirbnbHosted không liên kết, được bảo trợ hoặc tài trợ bởi Airbnb, Inc.">Independent digital guest-guide service for short-stay hosts. AirbnbHosted is not affiliated with, endorsed by, or sponsored by Airbnb, Inc.</div></div></footer>
 
-        hotspot.addEventListener('mousemove', function(e) {
-            const containerRect = mapContainer.getBoundingClientRect();
-            const posX = e.clientX - containerRect.left + 15;
-            const posY = e.clientY - containerRect.top + 15;
-            
-            const tooltipWidth = window.innerWidth < 768 ? 240 : 260;
-            const finalX = (posX + tooltipWidth > containerRect.width) ? (posX - tooltipWidth - 30) : posX;
-
-            tooltip.style.left = finalX + 'px';
-            tooltip.style.top = posY + 'px';
-        });
-
-        hotspot.addEventListener('mouseleave', function() {
-            tooltip.style.opacity = '0';
-            tooltip.style.visibility = 'hidden';
-        });
-
-        // Click/Tap Action: Scroll and Highlight the targeted table row
-        hotspot.addEventListener('click', function() {
-            let targetId = this.getAttribute('data-id');
-            if(targetId.includes('-')) targetId = targetId.split('-')[0]; 
-            
-            const targetRow = document.getElementById(`row-${targetId}`);
-            
-            if(targetRow) {
-                targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                targetRow.classList.add('highlight-row');
-                
-                setTimeout(() => {
-                    targetRow.classList.remove('highlight-row');
-                }, 2000);
-            }
-        });
-    });
-
-    // 3. Live Search Filter
-    searchInput.addEventListener('input', function(e) {
-        const keyword = e.target.value.toLowerCase();
-        const filtered = propertiesData.filter(item => 
-            item.address.toLowerCase().includes(keyword) || 
-            item.region.toLowerCase().includes(keyword) ||
-            item.id.includes(keyword)
-        );
-        renderTable(filtered);
-    });
-</script>
-
+  <script>
+    const enButton=document.getElementById('lang-en'),viButton=document.getElementById('lang-vi');
+    function setLanguage(lang){document.documentElement.lang=lang==='vi'?'vi':'en';document.querySelectorAll('[data-en],[data-vi]').forEach(el=>{const v=el.getAttribute('data-'+lang);if(v!==null)el.textContent=v});document.querySelectorAll('[data-en-html],[data-vi-html]').forEach(el=>{const v=el.getAttribute('data-'+lang+'-html');if(v!==null)el.innerHTML=v});enButton.classList.toggle('active',lang==='en');viButton.classList.toggle('active',lang==='vi');document.title=lang==='vi'?'AirbnbHosted | Guest Guide cá nhân hóa cho chủ căn hộ':'AirbnbHosted | Personalized Digital Guest Guides';const d=document.querySelector('meta[name="description"]');if(d)d.content=lang==='vi'?'Guest Guide điện tử cá nhân hóa cho chủ Airbnb và short-stay: check-in, đỗ xe, Wi-Fi và checkout trong một đường link tối ưu cho điện thoại.':'Personalized digital guest guides for Airbnb and short-stay hosts. Check-in, parking, Wi-Fi and checkout in one mobile-friendly link.';try{localStorage.setItem('airbnbhosted-language',lang)}catch(e){}}
+    enButton.addEventListener('click',()=>setLanguage('en'));viButton.addEventListener('click',()=>setLanguage('vi'));let saved='en';try{saved=localStorage.getItem('airbnbhosted-language')||'en'}catch(e){}setLanguage(saved==='vi'?'vi':'en');
+    const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}})},{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+  </script>
 </body>
 </html>
