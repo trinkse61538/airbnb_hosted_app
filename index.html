@@ -576,5 +576,115 @@
 
     const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}})},{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
   </script>
+
+<script id="site-language-bridge">
+(function(){
+  const KEY='airbnbhosted-site-language-v1';
+  const LEGACY_KEYS=[
+    'airbnbhosted-global-language-v1',
+    'airbnbhosted-language-v3',
+    'airbnbhosted-language-v2',
+    'airbnbhosted-language'
+  ];
+
+  function normalize(value){
+    return value==='en' ? 'en' : value==='vi' ? 'vi' : null;
+  }
+
+  function queryLanguage(){
+    try{
+      return normalize(new URLSearchParams(location.search).get('lang'));
+    }catch(e){ return null; }
+  }
+
+  function storedLanguage(){
+    try{
+      const current=normalize(localStorage.getItem(KEY));
+      if(current) return current;
+      for(const key of LEGACY_KEYS){
+        const value=normalize(localStorage.getItem(key));
+        if(value) return value;
+      }
+    }catch(e){}
+    return null;
+  }
+
+  function currentLanguage(){
+    return normalize(document.documentElement.lang) ||
+           (document.getElementById('lang-en')?.classList.contains('active') ? 'en' : 'vi');
+  }
+
+  function persist(lang){
+    lang=normalize(lang)||'vi';
+    try{
+      localStorage.setItem(KEY,lang);
+      localStorage.setItem('airbnbhosted-global-language-v1',lang);
+    }catch(e){}
+  }
+
+  function applyPreferredLanguage(){
+    const preferred=queryLanguage() || storedLanguage() || currentLanguage() || 'vi';
+    if(typeof window.setLanguage==='function'){
+      window.setLanguage(preferred);
+    }else if(typeof setLanguage==='function'){
+      setLanguage(preferred);
+    }
+    persist(preferred);
+  }
+
+  function withLanguage(href,lang){
+    if(!href || href.startsWith('#') || href.startsWith('javascript:')) return href;
+    try{
+      const url=new URL(href,location.href);
+      if(url.origin!==location.origin) return href;
+      if(url.pathname.startsWith('/vietnam/')){
+        url.searchParams.set('lang',lang);
+        return url.pathname + url.search + url.hash;
+      }
+    }catch(e){}
+    return href;
+  }
+
+  function syncDemoLinks(){
+    const lang=currentLanguage() || storedLanguage() || 'vi';
+    persist(lang);
+    document.querySelectorAll('a[href*="/vietnam/"]').forEach(link=>{
+      const original=link.dataset.langBaseHref || link.getAttribute('href');
+      if(!original) return;
+      link.dataset.langBaseHref=original.split('?lang=')[0];
+      link.setAttribute('href',withLanguage(link.dataset.langBaseHref,lang));
+    });
+  }
+
+  applyPreferredLanguage();
+  syncDemoLinks();
+
+  ['lang-vi','lang-en'].forEach(id=>{
+    const button=document.getElementById(id);
+    if(button){
+      button.addEventListener('click',()=>{
+        requestAnimationFrame(()=>{
+          const lang=currentLanguage();
+          persist(lang);
+          syncDemoLinks();
+        });
+      });
+    }
+  });
+
+  document.addEventListener('click',event=>{
+    const link=event.target.closest('a[href*="/vietnam/"]');
+    if(!link) return;
+    const lang=currentLanguage() || storedLanguage() || 'vi';
+    persist(lang);
+    const original=link.dataset.langBaseHref || link.getAttribute('href');
+    if(original){
+      link.dataset.langBaseHref=original.split('?lang=')[0];
+      link.setAttribute('href',withLanguage(link.dataset.langBaseHref,lang));
+    }
+  },true);
+})();
+</script>
+
 </body>
 </html>

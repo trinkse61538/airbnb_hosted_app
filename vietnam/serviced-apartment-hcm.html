@@ -221,6 +221,99 @@ h3{margin:0 0 8px;font-size:1.04rem}p{margin:0 0 14px}.muted{color:var(--muted)}
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+
+<style id="demo-site-navigation-style">
+  .demo-site-nav-wrap{
+    border-top:1px solid rgba(231,234,240,.8);
+    background:rgba(255,255,255,.96);
+  }
+  .demo-site-nav{
+    min-height:52px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .demo-site-nav a,
+  .demo-switcher summary{
+    text-decoration:none;
+    min-height:38px;
+    padding:0 12px;
+    border:1px solid var(--line,#e7eaf0);
+    border-radius:12px;
+    background:#fff;
+    color:var(--ink,#172033);
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    font-size:.8rem;
+    font-weight:850;
+    cursor:pointer;
+    list-style:none;
+    white-space:nowrap;
+  }
+  .demo-switcher summary::-webkit-details-marker{display:none}
+  .demo-site-home:hover,
+  .demo-switcher summary:hover{background:#f6f7f9}
+  .demo-switcher{position:relative}
+  .demo-switcher-menu{
+    position:absolute;
+    right:0;
+    top:calc(100% + 8px);
+    width:270px;
+    padding:8px;
+    border:1px solid var(--line,#e7eaf0);
+    border-radius:16px;
+    background:#fff;
+    box-shadow:0 18px 50px rgba(17,24,39,.16);
+    display:grid;
+    gap:5px;
+    z-index:1500;
+  }
+  .demo-switcher:not([open]) .demo-switcher-menu{display:none}
+  .demo-switcher-menu a{
+    width:100%;
+    justify-content:flex-start;
+    border:0;
+    min-height:46px;
+  }
+  .demo-switcher-menu a:hover{background:#f5f7fa}
+  .demo-switcher-menu a[aria-current="page"]{
+    background:#eef4ff;
+    color:#2253a5;
+    pointer-events:none;
+  }
+  .demo-type-icon{
+    width:30px;height:30px;display:grid;place-items:center;
+    border-radius:10px;background:#f3f5f8;flex:0 0 30px
+  }
+  @media(max-width:640px){
+    .demo-site-nav{
+      min-height:50px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+    }
+    .demo-site-nav a,
+    .demo-switcher summary{
+      width:100%;
+      justify-content:center;
+      min-height:38px;
+      padding:0 9px;
+      font-size:.76rem;
+    }
+    .demo-switcher-menu{
+      position:fixed;
+      left:13px;
+      right:13px;
+      top:auto;
+      bottom:calc(82px + env(safe-area-inset-bottom));
+      width:auto;
+      max-width:none;
+      border-radius:18px;
+    }
+  }
+</style>
+
 </head>
 <body>
 <header class="topbar">
@@ -234,6 +327,38 @@ h3{margin:0 0 8px;font-size:1.04rem}p{margin:0 0 14px}.muted{color:var(--muted)}
       <a class="btn primary" href="#checkin" data-i18n="checkinGuide"></a>
     </div>
   </div>
+
+    <div class="demo-site-nav-wrap">
+      <div class="container demo-site-nav">
+        <a class="demo-site-home preserve-language-link" href="/">
+          <span>←</span>
+          <span data-site-vi="Trang chủ" data-site-en="Home">Trang chủ</span>
+        </a>
+
+        <details class="demo-switcher" id="demoSwitcher">
+          <summary>
+            <span>▦</span>
+            <span data-site-vi="Xem demo khác" data-site-en="Other demos">Xem demo khác</span>
+            <span>⌄</span>
+          </summary>
+          <div class="demo-switcher-menu">
+            <a class="preserve-language-link demo-nav-link" href="/vietnam/apartment-vinhomes-q9.html">
+              <span class="demo-type-icon">🏙️</span>
+              <span data-site-vi="Căn hộ chung cư" data-site-en="Apartment">Căn hộ chung cư</span>
+            </a>
+            <a class="preserve-language-link demo-nav-link" href="/vietnam/townhouse-hcm.html">
+              <span class="demo-type-icon">🏡</span>
+              <span data-site-vi="Nhà phố / Homestay" data-site-en="Townhouse / Homestay">Nhà phố / Homestay</span>
+            </a>
+            <a class="preserve-language-link demo-nav-link" href="/vietnam/serviced-apartment-hcm.html">
+              <span class="demo-type-icon">🛎️</span>
+              <span data-site-vi="Căn hộ dịch vụ" data-site-en="Serviced apartment">Căn hộ dịch vụ</span>
+            </a>
+          </div>
+        </details>
+      </div>
+    </div>
+
 </header>
 
 <main>
@@ -586,5 +711,130 @@ if(seoEnBtn)seoEnBtn.addEventListener('click',()=>syncPageSeo('en'));
 syncPageSeo(document.documentElement.lang==='en'?'en':'vi');
 
 </script>
+
+<script id="demo-language-navigation-bridge">
+(function(){
+  const KEY='airbnbhosted-site-language-v1';
+  const LEGACY_KEYS=[
+    'airbnbhosted-global-language-v1',
+    'airbnbhosted-language-v3',
+    'airbnbhosted-language-v2',
+    'airbnbhosted-language'
+  ];
+
+  function normalize(value){
+    return value==='en' ? 'en' : value==='vi' ? 'vi' : null;
+  }
+
+  function queryLanguage(){
+    try{return normalize(new URLSearchParams(location.search).get('lang'))}
+    catch(e){return null}
+  }
+
+  function storedLanguage(){
+    try{
+      const direct=normalize(localStorage.getItem(KEY));
+      if(direct)return direct;
+      for(const key of LEGACY_KEYS){
+        const value=normalize(localStorage.getItem(key));
+        if(value)return value;
+      }
+    }catch(e){}
+    return null;
+  }
+
+  function persist(lang){
+    lang=normalize(lang)||'vi';
+    try{
+      localStorage.setItem(KEY,lang);
+      localStorage.setItem('airbnbhosted-global-language-v1',lang);
+    }catch(e){}
+  }
+
+  function applySiteLabels(lang){
+    document.querySelectorAll('[data-site-vi][data-site-en]').forEach(el=>{
+      el.textContent=lang==='en' ? el.dataset.siteEn : el.dataset.siteVi;
+    });
+  }
+
+  function languageUrl(href,lang){
+    try{
+      const url=new URL(href,location.href);
+      if(url.origin!==location.origin)return href;
+      url.searchParams.set('lang',lang);
+      return url.pathname + url.search + url.hash;
+    }catch(e){return href}
+  }
+
+  function syncNavigation(lang){
+    lang=normalize(lang)||'vi';
+    applySiteLabels(lang);
+    persist(lang);
+
+    document.querySelectorAll('.preserve-language-link').forEach(link=>{
+      const base=link.dataset.langBaseHref || link.getAttribute('href');
+      if(!base)return;
+      link.dataset.langBaseHref=base.split('?lang=')[0];
+      link.setAttribute('href',languageUrl(link.dataset.langBaseHref,lang));
+    });
+
+    document.querySelectorAll('.demo-nav-link').forEach(link=>{
+      try{
+        const url=new URL(link.dataset.langBaseHref || link.href,location.href);
+        if(url.pathname===location.pathname)link.setAttribute('aria-current','page');
+        else link.removeAttribute('aria-current');
+      }catch(e){}
+    });
+  }
+
+  function applyPreferred(){
+    const htmlLang=document.documentElement.lang==='en'?'en':'vi';
+    const lang=queryLanguage() || storedLanguage() || htmlLang;
+
+    if(typeof window.applyLanguage==='function'){
+      window.applyLanguage(lang);
+    }else if(typeof applyLanguage==='function'){
+      applyLanguage(lang);
+    }
+
+    persist(lang);
+    syncNavigation(lang);
+  }
+
+  applyPreferred();
+
+  ['lang-vi','lang-en'].forEach(id=>{
+    const button=document.getElementById(id);
+    if(button){
+      button.addEventListener('click',()=>{
+        requestAnimationFrame(()=>{
+          const lang=document.documentElement.lang==='en'?'en':'vi';
+          persist(lang);
+          syncNavigation(lang);
+        });
+      });
+    }
+  });
+
+  document.addEventListener('click',event=>{
+    const link=event.target.closest('.preserve-language-link');
+    if(link){
+      const lang=document.documentElement.lang==='en'?'en':'vi';
+      persist(lang);
+      const base=link.dataset.langBaseHref || link.getAttribute('href');
+      if(base){
+        link.dataset.langBaseHref=base.split('?lang=')[0];
+        link.setAttribute('href',languageUrl(link.dataset.langBaseHref,lang));
+      }
+    }
+
+    if(!event.target.closest('#demoSwitcher')){
+      const details=document.getElementById('demoSwitcher');
+      if(details)details.removeAttribute('open');
+    }
+  },true);
+})();
+</script>
+
 </body>
 </html>
