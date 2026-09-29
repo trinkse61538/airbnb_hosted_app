@@ -117,6 +117,29 @@ h3{margin:0 0 8px;font-size:1.04rem}p{margin:0 0 14px}.muted{color:var(--muted)}
   .support-menu{width:min(300px,calc(100vw - 26px))}.support-toggle{width:58px;height:58px;min-height:58px;padding:0;border-radius:50%}.support-label{display:none}.support-dot{width:32px;height:32px;font-size:1.05rem}
 }
 </style>
+
+  <style id="phone-call-link-style">
+    .phone-call-link{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      color:var(--blue,#2563eb);
+      font-weight:900;
+      text-decoration:none;
+      min-height:38px;
+      border-radius:10px;
+    }
+    .phone-call-link::before{
+      content:"☎";
+      font-size:.9em;
+    }
+    .phone-call-link:hover{text-decoration:underline}
+    .phone-call-link:focus-visible{
+      outline:3px solid rgba(37,99,235,.22);
+      outline-offset:3px;
+    }
+  </style>
+
 </head>
 <body>
 <header class="topbar">
@@ -225,10 +248,9 @@ h3{margin:0 0 8px;font-size:1.04rem}p{margin:0 0 14px}.muted{color:var(--muted)}
       <div class="detail-icon">📞</div>
       <div>
         <div class="detail-label" data-i18n="hostLabel"></div>
-        <div class="detail-value">0367676119</div>
+        <a class="detail-value phone-call-link" href="tel:+84367676119">0367676119</a>
         
       </div>
-      <button class="copy-btn" type="button" data-copy="0367676119" data-copy-label="hostLabel" data-i18n="copy"></button>
     </div>
     </div>
     </div>
@@ -353,10 +375,9 @@ h3{margin:0 0 8px;font-size:1.04rem}p{margin:0 0 14px}.muted{color:var(--muted)}
       <div class="detail-icon">📞</div>
       <div>
         <div class="detail-label" data-i18n="hostLabel"></div>
-        <div class="detail-value">0367676119</div>
+        <a class="detail-value phone-call-link" href="tel:+84367676119">0367676119</a>
         
       </div>
-      <button class="copy-btn" type="button" data-copy="0367676119" data-copy-label="hostLabel" data-i18n="copy"></button>
     </div>
     
         
