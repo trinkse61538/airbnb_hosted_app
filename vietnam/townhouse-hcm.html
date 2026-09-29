@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Demo check-in nhà phố | AirbnbHosted</title>
+  <meta name="description" content="Demo Guest Guide kiểu Việt Nam cho nhà phố: cổng, hộp khóa và cửa chính." />
+  <style>
+:root{
+  --bg:#faf8f4;
+  --card:#ffffff;
+  --ink:#18202a;
+  --muted:#64707d;
+  --line:#e8e4db;
+  --soft:#f1ece2;
+  --primary:#2159c5;
+  --accent:#dd6b20;
+  --radius:24px;
+  --shadow:0 12px 32px rgba(19,34,53,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.6;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+.container{width:min(1120px,calc(100% - 32px));margin:0 auto}
+.topbar{
+  position:sticky;top:0;z-index:20;
+  backdrop-filter:saturate(160%) blur(10px);
+  background:rgba(255,255,255,.82);
+  border-bottom:1px solid rgba(232,228,219,.75);
+}
+.topbar-inner{
+  min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px
+}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;text-decoration:none}
+.brand-mark{
+  width:40px;height:40px;border-radius:14px;display:grid;place-items:center;
+  background:linear-gradient(135deg,#0f172a,#334155);color:#fff;font-size:18px
+}
+.top-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:46px;padding:0 16px;border-radius:14px;border:0;text-decoration:none;
+  font-weight:800;cursor:pointer
+}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.hero{padding:34px 0 28px}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:stretch}
+.hero-copy,.hero-card,.panel,.step-card,.gallery-card,.callout{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)
+}
+.hero-copy{padding:28px}
+.kicker{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+  background:#eef4ff;color:#234ba1;font-size:.78rem;font-weight:800;margin-bottom:14px
+}
+h1{font-size:clamp(1.9rem,4vw,3rem);line-height:1.1;margin:0 0 14px}
+h2{font-size:clamp(1.35rem,2.7vw,2rem);line-height:1.2;margin:0 0 12px}
+p{margin:0 0 14px}
+.muted{color:var(--muted)}
+.hero-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.meta-pill{
+  background:var(--soft);border-radius:18px;padding:14px 14px 12px
+}
+.meta-pill strong{display:block;font-size:.95rem}
+.meta-pill span{display:block;color:var(--muted);font-size:.85rem}
+.hero-card{padding:18px}
+.hero-shot{
+  width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:18px;margin-bottom:14px
+}
+.mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.mini-grid img{aspect-ratio:4/3;object-fit:cover;border-radius:16px}
+.section{padding:18px 0 30px}
+.section-head{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.section-label{font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#6b7280}
+.note-list,.chip-row,.overview-grid,.steps-grid{display:grid;gap:16px}
+.chip-row{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.chip{
+  background:var(--soft);padding:14px 16px;border-radius:18px;border:1px solid #e5ddcf;font-weight:700
+}
+.overview-grid{grid-template-columns:1.1fr .9fr}
+.panel{padding:22px}
+.tip{
+  display:flex;gap:12px;padding:14px 0;border-top:1px solid var(--line)
+}
+.tip:first-child{border-top:0;padding-top:0}
+.tip-num{
+  flex:0 0 34px;width:34px;height:34px;border-radius:12px;background:#eef4ff;
+  color:#234ba1;display:grid;place-items:center;font-weight:800
+}
+.steps-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.step-card{overflow:hidden}
+.step-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.step-body{padding:18px}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;background:#fff4e8;color:#9a4b0a;
+  border:1px solid #f1d3b3;border-radius:999px;padding:6px 10px;font-size:.78rem;font-weight:800;margin-bottom:10px
+}
+.step-body h3{margin:0 0 8px;font-size:1.08rem}
+.callout{padding:22px}
+.privacy{
+  font-size:.95rem;color:#4b5563;background:#f8fafc;border:1px dashed #cdd8eb;border-radius:18px;padding:14px 16px
+}
+.footer{padding:26px 0 48px;color:#6b7280;font-size:.9rem}
+@media (max-width: 920px){
+  .hero-grid,.overview-grid,.steps-grid{grid-template-columns:1fr}
+}
+@media (max-width: 640px){
+  .hero-copy,.hero-card,.panel,.callout{padding:20px}
+  .container{width:min(1120px,calc(100% - 22px))}
+  .hero-meta{grid-template-columns:1fr}
+  .mini-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/"><span class="brand-mark">🏡</span><span>AirbnbHosted · Demo Việt Nam</span></a>
+      <div class="top-actions">
+        <a class="btn secondary" href="/">← Về trang chủ</a>
+        <a class="btn primary" href="#steps">Xem các bước check-in</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="kicker">Demo 02 · Nhà phố</div>
+          <h1>Check-in nhà phố / homestay trong hẻm</h1>
+          <p class="muted">Mẫu này phù hợp với host cho thuê <strong>nhà phố, homestay, villa mini</strong> tại TP.HCM hoặc các thành phố du lịch. Flow thường đơn giản hơn: <strong>đến đúng cổng → lấy chìa từ hộp khóa → mở cửa chính / khóa số</strong>.</p>
+          <div class="hero-meta">
+            <div class="meta-pill"><strong>Loại hình</strong><span>Nhà phố / homestay</span></div>
+            <div class="meta-pill"><strong>Bối cảnh demo</strong><span>Nhà phố tại TP.HCM</span></div>
+            <div class="meta-pill"><strong>Phù hợp với</strong><span>Host tự vận hành hoặc co-host</span></div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <img class="hero-shot" src="/assets/images/demos/vietnam/townhouse/step-1-gate.webp" alt="Cổng nhà phố demo" />
+          <div class="mini-grid">
+            <img src="/assets/images/demos/vietnam/townhouse/step-2-lockbox.webp" alt="Lấy chìa từ hộp khóa" />
+            <img src="/assets/images/demos/vietnam/townhouse/step-3-door.webp" alt="Mở cửa chính vào nhà" />
+            <img src="/assets/images/properties/48high/05-bedroom-storage.webp" alt="Ví dụ không gian lưu trú" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container overview-grid">
+        <div class="panel">
+          <div class="section-head">
+            <div class="section-label">Vì sao mẫu này hữu ích</div>
+            <h2>Nhà phố thường cần ảnh chỉ đường trực quan</h2>
+            <p class="muted">Khách dễ bối rối ở đoạn <strong>đúng căn nào, hộp khóa ở đâu, mở cổng thế nào</strong>. Vì vậy trang hướng dẫn nên ưu tiên ảnh thật ngoài cổng và nội dung ngắn, rõ.</p>
+          </div>
+          <div class="chip-row">
+            <div class="chip">🚪 Nhận diện đúng căn</div>
+            <div class="chip">🔒 Hộp khóa gắn ngoài cổng</div>
+            <div class="chip">🗝️ Lấy chìa / mã cổng</div>
+            <div class="chip">🏠 Mở cửa và vào nhà</div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <h2>Gợi ý nên có thêm</h2>
+          <div class="tip"><div class="tip-num">1</div><div><strong>Ảnh đầu hẻm</strong><br><span class="muted">Giúp khách xác định đúng nhánh đường hoặc cổng nhà.</span></div></div>
+          <div class="tip"><div class="tip-num">2</div><div><strong>Ảnh cận hộp khóa</strong><br><span class="muted">Thấy rõ vị trí gắn và cách mở nắp.</span></div></div>
+          <div class="tip"><div class="tip-num">3</div><div><strong>Số điện thoại hỗ trợ</strong><br><span class="muted">Đề phòng khách đến tối hoặc tìm không ra căn.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="steps">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Các bước check-in</div>
+          <h2>3 bước đơn giản cho nhà phố</h2>
+          <p class="muted">Flow này rất phù hợp với self check-in bằng lockbox hoặc khóa số.</p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <img src="/assets/images/demos/vietnam/townhouse/step-1-gate.webp" alt="Đến đúng cổng nhà" />
+            <div class="step-body">
+              <div class="badge">Bước 1</div>
+              <h3>Đến đúng cổng nhà</h3>
+              <p>Khách di chuyển đến địa chỉ, đối chiếu đúng cổng và tìm lockbox / hộp khóa được gắn cạnh cổng.</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <img src="/assets/images/demos/vietnam/townhouse/step-2-lockbox.webp" alt="Mở hộp khóa và lấy chìa" />
+            <div class="step-body">
+              <div class="badge">Bước 2</div>
+              <h3>Mở hộp khóa và lấy chìa</h3>
+              <p>Host có thể gửi mã lockbox trước giờ check-in. Khách chỉ cần mở nắp và lấy chìa bên trong.</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <img src="/assets/images/demos/vietnam/townhouse/step-3-door.webp" alt="Mở cửa chính để vào nhà" />
+            <div class="step-body">
+              <div class="badge">Bước 3</div>
+              <h3>Mở cửa chính và vào nhà</h3>
+              <p>Sau khi mở cổng, khách dùng chìa hoặc khóa số để mở cửa chính và bắt đầu nhận nhà.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="privacy">
+          <strong>Lưu ý:</strong> Hình ảnh và địa chỉ trong demo này chỉ nhằm minh họa cách tổ chức nội dung check-in cho nhà phố, không đại diện cho một căn cụ thể ngoài đời thực.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 AirbnbHosted · Demo Guest Guide cho thị trường Việt Nam</div>
+  </footer>
+</body>
+</html>

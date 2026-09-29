@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Demo check-in căn hộ | AirbnbHosted</title>
+  <meta name="description" content="Demo Guest Guide kiểu Việt Nam cho check-in căn hộ: mailbox, thẻ thang máy và khóa cửa." />
+  <style>
+:root{
+  --bg:#faf8f4;
+  --card:#ffffff;
+  --ink:#18202a;
+  --muted:#64707d;
+  --line:#e8e4db;
+  --soft:#f1ece2;
+  --primary:#2159c5;
+  --accent:#dd6b20;
+  --radius:24px;
+  --shadow:0 12px 32px rgba(19,34,53,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.6;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+.container{width:min(1120px,calc(100% - 32px));margin:0 auto}
+.topbar{
+  position:sticky;top:0;z-index:20;
+  backdrop-filter:saturate(160%) blur(10px);
+  background:rgba(255,255,255,.82);
+  border-bottom:1px solid rgba(232,228,219,.75);
+}
+.topbar-inner{
+  min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px
+}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;text-decoration:none}
+.brand-mark{
+  width:40px;height:40px;border-radius:14px;display:grid;place-items:center;
+  background:linear-gradient(135deg,#0f172a,#334155);color:#fff;font-size:18px
+}
+.top-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:46px;padding:0 16px;border-radius:14px;border:0;text-decoration:none;
+  font-weight:800;cursor:pointer
+}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.hero{padding:34px 0 28px}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:stretch}
+.hero-copy,.hero-card,.panel,.step-card,.gallery-card,.callout{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)
+}
+.hero-copy{padding:28px}
+.kicker{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+  background:#eef4ff;color:#234ba1;font-size:.78rem;font-weight:800;margin-bottom:14px
+}
+h1{font-size:clamp(1.9rem,4vw,3rem);line-height:1.1;margin:0 0 14px}
+h2{font-size:clamp(1.35rem,2.7vw,2rem);line-height:1.2;margin:0 0 12px}
+p{margin:0 0 14px}
+.muted{color:var(--muted)}
+.hero-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.meta-pill{
+  background:var(--soft);border-radius:18px;padding:14px 14px 12px
+}
+.meta-pill strong{display:block;font-size:.95rem}
+.meta-pill span{display:block;color:var(--muted);font-size:.85rem}
+.hero-card{padding:18px}
+.hero-shot{
+  width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:18px;margin-bottom:14px
+}
+.mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.mini-grid img{aspect-ratio:4/3;object-fit:cover;border-radius:16px}
+.section{padding:18px 0 30px}
+.section-head{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.section-label{font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#6b7280}
+.note-list,.chip-row,.overview-grid,.steps-grid{display:grid;gap:16px}
+.chip-row{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.chip{
+  background:var(--soft);padding:14px 16px;border-radius:18px;border:1px solid #e5ddcf;font-weight:700
+}
+.overview-grid{grid-template-columns:1.1fr .9fr}
+.panel{padding:22px}
+.tip{
+  display:flex;gap:12px;padding:14px 0;border-top:1px solid var(--line)
+}
+.tip:first-child{border-top:0;padding-top:0}
+.tip-num{
+  flex:0 0 34px;width:34px;height:34px;border-radius:12px;background:#eef4ff;
+  color:#234ba1;display:grid;place-items:center;font-weight:800
+}
+.steps-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.step-card{overflow:hidden}
+.step-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.step-body{padding:18px}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;background:#fff4e8;color:#9a4b0a;
+  border:1px solid #f1d3b3;border-radius:999px;padding:6px 10px;font-size:.78rem;font-weight:800;margin-bottom:10px
+}
+.step-body h3{margin:0 0 8px;font-size:1.08rem}
+.callout{padding:22px}
+.privacy{
+  font-size:.95rem;color:#4b5563;background:#f8fafc;border:1px dashed #cdd8eb;border-radius:18px;padding:14px 16px
+}
+.footer{padding:26px 0 48px;color:#6b7280;font-size:.9rem}
+@media (max-width: 920px){
+  .hero-grid,.overview-grid,.steps-grid{grid-template-columns:1fr}
+}
+@media (max-width: 640px){
+  .hero-copy,.hero-card,.panel,.callout{padding:20px}
+  .container{width:min(1120px,calc(100% - 22px))}
+  .hero-meta{grid-template-columns:1fr}
+  .mini-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/"><span class="brand-mark">🏠</span><span>AirbnbHosted · Demo Việt Nam</span></a>
+      <div class="top-actions">
+        <a class="btn secondary" href="/">← Về trang chủ</a>
+        <a class="btn primary" href="#steps">Xem các bước check-in</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="kicker">Demo 01 · Căn hộ chung cư</div>
+          <h1>Check-in căn hộ kiểu Việt Nam</h1>
+          <p class="muted">Mẫu này mô phỏng trải nghiệm check-in cho căn hộ trong khu đô thị hiện đại tại TP.HCM, theo flow quen thuộc: <strong>đến sảnh → lấy thẻ ở mailbox → quét thẻ thang máy → nhập mã khóa căn hộ</strong>.</p>
+          <div class="hero-meta">
+            <div class="meta-pill"><strong>Loại hình</strong><span>Căn hộ / chung cư</span></div>
+            <div class="meta-pill"><strong>Khu vực demo</strong><span>Vinhomes Grand Park, Quận 9</span></div>
+            <div class="meta-pill"><strong>Phù hợp với</strong><span>Host / co-host / căn cho thuê ngắn ngày</span></div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <img class="hero-shot" src="/assets/images/properties/48high/01-studio-wide.webp" alt="Ảnh không gian căn hộ demo" />
+          <div class="mini-grid">
+            <img src="/assets/images/properties/48high/02-bedroom-living.webp" alt="Phòng ngủ và sofa" />
+            <img src="/assets/images/properties/48high/04-living-dining.webp" alt="Khu bếp và bàn ăn" />
+            <img src="/assets/images/properties/48high/06-bathroom.webp" alt="Phòng tắm" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container overview-grid">
+        <div class="panel">
+          <div class="section-head">
+            <div class="section-label">Bối cảnh demo</div>
+            <h2>Flow check-in quen thuộc với căn hộ ở Việt Nam</h2>
+            <p class="muted">Điểm khác với demo nước ngoài là khách thường cần thêm bước <strong>mailbox / thẻ thang máy / access card</strong> trước khi lên đến căn hộ.</p>
+          </div>
+          <div class="chip-row">
+            <div class="chip">📍 Đến đúng block / sảnh</div>
+            <div class="chip">📬 Lấy thẻ trong mailbox</div>
+            <div class="chip">🛗 Quét thẻ để lên tầng</div>
+            <div class="chip">🔐 Nhập mã cửa căn hộ</div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <h2>Gợi ý nội dung host nên hiển thị</h2>
+          <div class="tip"><div class="tip-num">1</div><div><strong>Tên block / tower rõ ràng</strong><br><span class="muted">Ví dụ: S3.02 / toà A / tháp West.</span></div></div>
+          <div class="tip"><div class="tip-num">2</div><div><strong>Ảnh thật từng điểm</strong><br><span class="muted">Sảnh, khu mailbox, thẻ thang máy và cửa căn hộ.</span></div></div>
+          <div class="tip"><div class="tip-num">3</div><div><strong>Thông tin dự phòng</strong><br><span class="muted">Nếu thẻ lỗi hoặc quên mã, khách cần liên hệ ai.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="steps">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Các bước check-in</div>
+          <h2>4 bước để khách vào được căn hộ</h2>
+          <p class="muted">Bố cục này phù hợp với cách host Việt Nam thường hướng dẫn khách tại các khu căn hộ có thẻ thang máy.</p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <img src="/assets/images/demos/vietnam/apartment/step-1-mailbox.webp" alt="Bước 1 đến sảnh và mailbox" />
+            <div class="step-body">
+              <div class="badge">Bước 1</div>
+              <h3>Đến sảnh và tìm khu mailbox</h3>
+              <p>Khách đến đúng block, vào sảnh chính và di chuyển đến khu hộp thư / tủ thư gần thang máy hoặc quầy lễ tân.</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <img src="/assets/images/demos/vietnam/apartment/step-2-card.webp" alt="Bước 2 lấy thẻ trong mailbox" />
+            <div class="step-body">
+              <div class="badge">Bước 2</div>
+              <h3>Mở mailbox và lấy thẻ</h3>
+              <p>Host có thể để thẻ thang máy, thẻ từ hoặc phong bì hướng dẫn trong mailbox, rất tiện cho self check-in.</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <img src="/assets/images/demos/vietnam/apartment/step-3-elevator.webp" alt="Bước 3 quét thẻ thang máy" />
+            <div class="step-body">
+              <div class="badge">Bước 3</div>
+              <h3>Quét thẻ để sử dụng thang máy</h3>
+              <p>Nhiều chung cư ở Việt Nam yêu cầu quét thẻ trước khi bấm thang máy hoặc chọn tầng, nên bước này nên được minh họa thật rõ.</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <img src="/assets/images/demos/vietnam/apartment/step-4-door.webp" alt="Bước 4 nhập mã khóa cửa" />
+            <div class="step-body">
+              <div class="badge">Bước 4</div>
+              <h3>Đến căn hộ và nhập mã khóa</h3>
+              <p>Sau khi lên đúng tầng, khách đến cửa căn hộ và nhập mã khóa số / dùng khóa điện tử để vào bên trong.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="privacy">
+          <strong>Lưu ý:</strong> Tất cả tên toà nhà, mã khóa, số phòng và hình minh họa trong demo này đều là dữ liệu mô phỏng nhằm giới thiệu cấu trúc Guest Guide, không phải thông tin check-in thật.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 AirbnbHosted · Demo Guest Guide cho thị trường Việt Nam</div>
+  </footer>
+</body>
+</html>
