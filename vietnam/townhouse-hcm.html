@@ -1,732 +1,463 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#ffffff" />
-  <meta name="description" content="Demo Guest Guide đầy đủ cho nhà phố tại Việt Nam với map, lockbox, mã cửa, Wi-Fi, tiện ích và hướng dẫn sử dụng." />
-  <title>Nhà phố Bình Thạnh · TP.HCM | AirbnbHosted</title>
-  <style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="Demo Guest Guide song ngữ cho nhà phố tại Việt Nam với map, lockbox, mã cửa, Wi-Fi và tiện ích.">
+<title>Nhà phố Bình Thạnh | AirbnbHosted</title>
+<style>
 :root{
-  --bg:#f6f7f9;
-  --surface:#ffffff;
-  --ink:#172033;
-  --muted:#667085;
-  --line:#e7eaf0;
-  --soft:#f0f4f8;
-  --primary:#111827;
-  --blue:#2563eb;
-  --green:#0f9f75;
-  --orange:#e87923;
-  --red:#e5484d;
-  --shadow:0 18px 50px rgba(17,24,39,.08);
-  --radius:24px;
-  --radius-sm:18px;
-  --max:1120px;
+  --bg:#f6f7f9;--surface:#fff;--ink:#172033;--muted:#667085;--line:#e7eaf0;
+  --soft:#f0f4f8;--primary:#111827;--blue:#2563eb;--green:#0f9f75;--orange:#e87923;
+  --shadow:0 18px 50px rgba(17,24,39,.08);--radius:24px;--max:1120px
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:86px}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
 body{
-  margin:0;
-  background:
-    radial-gradient(circle at 10% 0,rgba(37,99,235,.06),transparent 28%),
-    linear-gradient(180deg,#fff 0,#f7f8fa 440px,var(--bg) 100%);
-  color:var(--ink);
+  margin:0;padding-bottom:18px;color:var(--ink);
+  background:radial-gradient(circle at 10% 0,rgba(37,99,235,.06),transparent 28%),linear-gradient(180deg,#fff 0,#f7f8fa 440px,var(--bg) 100%);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  line-height:1.58;
-  -webkit-font-smoothing:antialiased;
+  line-height:1.58;-webkit-font-smoothing:antialiased
 }
-a{color:inherit}
-img{display:block;max-width:100%}
-button,a{-webkit-tap-highlight-color:transparent}
+a{color:inherit}img{display:block;max-width:100%}button,a{-webkit-tap-highlight-color:transparent}
 .container{width:min(calc(100% - 32px),var(--max));margin-inline:auto}
 .topbar{
-  position:sticky;top:0;z-index:1000;
-  background:rgba(255,255,255,.9);
-  border-bottom:1px solid rgba(0,0,0,.06);
-  backdrop-filter:blur(16px);
+  position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.91);
+  border-bottom:1px solid rgba(0,0,0,.06);backdrop-filter:blur(16px)
 }
-.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:900}
-.brand-mark{
-  width:38px;height:38px;border-radius:13px;display:grid;place-items:center;
-  color:#fff;background:linear-gradient(135deg,#111827,#374151)
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:900}
+.brand-mark{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#111827,#374151)}
+.nav-actions{display:flex;gap:9px;align-items:center}
+.lang-switch{
+  display:flex;align-items:center;padding:3px;border:1px solid var(--line);border-radius:999px;background:#fff
 }
-.nav-actions{display:flex;gap:8px;align-items:center}
+.lang-switch button{
+  border:0;background:transparent;color:#687080;min-height:34px;padding:0 11px;border-radius:999px;
+  font:inherit;font-size:.76rem;font-weight:900;cursor:pointer;display:flex;align-items:center;gap:5px
+}
+.lang-switch button.active{background:#111827;color:#fff}
+.flag{font-size:1rem;line-height:1}
 .btn{
   min-height:46px;padding:0 16px;border-radius:14px;border:1px solid transparent;
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  text-decoration:none;font-weight:850;font-size:.9rem;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-weight:850;font-size:.9rem;cursor:pointer
 }
-.btn.primary{background:var(--primary);color:#fff}
-.btn.secondary{background:#fff;border-color:var(--line)}
-.btn.blue{background:var(--blue);color:#fff}
-.btn.green{background:var(--green);color:#fff}
-.hero{padding:34px 0 28px}
-.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:22px;align-items:stretch}
-.hero-copy,.hero-media,.card,.panel,.step-card,.manual-card,.checkout-card,.contact-card{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  box-shadow:var(--shadow)
+.btn.primary{background:var(--primary);color:#fff}.btn.secondary{background:#fff;border-color:var(--line)}
+.btn.blue{background:var(--blue);color:#fff}.btn.green{background:var(--green);color:#fff}
+.hero{padding:34px 0 28px}.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:22px;align-items:stretch}
+.hero-copy,.hero-media,.panel,.step-card,.manual-card,.checkout-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)
 }
-.hero-copy{padding:30px}
-.kicker{
-  display:inline-flex;align-items:center;gap:8px;
-  border-radius:999px;background:#eef4ff;color:#244a9a;
-  padding:7px 11px;font-size:.76rem;font-weight:900;letter-spacing:.03em
-}
-h1{font-size:clamp(2rem,4.5vw,3.35rem);line-height:1.05;letter-spacing:-.045em;margin:16px 0 14px}
-h2{font-size:clamp(1.55rem,3vw,2.3rem);line-height:1.12;letter-spacing:-.03em;margin:0 0 10px}
-h3{margin:0 0 8px;font-size:1.04rem}
-p{margin:0 0 14px}
-.muted{color:var(--muted)}
-.hero-media{padding:16px}
+.hero-copy{padding:30px}.hero-media{padding:16px}
 .hero-media>img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:18px}
 .thumb-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
 .thumb-row img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px}
-.quick-grid{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;
-  margin-top:20px
-}
-.quick{
-  padding:14px;border-radius:18px;background:var(--soft);border:1px solid #e5eaf1
-}
+.kicker{display:inline-flex;border-radius:999px;background:#eef4ff;color:#244a9a;padding:7px 11px;font-size:.76rem;font-weight:900}
+h1{font-size:clamp(2rem,4.5vw,3.35rem);line-height:1.05;letter-spacing:-.045em;margin:16px 0 14px}
+h2{font-size:clamp(1.55rem,3vw,2.3rem);line-height:1.12;letter-spacing:-.03em;margin:0 0 10px}
+h3{margin:0 0 8px;font-size:1.04rem}p{margin:0 0 14px}.muted{color:var(--muted)}
+.quick-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:20px}
+.quick{padding:14px;border-radius:18px;background:var(--soft);border:1px solid #e5eaf1}
 .quick span{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:#7b8492;font-weight:850}
 .quick strong{display:block;margin-top:4px;font-size:.94rem}
-.section{padding:26px 0}
-.section-head{max-width:760px;margin-bottom:18px}
+.action-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.section{padding:26px 0}.section-head{max-width:760px;margin-bottom:18px}
 .label{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;font-weight:900;margin-bottom:8px}
-.info-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
-.panel{padding:24px}
+.info-grid{display:grid;grid-template-columns:1fr;gap:18px}.panel{padding:24px}
 .detail-list{display:grid;gap:0}
-.detail{
-  display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;
-  padding:14px 0;border-top:1px solid var(--line)
-}
+.detail{display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
 .detail:first-child{border-top:0;padding-top:0}
-.detail-icon{
-  width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--soft);font-size:1.1rem
-}
+.detail-icon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--soft);font-size:1.1rem}
 .detail-label{color:var(--muted);font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
 .detail-value{font-weight:850}
 .copy-btn{
   border:1px solid var(--line);background:#fff;border-radius:12px;min-height:38px;padding:0 11px;
-  font:inherit;font-size:.78rem;font-weight:850;cursor:pointer
+  font:inherit;font-size:.78rem;font-weight:850;cursor:pointer;transition:.18s ease
 }
-.action-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-.contact-card{padding:22px;background:linear-gradient(135deg,#111827,#293346);color:#fff}
-.contact-card .muted{color:#c9d0da}
-.contact-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
-.contact-actions .btn{width:100%}
+.copy-btn:active{transform:scale(.98)}
+.copy-btn.copied{background:#e9f9f2;color:#08775a;border-color:#a9e5d0}
 .steps-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.step-card{overflow:hidden}
-.step-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
-.step-body{padding:18px}
-.step-no{
-  display:inline-flex;align-items:center;justify-content:center;
-  padding:6px 10px;border-radius:999px;background:#fff4e8;color:#9a4b0a;
-  border:1px solid #f1d3b3;font-size:.75rem;font-weight:900;margin-bottom:10px
-}
-.wifi-card{
-  display:grid;grid-template-columns:1fr 1fr;gap:14px;
-  background:linear-gradient(135deg,#f8fbff,#f4f7fb);border:1px solid #dfe6ef;
-  border-radius:22px;padding:20px
-}
-.wifi-box{
-  border:1px dashed #bcc7d5;border-radius:18px;background:#fff;padding:18px
-}
+.step-card{overflow:hidden}.step-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.step-body{padding:18px}.step-no{display:inline-flex;padding:6px 10px;border-radius:999px;background:#fff4e8;color:#9a4b0a;border:1px solid #f1d3b3;font-size:.75rem;font-weight:900;margin-bottom:10px}
+.wifi-card{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:linear-gradient(135deg,#f8fbff,#f4f7fb);border:1px solid #dfe6ef;border-radius:22px;padding:20px}
+.wifi-box{border:1px dashed #bcc7d5;border-radius:18px;background:#fff;padding:18px}
 .wifi-label{font-size:.72rem;font-weight:900;color:#7a8491;text-transform:uppercase;letter-spacing:.06em}
 .wifi-value{font-size:1.12rem;font-weight:900;margin:3px 0 12px;overflow-wrap:anywhere}
 .amenities-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.amenity{
-  min-height:105px;border:1px solid var(--line);border-radius:18px;background:#fff;padding:16px
-}
-.amenity b{display:block;font-size:1.4rem;margin-bottom:8px}
-.amenity span{display:block;font-weight:800;font-size:.88rem}
-.manual-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.manual-card{padding:20px}
-.manual-icon{font-size:1.5rem;margin-bottom:12px}
+.amenity{min-height:105px;border:1px solid var(--line);border-radius:18px;background:#fff;padding:16px}
+.amenity b{display:block;font-size:1.4rem;margin-bottom:8px}.amenity span{display:block;font-weight:800;font-size:.88rem}
+.manual-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.manual-card{padding:20px}.manual-icon{font-size:1.5rem;margin-bottom:12px}
 .rules{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.rule{
-  display:flex;gap:12px;padding:16px;border-radius:18px;background:#fff;border:1px solid var(--line)
-}
-.rule-icon{font-size:1.2rem}
-.checkout-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.checkout-card{padding:22px}
-.checklist{list-style:none;padding:0;margin:14px 0 0}
-.checklist li{padding:11px 0;border-top:1px solid var(--line);display:flex;gap:10px}
-.checklist li::before{content:"✓";font-weight:950;color:var(--green)}
-.privacy{
-  padding:15px 16px;border-radius:16px;background:#f8fafc;border:1px dashed #cbd5e1;
-  color:#596273;font-size:.88rem
-}
+.rule{display:flex;gap:12px;padding:16px;border-radius:18px;background:#fff;border:1px solid var(--line)}.rule-icon{font-size:1.2rem}
+.checkout-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.checkout-card{padding:22px}
+.checklist{list-style:none;padding:0;margin:14px 0 0}.checklist li{padding:11px 0;border-top:1px solid var(--line);display:flex;gap:10px}.checklist li::before{content:"✓";font-weight:950;color:var(--green)}
+.privacy{padding:15px 16px;border-radius:16px;background:#f8fafc;border:1px dashed #cbd5e1;color:#596273;font-size:.88rem}
 .footer{padding:30px 0 48px;color:#737d8b;font-size:.84rem}
-.toast{
-  position:fixed;left:50%;bottom:26px;z-index:2000;transform:translate(-50%,12px);
-  opacity:0;pointer-events:none;transition:.2s ease;
-  background:#111827;color:#fff;padding:10px 14px;border-radius:12px;
-  box-shadow:0 10px 30px rgba(0,0,0,.24);font-size:.85rem;font-weight:800
-}
+.floating-support{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:1600;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.support-menu{width:285px;padding:10px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.97);box-shadow:0 22px 65px rgba(17,24,39,.22);backdrop-filter:blur(14px);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(10px) scale(.97);transform-origin:bottom right;transition:.18s ease}
+.floating-support.open .support-menu{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+.support-head{padding:8px 8px 11px;border-bottom:1px solid var(--line);margin-bottom:8px}.support-head strong{display:block;font-size:.94rem}.support-head span{display:block;color:var(--muted);font-size:.78rem;margin-top:2px}
+.support-action{display:flex;align-items:center;gap:12px;min-height:52px;padding:9px 10px;border-radius:14px;text-decoration:none}.support-action:hover{background:#f5f7fa}
+.support-action-icon{width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;border-radius:12px;font-size:1.08rem}
+.support-action.call .support-action-icon{background:#edf4ff}.support-action.zalo .support-action-icon{background:#eaf8f3}
+.support-action strong{display:block;font-size:.88rem}.support-action small{display:block;color:var(--muted);font-size:.74rem;margin-top:1px}
+.support-toggle{min-height:56px;padding:0 17px;border:0;border-radius:999px;background:#111827;color:#fff;box-shadow:0 14px 35px rgba(17,24,39,.27);display:inline-flex;align-items:center;justify-content:center;gap:9px;font:inherit;font-weight:900;cursor:pointer}
+.support-dot{width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:#fff;color:#111827;font-size:.88rem}
+.toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));z-index:2000;transform:translate(-50%,12px);opacity:0;pointer-events:none;transition:.2s ease;background:#111827;color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.24);font-size:.85rem;font-weight:800;max-width:min(420px,calc(100vw - 34px));text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:920px){
-  .hero-grid,.info-grid,.checkout-grid{grid-template-columns:1fr}
-  .quick-grid,.amenities-grid{grid-template-columns:repeat(2,1fr)}
-  .manual-grid{grid-template-columns:1fr 1fr}
-}
+@media(max-width:920px){.hero-grid,.checkout-grid{grid-template-columns:1fr}.quick-grid,.amenities-grid{grid-template-columns:repeat(2,1fr)}.manual-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){
-  .container{width:min(calc(100% - 22px),var(--max))}
-  .hero-copy,.panel,.contact-card,.checkout-card{padding:20px}
-  .nav-actions .secondary{display:none}
-  .quick-grid,.steps-grid,.wifi-card,.manual-grid,.rules,.contact-actions{grid-template-columns:1fr}
-  .amenities-grid{grid-template-columns:1fr 1fr}
-  .detail{grid-template-columns:42px 1fr}
-  .detail .copy-btn{grid-column:2}
+  body{padding-bottom:88px}.container{width:min(calc(100% - 22px),var(--max))}.nav{min-height:64px}.brand{font-size:.9rem}.brand-mark{width:34px;height:34px;border-radius:11px}
+  .nav-actions{gap:6px}.nav-actions>.primary{display:none}.lang-switch button{padding:0 9px}.lang-name{display:none}
+  .hero{padding-top:22px}.hero-copy,.panel,.checkout-card{padding:20px}.hero-media{padding:10px}
+  h1{font-size:clamp(1.85rem,9.5vw,2.6rem)}.quick-grid,.steps-grid,.wifi-card,.manual-grid,.rules{grid-template-columns:1fr}
+  .amenities-grid{grid-template-columns:1fr 1fr}.detail{grid-template-columns:42px 1fr}.detail .copy-btn{grid-column:2}
+  .section{padding:20px 0}.floating-support{right:13px;bottom:calc(13px + env(safe-area-inset-bottom))}
+  .support-menu{width:min(300px,calc(100vw - 26px))}.support-toggle{width:58px;height:58px;min-height:58px;padding:0;border-radius:50%}.support-label{display:none}.support-dot{width:32px;height:32px;font-size:1.05rem}
 }
-
-/* Floating host support */
-body{padding-bottom:18px}
-.info-grid{grid-template-columns:1fr}
-.copy-btn{
-  transition:background .18s ease,color .18s ease,border-color .18s ease,transform .15s ease;
-}
-.copy-btn:active{transform:scale(.98)}
-.copy-btn.copied{
-  background:#e9f9f2;
-  color:#08775a;
-  border-color:#a9e5d0;
-}
-.floating-support{
-  position:fixed;
-  right:18px;
-  bottom:calc(18px + env(safe-area-inset-bottom));
-  z-index:1600;
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  gap:10px;
-}
-.support-menu{
-  width:285px;
-  padding:10px;
-  border:1px solid var(--line);
-  border-radius:20px;
-  background:rgba(255,255,255,.97);
-  box-shadow:0 22px 65px rgba(17,24,39,.22);
-  backdrop-filter:blur(14px);
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  transform:translateY(10px) scale(.97);
-  transform-origin:bottom right;
-  transition:.18s ease;
-}
-.floating-support.open .support-menu{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
-  transform:none;
-}
-.support-head{
-  padding:8px 8px 11px;
-  border-bottom:1px solid var(--line);
-  margin-bottom:8px;
-}
-.support-head strong{display:block;font-size:.94rem}
-.support-head span{display:block;color:var(--muted);font-size:.78rem;margin-top:2px}
-.support-action{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-height:52px;
-  padding:9px 10px;
-  border-radius:14px;
-  text-decoration:none;
-  transition:background .15s ease;
-}
-.support-action:hover{background:#f5f7fa}
-.support-action-icon{
-  width:38px;height:38px;flex:0 0 38px;
-  display:grid;place-items:center;
-  border-radius:12px;
-  font-size:1.08rem;
-}
-.support-action.call .support-action-icon{background:#edf4ff}
-.support-action.zalo .support-action-icon{background:#eaf8f3}
-.support-action strong{display:block;font-size:.88rem}
-.support-action small{display:block;color:var(--muted);font-size:.74rem;margin-top:1px}
-.support-toggle{
-  min-height:56px;
-  padding:0 17px;
-  border:0;
-  border-radius:999px;
-  background:#111827;
-  color:#fff;
-  box-shadow:0 14px 35px rgba(17,24,39,.27);
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:9px;
-  font:inherit;
-  font-weight:900;
-  cursor:pointer;
-}
-.support-toggle .support-dot{
-  width:26px;height:26px;
-  display:grid;place-items:center;
-  border-radius:50%;
-  background:#fff;
-  color:#111827;
-  font-size:.88rem;
-}
-.support-toggle:focus-visible,
-.copy-btn:focus-visible,
-.support-action:focus-visible{
-  outline:3px solid rgba(37,99,235,.25);
-  outline-offset:3px;
-}
-.toast{
-  bottom:calc(88px + env(safe-area-inset-bottom)) !important;
-  max-width:min(420px,calc(100vw - 34px));
-  text-align:center;
-}
-@media(max-width:640px){
-  body{padding-bottom:88px}
-  .floating-support{
-    right:13px;
-    bottom:calc(13px + env(safe-area-inset-bottom));
-  }
-  .support-menu{
-    width:min(300px,calc(100vw - 26px));
-  }
-  .support-toggle{
-    width:58px;
-    height:58px;
-    min-height:58px;
-    padding:0;
-    border-radius:50%;
-  }
-  .support-toggle .support-label{display:none}
-  .support-toggle .support-dot{
-    width:32px;height:32px;font-size:1.05rem
-  }
-  .toast{
-    bottom:calc(84px + env(safe-area-inset-bottom)) !important;
-  }
-  .nav{min-height:64px}
-  .brand{font-size:.92rem}
-  .brand-mark{width:34px;height:34px;border-radius:11px}
-  .nav-actions .primary{font-size:.78rem;min-height:40px;padding:0 11px}
-  .hero{padding-top:22px}
-  h1{font-size:clamp(1.85rem,9.5vw,2.6rem)}
-  .hero-media{padding:10px}
-  .thumb-row{grid-template-columns:repeat(3,1fr)}
-  .section{padding:20px 0}
-  .wifi-box{padding:16px}
-  .amenity{min-height:96px;padding:14px}
-}
-
 </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="container nav">
-      <a class="brand" href="/">
-        <span class="brand-mark">🏡</span>
-        <span>AirbnbHosted · Guest Guide</span>
-      </a>
-      <div class="nav-actions">
-        <a class="btn secondary" href="/">← Trang chủ</a>
-        <a class="btn primary" href="#checkin">Hướng dẫn check-in</a>
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="/"><span class="brand-mark">🏡</span><span>AirbnbHosted · Guest Guide</span></a>
+    <div class="nav-actions">
+      <div class="lang-switch" aria-label="Language switcher">
+        <button type="button" id="lang-vi" class="active"><span class="flag">🇻🇳</span><span class="lang-name">VI</span></button>
+        <button type="button" id="lang-en"><span class="flag">🇬🇧</span><span class="lang-name">EN</span></button>
+      </div>
+      <a class="btn primary" href="#checkin" data-i18n="checkinGuide"></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="kicker" data-i18n="kicker"></div>
+      <h1 data-i18n="title"></h1>
+      <p class="muted" data-i18n="intro"></p>
+      <div class="quick-grid"><div class="quick"><span data-i18n="checkinLabel"></span><strong>15:00</strong></div><div class="quick"><span data-i18n="checkoutLabel"></span><strong>11:00</strong></div><div class="quick"><span data-i18n="propertyType"></span><strong>Townhouse</strong></div><div class="quick"><span data-i18n="selfCheckin"></span><strong>✓</strong></div></div>
+      <div class="action-row">
+        <a class="btn blue" href="https://www.google.com/maps/search/?api=1&query=Nguyen+Van+Dau+Binh+Thanh+Ho+Chi+Minh+City" target="_blank" rel="noopener">📍 <span data-i18n="openMap"></span></a>
+        <a class="btn green" href="https://zalo.me/0367676119" target="_blank" rel="noopener">💬 <span data-i18n="messageHost"></span></a>
       </div>
     </div>
-  </header>
+    <div class="hero-media">
+      <img src="/assets/images/demos/vietnam/townhouse/step-1-gate.webp" alt="">
+      <div class="thumb-row"><img src="/assets/images/demos/vietnam/townhouse/step-2-lockbox.webp" alt="" loading="lazy"><img src="/assets/images/demos/vietnam/townhouse/step-3-door.webp" alt="" loading="lazy"><img src="/assets/images/properties/48high/05-bedroom-storage.webp" alt="" loading="lazy"></div>
+    </div>
+  </div>
+</section>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <div class="kicker">Demo 02 · Nhà phố / homestay</div>
-          <h1>Nhà phố Bình Thạnh · TP.HCM</h1>
-          <p class="muted">Mẫu này dành cho nhà phố, homestay hoặc villa mini. Trọng tâm là giúp khách nhận diện đúng cổng, lấy chìa từ lockbox và biết cách sử dụng căn nhà sau khi vào bên trong.</p>
-          <div class="quick-grid"><div class="quick"><span>Check-in</span><strong>15:00</strong></div>
-<div class="quick"><span>Check-out</span><strong>11:00</strong></div>
-<div class="quick"><span>Loại hình</span><strong>Nhà phố</strong></div>
-<div class="quick"><span>Self check-in</span><strong>Có</strong></div></div>
-          <div class="action-row">
-            <a class="btn blue" href="https://www.google.com/maps/search/?api=1&query=Nguyen+Van+Dau+Binh+Thanh+Ho+Chi+Minh+City" target="_blank" rel="noopener">📍 Mở Google Maps</a>
-            <a class="btn green" href="https://zalo.me/0367676119" target="_blank" rel="noopener">💬 Nhắn Zalo host</a>
-          </div>
-        </div>
-        <div class="hero-media">
-          <img src="/assets/images/demos/vietnam/townhouse/step-1-gate.webp" alt="Nhà phố Bình Thạnh · TP.HCM" />
-          <div class="thumb-row"><img src="/assets/images/demos/vietnam/townhouse/step-2-lockbox.webp" alt="Ảnh minh họa căn" loading="lazy" /><img src="/assets/images/demos/vietnam/townhouse/step-3-door.webp" alt="Ảnh minh họa căn" loading="lazy" /><img src="/assets/images/properties/48high/05-bedroom-storage.webp" alt="Ảnh minh họa căn" loading="lazy" /></div>
-        </div>
+<section class="section" id="info">
+  <div class="container info-grid">
+    <div class="panel">
+      <div class="section-head">
+        <div class="label" data-i18n="stayInfo"></div>
+        <h2 data-i18n="allInfoTitle"></h2>
+        <p class="muted" data-i18n="allInfoDesc"></p>
       </div>
-    </section>
-
-    <section class="section" id="info">
-      <div class="container info-grid">
-        <div class="panel">
-          <div class="section-head">
-            <div class="label">Thông tin lưu trú</div>
-            <h2>Mọi thông tin quan trọng trong một nơi</h2>
-            <p class="muted">Khách có thể mở lại trang này bất cứ lúc nào trong suốt thời gian lưu trú.</p>
-          </div>
-          <div class="detail-list">
+      <div class="detail-list">
     <div class="detail">
       <div class="detail-icon">📍</div>
       <div>
-        <div class="detail-label">Địa chỉ</div>
-        <div class="detail-value">Hẻm Nguyễn Văn Đậu, P.5, Q. Bình Thạnh, TP.HCM · địa chỉ demo</div>
-        <div class="action-row"><a class="btn blue" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Nguyen+Van+Dau+Binh+Thanh+Ho+Chi+Minh+City">Mở Google Maps</a></div>
+        <div class="detail-label" data-i18n="addressLabel"></div>
+        <div class="detail-value">Hẻm Nguyễn Văn Đậu, P.5, Q. Bình Thạnh, TP.HCM · demo address</div>
+        <div class="action-row"><a class="btn blue" href="https://www.google.com/maps/search/?api=1&query=Nguyen+Van+Dau+Binh+Thanh+Ho+Chi+Minh+City" target="_blank" rel="noopener" data-i18n="openMap"></a></div>
       </div>
       
     </div>
     
-
     <div class="detail">
       <div class="detail-icon">⏰</div>
       <div>
-        <div class="detail-label">Check-in</div>
+        <div class="detail-label" data-i18n="checkinLabel"></div>
         <div class="detail-value">15:00</div>
         
       </div>
       
     </div>
     
-
     <div class="detail">
       <div class="detail-icon">🧳</div>
       <div>
-        <div class="detail-label">Check-out</div>
+        <div class="detail-label" data-i18n="checkoutLabel"></div>
         <div class="detail-value">11:00</div>
         
       </div>
       
     </div>
     
-
     <div class="detail">
       <div class="detail-icon">🔒</div>
       <div>
-        <div class="detail-label">Mã lockbox</div>
+        <div class="detail-label" data-i18n="lockboxCode"></div>
         <div class="detail-value">2580</div>
         
       </div>
-      <button class="copy-btn" type="button" data-copy="2580" data-label="Mã lockbox">Sao chép</button>
+      <button class="copy-btn" type="button" data-copy="2580" data-copy-label="lockboxCode" data-i18n="copy"></button>
     </div>
     
-
     <div class="detail">
       <div class="detail-icon">🔐</div>
       <div>
-        <div class="detail-label">Mã khóa cửa chính</div>
+        <div class="detail-label" data-i18n="doorCodeLabel"></div>
         <div class="detail-value">2580#</div>
         
       </div>
-      <button class="copy-btn" type="button" data-copy="2580#" data-label="Mã khóa cửa chính">Sao chép</button>
+      <button class="copy-btn" type="button" data-copy="2580#" data-copy-label="doorCodeLabel" data-i18n="copy"></button>
     </div>
     
-
     <div class="detail">
       <div class="detail-icon">📞</div>
       <div>
-        <div class="detail-label">Host</div>
+        <div class="detail-label" data-i18n="hostLabel"></div>
         <div class="detail-value">0367676119</div>
-        <div class="action-row"><a class="btn green" href="https://zalo.me/0367676119" target="_blank" rel="noopener">Nhắn Zalo</a></div>
+        
       </div>
-      <button class="copy-btn" type="button" data-copy="0367676119" data-label="Host">Sao chép</button>
+      <button class="copy-btn" type="button" data-copy="0367676119" data-copy-label="hostLabel" data-i18n="copy"></button>
     </div>
     </div>
-        </div>
-      </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <section class="section" id="checkin">
-      <div class="container">
-        <div class="section-head">
-          <div class="label">Hướng dẫn check-in</div>
-          <h2>Từ cổng nhà đến bên trong</h2>
-          <p class="muted">Nhà phố thường không có lễ tân, vì vậy ảnh cổng và vị trí lockbox là phần quan trọng nhất.</p>
-        </div>
-        <div class="steps-grid">
-        <article class="step-card">
-          <img src="/assets/images/demos/vietnam/townhouse/step-1-gate.webp" alt="Tìm đúng cổng nhà" loading="lazy" />
+<section class="section" id="checkin">
+  <div class="container">
+    <div class="section-head">
+      <div class="label" data-i18n="checkinInstructions"></div>
+      <h2 data-i18n="checkinTitle"></h2>
+      <p class="muted" data-i18n="checkinDesc"></p>
+    </div>
+    <div class="steps-grid"><article class="step-card">
+          <img src="/assets/images/demos/vietnam/townhouse/step-1-gate.webp" alt="" loading="lazy">
           <div class="step-body">
-            <div class="step-no">Bước 1</div>
-            <h3>Tìm đúng cổng nhà</h3>
-            <p class="muted">Đối chiếu ảnh cổng với căn thực tế. Lockbox được gắn ở tường cạnh cổng.</p>
+            <div class="step-no"><span data-i18n="stepWord"></span> 1</div>
+            <h3 data-i18n="step1t"></h3>
+            <p class="muted" data-i18n-html="step1d"></p>
           </div>
-        </article>
+        </article><article class="step-card">
+          <img src="/assets/images/demos/vietnam/townhouse/step-2-lockbox.webp" alt="" loading="lazy">
+          <div class="step-body">
+            <div class="step-no"><span data-i18n="stepWord"></span> 2</div>
+            <h3 data-i18n="step2t"></h3>
+            <p class="muted" data-i18n-html="step2d"></p>
+          </div>
+        </article><article class="step-card">
+          <img src="/assets/images/demos/vietnam/townhouse/step-3-door.webp" alt="" loading="lazy">
+          <div class="step-body">
+            <div class="step-no"><span data-i18n="stepWord"></span> 3</div>
+            <h3 data-i18n="step3t"></h3>
+            <p class="muted" data-i18n-html="step3d"></p>
+          </div>
+        </article></div>
+  </div>
+</section>
+
+<section class="section" id="wifi">
+  <div class="container">
+    <div class="section-head"><div class="label">Wi‑Fi</div><h2 data-i18n="internetTitle"></h2></div>
+    <div class="wifi-card">
+      <div class="wifi-box">
+        <div class="wifi-label" data-i18n="wifiName"></div>
+        <div class="wifi-value">Townhouse-Guest</div>
+        <button class="copy-btn" type="button" data-copy="Townhouse-Guest" data-copy-label="wifiName" data-i18n="copyNetwork"></button>
+      </div>
+      <div class="wifi-box">
+        <div class="wifi-label" data-i18n="password"></div>
+        <div class="wifi-value">SaigonStay2026</div>
+        <button class="copy-btn" type="button" data-copy="SaigonStay2026" data-copy-label="password" data-i18n="copyPassword"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="amenities">
+  <div class="container">
+    <div class="section-head">
+      <div class="label" data-i18n="amenitiesLabel"></div>
+      <h2 data-i18n="amenitiesTitle"></h2>
+      <p class="muted" data-i18n="amenitiesDesc"></p>
+    </div>
+    <div class="amenities-grid"><div class="amenity"><b>❄️</b><span data-i18n="a1"></span></div><div class="amenity"><b>📺</b><span data-i18n="a2"></span></div><div class="amenity"><b>🧺</b><span data-i18n="a3"></span></div><div class="amenity"><b>🍳</b><span data-i18n="a4"></span></div><div class="amenity"><b>🧊</b><span data-i18n="a5"></span></div><div class="amenity"><b>♨️</b><span data-i18n="a6"></span></div><div class="amenity"><b>🫖</b><span data-i18n="a7"></span></div><div class="amenity"><b>💨</b><span data-i18n="a8"></span></div><div class="amenity"><b>🛏️</b><span data-i18n="a9"></span></div><div class="amenity"><b>🧴</b><span data-i18n="a10"></span></div><div class="amenity"><b>📶</b><span data-i18n="a11"></span></div><div class="amenity"><b>🛵</b><span data-i18n="a12"></span></div></div>
+  </div>
+</section>
+
+<section class="section" id="manual">
+  <div class="container">
+    <div class="section-head">
+      <div class="label" data-i18n="homeManual"></div>
+      <h2 data-i18n="manualTitle"></h2>
+      <p class="muted" data-i18n="manualDesc"></p>
+    </div>
+    <div class="manual-grid"><article class="manual-card"><div class="manual-icon">🚪</div><h3 data-i18n="m1t"></h3><p class="muted" data-i18n="m1d"></p></article><article class="manual-card"><div class="manual-icon">❄️</div><h3 data-i18n="m2t"></h3><p class="muted" data-i18n="m2d"></p></article><article class="manual-card"><div class="manual-icon">♨️</div><h3 data-i18n="m3t"></h3><p class="muted" data-i18n="m3d"></p></article><article class="manual-card"><div class="manual-icon">🧺</div><h3 data-i18n="m4t"></h3><p class="muted" data-i18n="m4d"></p></article><article class="manual-card"><div class="manual-icon">🍳</div><h3 data-i18n="m5t"></h3><p class="muted" data-i18n="m5d"></p></article><article class="manual-card"><div class="manual-icon">🗑️</div><h3 data-i18n="m6t"></h3><p class="muted" data-i18n="m6d"></p></article></div>
+  </div>
+</section>
+
+<section class="section" id="rules">
+  <div class="container">
+    <div class="section-head"><div class="label" data-i18n="houseRules"></div><h2 data-i18n="rulesTitle"></h2></div>
+    <div class="rules"><div class="rule"><div class="rule-icon">🚭</div><div><strong data-i18n="r1t"></strong><div class="muted" data-i18n="r1d"></div></div></div><div class="rule"><div class="rule-icon">🎉</div><div><strong data-i18n="r2t"></strong><div class="muted" data-i18n="r2d"></div></div></div><div class="rule"><div class="rule-icon">🔇</div><div><strong data-i18n="r3t"></strong><div class="muted" data-i18n="r3d"></div></div></div><div class="rule"><div class="rule-icon">🐾</div><div><strong data-i18n="r4t"></strong><div class="muted" data-i18n="r4d"></div></div></div></div>
+  </div>
+</section>
+
+<section class="section" id="checkout">
+  <div class="container checkout-grid">
+    <div class="checkout-card">
+      <div class="label">Checkout</div>
+      <h2 data-i18n="beforeLeaving"></h2>
+      <p class="muted"><span data-i18n="checkoutTime"></span>: <strong>11:00</strong></p>
+      <ul class="checklist"><li data-i18n="c1"></li><li data-i18n="c2"></li><li data-i18n="c3"></li><li data-i18n="c4"></li><li data-i18n="c5"></li></ul>
+    </div>
+    <div class="checkout-card">
+      <div class="label" data-i18n="quickInfo"></div>
+      <h2 data-i18n="remember"></h2>
+      <div class="detail-list">
         
-
-        <article class="step-card">
-          <img src="/assets/images/demos/vietnam/townhouse/step-2-lockbox.webp" alt="Mở lockbox và lấy chìa" loading="lazy" />
-          <div class="step-body">
-            <div class="step-no">Bước 2</div>
-            <h3>Mở lockbox và lấy chìa</h3>
-            <p class="muted">Nhập mã <strong>2580</strong>, mở nắp hộp khóa và lấy chìa bên trong.</p>
-          </div>
-        </article>
-        
-
-        <article class="step-card">
-          <img src="/assets/images/demos/vietnam/townhouse/step-3-door.webp" alt="Mở cửa chính" loading="lazy" />
-          <div class="step-body">
-            <div class="step-no">Bước 3</div>
-            <h3>Mở cửa chính</h3>
-            <p class="muted">Sau khi vào cổng, dùng chìa hoặc mã <strong>2580#</strong> trên khóa cửa chính để vào nhà.</p>
-          </div>
-        </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="wifi">
-      <div class="container">
-        <div class="section-head">
-          <div class="label">Wi‑Fi</div>
-          <h2>Kết nối internet</h2>
-        </div>
-        <div class="wifi-card">
-          <div class="wifi-box">
-            <div class="wifi-label">Tên Wi‑Fi</div>
-            <div class="wifi-value">Townhouse-Guest</div>
-            <button class="copy-btn" type="button" data-copy="Townhouse-Guest" data-label="Tên Wi‑Fi">Sao chép tên mạng</button>
-          </div>
-          <div class="wifi-box">
-            <div class="wifi-label">Mật khẩu</div>
-            <div class="wifi-value">SaigonStay2026</div>
-            <button class="copy-btn" type="button" data-copy="SaigonStay2026" data-label="Mật khẩu Wi‑Fi">Sao chép mật khẩu</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="amenities">
-      <div class="container">
-        <div class="section-head">
-          <div class="label">Tiện ích trong căn</div>
-          <h2>Các tiện nghi có sẵn</h2>
-          <p class="muted">Danh sách này giúp khách biết trước căn nhà có gì và cần chuẩn bị thêm những gì.</p>
-        </div>
-        <div class="amenities-grid"><div class="amenity"><b>❄️</b><span>Máy lạnh</span></div>
-<div class="amenity"><b>📺</b><span>Smart TV</span></div>
-<div class="amenity"><b>🧺</b><span>Máy giặt</span></div>
-<div class="amenity"><b>🍳</b><span>Bếp</span></div>
-<div class="amenity"><b>🧊</b><span>Tủ lạnh</span></div>
-<div class="amenity"><b>♨️</b><span>Nước nóng</span></div>
-<div class="amenity"><b>🫖</b><span>Ấm siêu tốc</span></div>
-<div class="amenity"><b>💨</b><span>Máy sấy tóc</span></div>
-<div class="amenity"><b>🛏️</b><span>Chăn ga gối</span></div>
-<div class="amenity"><b>🧴</b><span>Đồ dùng phòng tắm</span></div>
-<div class="amenity"><b>📶</b><span>Wi‑Fi</span></div>
-<div class="amenity"><b>🛵</b><span>Chỗ để xe máy</span></div></div>
-      </div>
-    </section>
-
-    <section class="section" id="manual">
-      <div class="container">
-        <div class="section-head">
-          <div class="label">Hướng dẫn sử dụng căn</div>
-          <h2>Cách sử dụng các thiết bị chính</h2>
-          <p class="muted">Host có thể thay thế các nội dung demo này bằng model thiết bị thật và ảnh thật của từng căn.</p>
-        </div>
-        <div class="manual-grid"><article class="manual-card"><div class="manual-icon">🚪</div><h3>Cổng &amp; khóa</h3><p class="muted">Luôn đóng cổng sau khi ra/vào. Không để chìa trong ổ khóa phía ngoài.</p></article>
-<article class="manual-card"><div class="manual-icon">❄️</div><h3>Máy lạnh</h3><p class="muted">Các phòng dùng remote riêng. Nhiệt độ khuyến nghị 24–26°C.</p></article>
-<article class="manual-card"><div class="manual-icon">♨️</div><h3>Nước nóng</h3><p class="muted">Bật công tắc có nhãn Water Heater trước khi tắm, tắt sau khi sử dụng.</p></article>
-<article class="manual-card"><div class="manual-icon">🧺</div><h3>Máy giặt</h3><p class="muted">Khu giặt ở tầng trệt / sân sau. Dùng chế độ Normal cho quần áo thường.</p></article>
-<article class="manual-card"><div class="manual-icon">🍳</div><h3>Bếp</h3><p class="muted">Khóa van gas / tắt bếp sau khi nấu. Không để dầu mỡ gần ngọn lửa.</p></article>
-<article class="manual-card"><div class="manual-icon">🗑️</div><h3>Rác</h3><p class="muted">Để rác đã buộc kín ở khu vực tập kết gần cổng trước 20:00.</p></article></div>
-      </div>
-    </section>
-
-    <section class="section" id="rules">
-      <div class="container">
-        <div class="section-head">
-          <div class="label">Nội quy lưu trú</div>
-          <h2>Một vài lưu ý để kỳ nghỉ thuận tiện hơn</h2>
-        </div>
-        <div class="rules"><div class="rule"><div class="rule-icon">🚭</div><div><strong>Không hút thuốc</strong><div class="muted">Không hút thuốc trong nhà.</div></div></div>
-<div class="rule"><div class="rule-icon">🎉</div><div><strong>Không tiệc tùng</strong><div class="muted">Không tổ chức tiệc hoặc mở nhạc lớn.</div></div></div>
-<div class="rule"><div class="rule-icon">🔇</div><div><strong>Yên lặng sau 22:00</strong><div class="muted">Tôn trọng hàng xóm trong hẻm.</div></div></div>
-<div class="rule"><div class="rule-icon">🐾</div><div><strong>Thú cưng</strong><div class="muted">Chỉ mang thú cưng khi host đã xác nhận trước.</div></div></div></div>
-      </div>
-    </section>
-
-    <section class="section" id="checkout">
-      <div class="container checkout-grid">
-        <div class="checkout-card">
-          <div class="label">Checkout</div>
-          <h2>Trước khi rời đi</h2>
-          <p class="muted">Giờ checkout: <strong>11:00</strong></p>
-          <ul class="checklist"><li>Tắt máy lạnh, bếp và bình nóng lạnh.</li>
-<li>Rửa sơ chén đĩa đã sử dụng.</li>
-<li>Thu gom rác và đặt đúng điểm tập kết.</li>
-<li>Khóa cửa chính và cổng.</li>
-<li>Trả chìa vào lockbox, xoay số ngẫu nhiên và nhắn Zalo xác nhận.</li></ul>
-        </div>
-        <div class="checkout-card">
-          <div class="label">Thông tin nhanh</div>
-          <h2>Cần nhớ</h2>
-          <div class="detail-list">
-            
     <div class="detail">
       <div class="detail-icon">⏰</div>
       <div>
-        <div class="detail-label">Check-in</div>
+        <div class="detail-label" data-i18n="checkinLabel"></div>
         <div class="detail-value">15:00</div>
         
       </div>
       
     </div>
     
-            
+        
     <div class="detail">
       <div class="detail-icon">🧳</div>
       <div>
-        <div class="detail-label">Check-out</div>
+        <div class="detail-label" data-i18n="checkoutLabel"></div>
         <div class="detail-value">11:00</div>
         
       </div>
       
     </div>
     
-            
+        
     <div class="detail">
       <div class="detail-icon">📞</div>
       <div>
-        <div class="detail-label">Host</div>
+        <div class="detail-label" data-i18n="hostLabel"></div>
         <div class="detail-value">0367676119</div>
         
       </div>
-      <button class="copy-btn" type="button" data-copy="0367676119" data-label="Host">Sao chép</button>
+      <button class="copy-btn" type="button" data-copy="0367676119" data-copy-label="hostLabel" data-i18n="copy"></button>
     </div>
     
-            
+        
     <div class="detail">
       <div class="detail-icon">🔐</div>
       <div>
-        <div class="detail-label">Mã cửa</div>
+        <div class="detail-label" data-i18n="doorCodeLabel"></div>
         <div class="detail-value">2580#</div>
         
       </div>
-      <button class="copy-btn" type="button" data-copy="2580#" data-label="Mã cửa">Sao chép</button>
+      <button class="copy-btn" type="button" data-copy="2580#" data-copy-label="doorCodeLabel" data-i18n="copy"></button>
     </div>
     
-          </div>
-        </div>
       </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="privacy">
-          <strong>Demo công khai:</strong> địa chỉ chi tiết, số căn, mã cửa và thông tin Wi‑Fi ở đây là dữ liệu minh họa. Khi triển khai thật cho host, có thể dùng thông tin thật và tùy chọn ẩn một phần dữ liệu nhạy cảm khỏi trang demo công khai.
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container">© 2026 AirbnbHosted · Guest Guide demo cho thị trường Việt Nam</div>
-  </footer>
-
-  
-  <div class="floating-support" id="floatingSupport">
-    <div class="support-menu" id="supportMenu" aria-hidden="true">
-      <div class="support-head">
-        <strong>Cần host hỗ trợ?</strong>
-        <span>Liên hệ nhanh khi gặp vấn đề check-in hoặc trong thời gian lưu trú.</span>
-      </div>
-      <a class="support-action call" href="tel:+84367676119">
-        <span class="support-action-icon">☎</span>
-        <span><strong>Gọi 0367676119</strong><small>Gọi trực tiếp cho host</small></span>
-      </a>
-      <a class="support-action zalo" href="https://zalo.me/0367676119" target="_blank" rel="noopener">
-        <span class="support-action-icon">💬</span>
-        <span><strong>Nhắn Zalo</strong><small>Mở chat với host</small></span>
-      </a>
     </div>
-    <button class="support-toggle" id="supportToggle" type="button" aria-expanded="false" aria-controls="supportMenu" aria-label="Liên hệ host hỗ trợ">
-      <span class="support-dot">?</span>
-      <span class="support-label">Cần hỗ trợ?</span>
-    </button>
   </div>
+</section>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script>
+<section class="section"><div class="container"><div class="privacy" data-i18n="demoNotice"></div></div></section>
+</main>
 
-const toast = document.getElementById('toast');
+<footer class="footer"><div class="container" data-i18n="footerText"></div></footer>
 
+<div class="floating-support" id="floatingSupport">
+  <div class="support-menu" id="supportMenu" aria-hidden="true">
+    <div class="support-head"><strong data-i18n="needHelp"></strong><span data-i18n="helpDesc"></span></div>
+    <a class="support-action call" href="tel:+84367676119"><span class="support-action-icon">☎</span><span><strong>0367676119</strong><small data-i18n="callHost"></small></span></a>
+    <a class="support-action zalo" href="https://zalo.me/0367676119" target="_blank" rel="noopener"><span class="support-action-icon">💬</span><span><strong>Zalo</strong><small data-i18n="openZalo"></small></span></a>
+  </div>
+  <button class="support-toggle" id="supportToggle" type="button" aria-expanded="false" aria-controls="supportMenu">
+    <span class="support-dot">?</span><span class="support-label" data-i18n="needHelpShort"></span>
+  </button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const translations={"vi": {"checkinGuide": "Hướng dẫn check-in", "openMap": "Mở Google Maps", "messageHost": "Nhắn Zalo host", "stayInfo": "Thông tin lưu trú", "allInfoTitle": "Mọi thông tin quan trọng trong một nơi", "allInfoDesc": "Khách có thể mở lại trang này bất cứ lúc nào trong suốt thời gian lưu trú.", "checkinInstructions": "Hướng dẫn check-in", "stepWord": "Bước", "internetTitle": "Kết nối internet", "wifiName": "Tên Wi‑Fi", "password": "Mật khẩu", "copyNetwork": "Sao chép tên mạng", "copyPassword": "Sao chép mật khẩu", "amenitiesLabel": "Tiện ích trong căn", "amenitiesTitle": "Các tiện nghi có sẵn", "amenitiesDesc": "Danh sách giúp khách biết trước căn nhà có gì và cần chuẩn bị thêm những gì.", "homeManual": "Hướng dẫn sử dụng căn", "manualTitle": "Cách sử dụng các thiết bị chính", "manualDesc": "Host có thể thay nội dung demo bằng model thiết bị và ảnh thật của từng căn.", "houseRules": "Nội quy lưu trú", "rulesTitle": "Một vài lưu ý để kỳ nghỉ thuận tiện hơn", "beforeLeaving": "Trước khi rời đi", "checkoutTime": "Giờ checkout", "quickInfo": "Thông tin nhanh", "remember": "Cần nhớ", "checkinLabel": "Check-in", "checkoutLabel": "Check-out", "hostLabel": "Host", "doorCodeLabel": "Mã cửa", "addressLabel": "Địa chỉ", "buildingLabel": "Tòa / căn", "roomLabel": "Phòng", "receptionHours": "Giờ lễ tân", "lockboxCode": "Mã lockbox", "mailboxCard": "Mailbox / thẻ", "backupDoorCode": "Mã cửa dự phòng", "copy": "Sao chép", "copied": "✓ Đã sao chép", "copiedToast": "Đã sao chép {label} ✓", "copyFailed": "Không thể tự sao chép", "needHelp": "Cần host hỗ trợ?", "helpDesc": "Liên hệ nhanh khi gặp vấn đề check-in hoặc trong thời gian lưu trú.", "callHost": "Gọi trực tiếp cho host", "openZalo": "Mở chat với host", "needHelpShort": "Cần hỗ trợ?", "demoNotice": "Demo công khai: địa chỉ chi tiết, số căn, mã cửa và Wi‑Fi là dữ liệu minh họa. Khi triển khai thật, host có thể dùng thông tin thật và tùy chọn mức độ công khai phù hợp.", "footerText": "© 2026 AirbnbHosted · Guest Guide demo song ngữ cho thị trường Việt Nam", "meta": "Demo Guest Guide song ngữ cho nhà phố tại Việt Nam với map, lockbox, mã cửa, Wi-Fi và tiện ích.", "pageTitle": "Nhà phố Bình Thạnh | AirbnbHosted", "kicker": "Demo 02 · Nhà phố / homestay", "title": "Nhà phố Bình Thạnh · TP.HCM", "intro": "Mẫu dành cho nhà phố, homestay hoặc villa mini. Khách nhận diện đúng cổng, lấy chìa từ lockbox và biết cách sử dụng căn nhà sau khi vào bên trong.", "propertyType": "Loại hình", "propertyTypeValue": "Nhà phố", "selfCheckin": "Self check-in", "checkinTitle": "Từ cổng nhà đến bên trong", "checkinDesc": "Nhà phố thường không có lễ tân, vì vậy ảnh cổng và vị trí lockbox là phần quan trọng nhất.", "step1t": "Tìm đúng cổng nhà", "step1d": "Đối chiếu ảnh cổng với căn thực tế. Lockbox được gắn ở tường cạnh cổng.", "step2t": "Mở lockbox và lấy chìa", "step2d": "Nhập mã <strong>2580</strong>, mở nắp hộp khóa và lấy chìa bên trong.", "step3t": "Mở cửa chính", "step3d": "Sau khi vào cổng, dùng chìa hoặc mã <strong>2580#</strong> trên khóa cửa chính để vào nhà.", "a1": "Máy lạnh", "a2": "Smart TV", "a3": "Máy giặt", "a4": "Bếp", "a5": "Tủ lạnh", "a6": "Nước nóng", "a7": "Ấm siêu tốc", "a8": "Máy sấy tóc", "a9": "Chăn ga gối", "a10": "Đồ dùng phòng tắm", "a11": "Wi‑Fi", "a12": "Chỗ để xe máy", "m1t": "Cổng & khóa", "m1d": "Luôn đóng cổng sau khi ra/vào. Không để chìa trong ổ khóa phía ngoài.", "m2t": "Máy lạnh", "m2d": "Các phòng dùng remote riêng. Nhiệt độ khuyến nghị 24–26°C.", "m3t": "Nước nóng", "m3d": "Bật công tắc Water Heater trước khi tắm và tắt sau khi dùng.", "m4t": "Máy giặt", "m4d": "Dùng chế độ Normal cho quần áo thông thường.", "m5t": "Bếp", "m5d": "Tắt bếp và khóa van sau khi nấu. Không để bếp hoạt động khi không có người.", "m6t": "Rác", "m6d": "Buộc kín túi rác và để đúng điểm tập kết.", "r1t": "Không hút thuốc", "r1d": "Không hút thuốc trong nhà.", "r2t": "Không tiệc tùng", "r2d": "Không tổ chức tiệc hoặc mở nhạc lớn.", "r3t": "Yên lặng sau 22:00", "r3d": "Tôn trọng hàng xóm trong hẻm.", "r4t": "Thú cưng", "r4d": "Chỉ mang thú cưng khi host đã xác nhận trước.", "c1": "Tắt máy lạnh, bếp và bình nóng lạnh.", "c2": "Rửa sơ chén đĩa đã sử dụng.", "c3": "Thu gom rác và đặt đúng điểm tập kết.", "c4": "Khóa cửa chính và cổng.", "c5": "Trả chìa vào lockbox, xoay số ngẫu nhiên và nhắn Zalo xác nhận."}, "en": {"checkinGuide": "Check-in guide", "openMap": "Open Google Maps", "messageHost": "Message host on Zalo", "stayInfo": "Stay information", "allInfoTitle": "Everything important in one place", "allInfoDesc": "Guests can reopen this page anytime throughout their stay.", "checkinInstructions": "Check-in instructions", "stepWord": "Step", "internetTitle": "Internet connection", "wifiName": "Wi‑Fi name", "password": "Password", "copyNetwork": "Copy network name", "copyPassword": "Copy password", "amenitiesLabel": "In-room amenities", "amenitiesTitle": "What's available", "amenitiesDesc": "This list helps guests know what is provided and what they may need to bring.", "homeManual": "Home manual", "manualTitle": "How to use the main equipment", "manualDesc": "The host can replace this demo content with the actual appliance models and property photos.", "houseRules": "House rules", "rulesTitle": "A few notes for a smoother stay", "beforeLeaving": "Before you leave", "checkoutTime": "Checkout time", "quickInfo": "Quick information", "remember": "Remember", "checkinLabel": "Check-in", "checkoutLabel": "Check-out", "hostLabel": "Host", "doorCodeLabel": "Door code", "addressLabel": "Address", "buildingLabel": "Building / unit", "roomLabel": "Room", "receptionHours": "Reception hours", "lockboxCode": "Lockbox code", "mailboxCard": "Mailbox / access card", "backupDoorCode": "Backup door code", "copy": "Copy", "copied": "✓ Copied", "copiedToast": "Copied {label} ✓", "copyFailed": "Could not copy automatically", "needHelp": "Need help from the host?", "helpDesc": "Contact the host quickly if you have trouble checking in or during your stay.", "callHost": "Call the host directly", "openZalo": "Open Zalo chat", "needHelpShort": "Need help?", "demoNotice": "Public demo: detailed addresses, unit numbers, door codes and Wi‑Fi details are illustrative. For a real property, the host can use actual information and choose the appropriate privacy level.", "footerText": "© 2026 AirbnbHosted · Bilingual Guest Guide demo for Vietnam", "meta": "Bilingual Vietnam townhouse Guest Guide demo with maps, lockbox instructions, door code, Wi-Fi and amenities.", "pageTitle": "Binh Thanh Townhouse | AirbnbHosted", "kicker": "Demo 02 · Townhouse / homestay", "title": "Binh Thanh Townhouse · Ho Chi Minh City", "intro": "Designed for townhouses, homestays and small villas. It helps guests identify the correct gate, collect the key from the lockbox and use the home confidently after entry.", "propertyType": "Property type", "propertyTypeValue": "Townhouse", "selfCheckin": "Self check-in", "checkinTitle": "From the gate to inside the house", "checkinDesc": "Townhouses usually have no reception desk, so clear gate photos and lockbox location are essential.", "step1t": "Find the correct gate", "step1d": "Match the entrance with the reference photo. The lockbox is mounted on the wall beside the gate.", "step2t": "Open the lockbox and take the key", "step2d": "Enter <strong>2580</strong>, open the lockbox and take the key inside.", "step3t": "Open the main door", "step3d": "After entering the gate, use the key or enter <strong>2580#</strong> on the main door lock.", "a1": "Air conditioning", "a2": "Smart TV", "a3": "Washing machine", "a4": "Kitchen", "a5": "Refrigerator", "a6": "Hot water", "a7": "Electric kettle", "a8": "Hair dryer", "a9": "Bed linen", "a10": "Bathroom amenities", "a11": "Wi‑Fi", "a12": "Motorbike parking", "m1t": "Gate & locks", "m1d": "Always close the gate after entering or leaving. Do not leave the key outside.", "m2t": "Air conditioning", "m2d": "Each room has its own remote. Recommended temperature: 24–26°C.", "m3t": "Hot water", "m3d": "Turn on the Water Heater switch before showering and switch it off afterwards.", "m4t": "Washing machine", "m4d": "Use the Normal cycle for everyday laundry.", "m5t": "Kitchen", "m5d": "Turn off the hob and gas valve after cooking. Never leave cooking unattended.", "m6t": "Rubbish", "m6d": "Tie rubbish bags securely and leave them at the designated collection point.", "r1t": "No smoking", "r1d": "No smoking inside the house.", "r2t": "No parties", "r2d": "No parties or loud music.", "r3t": "Quiet after 10 PM", "r3d": "Please respect the neighbours.", "r4t": "Pets", "r4d": "Pets are allowed only with prior host approval.", "c1": "Turn off air conditioning, kitchen appliances and the water heater.", "c2": "Rinse used dishes.", "c3": "Dispose of rubbish at the designated collection point.", "c4": "Lock the main door and gate.", "c5": "Return the key to the lockbox, scramble the digits and send a Zalo checkout confirmation."}};
+const LANG_KEY="airbnbhosted-global-language-v1";
+let currentLang='vi';
+
+function applyLanguage(lang){
+  currentLang=lang==='en'?'en':'vi';
+  const dict=translations[currentLang];
+  document.documentElement.lang=currentLang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.dataset.i18n;
+    if(dict[key]!==undefined) el.textContent=dict[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const key=el.dataset.i18nHtml;
+    if(dict[key]!==undefined) el.innerHTML=dict[key];
+  });
+  document.getElementById('lang-vi').classList.toggle('active',currentLang==='vi');
+  document.getElementById('lang-en').classList.toggle('active',currentLang==='en');
+  document.title=dict.pageTitle;
+  const meta=document.querySelector('meta[name="description"]');
+  if(meta) meta.content=dict.meta;
+  try{localStorage.setItem(LANG_KEY,currentLang)}catch(e){}
+}
+
+document.getElementById('lang-vi').addEventListener('click',()=>applyLanguage('vi'));
+document.getElementById('lang-en').addEventListener('click',()=>applyLanguage('en'));
+
+try{
+  const saved=localStorage.getItem(LANG_KEY);
+  applyLanguage(saved==='en'?'en':'vi');
+}catch(e){applyLanguage('vi')}
+
+const toast=document.getElementById('toast');
 function showToast(message){
-  toast.textContent = message;
-  toast.classList.add('show');
+  toast.textContent=message;toast.classList.add('show');
   clearTimeout(window.__toastTimer);
-  window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 1900);
+  window.__toastTimer=setTimeout(()=>toast.classList.remove('show'),1900);
 }
-
 async function writeClipboard(value){
-  if(navigator.clipboard && window.isSecureContext){
-    await navigator.clipboard.writeText(value);
-    return;
-  }
-  const temp = document.createElement('textarea');
-  temp.value = value;
-  temp.setAttribute('readonly','');
-  temp.style.position = 'fixed';
-  temp.style.opacity = '0';
-  temp.style.pointerEvents = 'none';
-  document.body.appendChild(temp);
-  temp.select();
-  document.execCommand('copy');
-  temp.remove();
+  if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(value);return}
+  const t=document.createElement('textarea');t.value=value;t.setAttribute('readonly','');t.style.position='fixed';t.style.opacity='0';
+  document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();
 }
-
-document.querySelectorAll('[data-copy]').forEach(button => {
-  button.addEventListener('click', async () => {
-    const value = button.dataset.copy || '';
-    const label = button.dataset.label || 'Nội dung';
-    const original = button.dataset.originalText || button.textContent.trim();
-    button.dataset.originalText = original;
-
+document.querySelectorAll('[data-copy]').forEach(button=>{
+  button.addEventListener('click',async()=>{
+    const value=button.dataset.copy||'';
+    const labelKey=button.dataset.copyLabel||'copy';
+    const dict=translations[currentLang];
     try{
       await writeClipboard(value);
       button.classList.add('copied');
-      button.textContent = '✓ Đã sao chép';
-      showToast('Đã sao chép ' + label + ' ✓');
-
-      clearTimeout(button.__copyTimer);
-      button.__copyTimer = setTimeout(() => {
+      const oldKey=button.dataset.i18n;
+      button.textContent=dict.copied;
+      showToast(dict.copiedToast.replace('{label}',dict[labelKey]||''));
+      clearTimeout(button.__timer);
+      button.__timer=setTimeout(()=>{
         button.classList.remove('copied');
-        button.textContent = original;
-      }, 1800);
-    }catch(error){
-      showToast('Không thể tự sao chép. ' + label + ': ' + value);
-    }
+        if(oldKey && dict[oldKey]!==undefined) button.textContent=dict[oldKey];
+      },1800);
+    }catch(e){showToast(dict.copyFailed+': '+value)}
   });
 });
 
-const floatingSupport = document.getElementById('floatingSupport');
-const supportToggle = document.getElementById('supportToggle');
-const supportMenu = document.getElementById('supportMenu');
-
+const floatingSupport=document.getElementById('floatingSupport');
+const supportToggle=document.getElementById('supportToggle');
+const supportMenu=document.getElementById('supportMenu');
 function setSupportOpen(open){
-  floatingSupport.classList.toggle('open', open);
-  supportToggle.setAttribute('aria-expanded', String(open));
-  supportMenu.setAttribute('aria-hidden', String(!open));
+  floatingSupport.classList.toggle('open',open);
+  supportToggle.setAttribute('aria-expanded',String(open));
+  supportMenu.setAttribute('aria-hidden',String(!open));
 }
-
-supportToggle.addEventListener('click', (event) => {
-  event.stopPropagation();
-  setSupportOpen(!floatingSupport.classList.contains('open'));
-});
-
-supportMenu.addEventListener('click', event => event.stopPropagation());
-document.addEventListener('click', () => setSupportOpen(false));
-document.addEventListener('keydown', event => {
-  if(event.key === 'Escape') setSupportOpen(false);
-});
-
+supportToggle.addEventListener('click',e=>{e.stopPropagation();setSupportOpen(!floatingSupport.classList.contains('open'))});
+supportMenu.addEventListener('click',e=>e.stopPropagation());
+document.addEventListener('click',()=>setSupportOpen(false));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')setSupportOpen(false)});
 </script>
 </body>
 </html>

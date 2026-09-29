@@ -100,6 +100,19 @@
     }
   </style>
 
+
+  <style id="airbnbhosted-contact-style">
+    .contact-panel{display:grid;grid-template-columns:1.08fr .92fr;gap:22px;padding:42px;border:1px solid #ececf0;border-radius:32px;background:linear-gradient(135deg,#fff,#f8fafc);box-shadow:0 18px 50px rgba(17,24,39,.07)}
+    .contact-panel h2{margin-top:8px}
+    .contact-panel p{color:var(--muted);font-size:1rem}
+    .contact-links{display:grid;gap:11px;align-content:center}
+    .contact-link{display:flex;align-items:center;gap:13px;min-height:66px;padding:12px 15px;border:1px solid var(--line);border-radius:18px;background:#fff;text-decoration:none;transition:.18s ease}
+    .contact-link:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(17,24,39,.07)}
+    .contact-icon{width:42px;height:42px;display:grid;place-items:center;flex:0 0 42px;border-radius:14px;background:#f3f5f7;font-size:1.15rem}
+    .contact-link strong{display:block;font-size:.93rem}.contact-link span small{display:block;color:var(--muted);margin-top:2px;font-size:.78rem}
+    @media(max-width:820px){.contact-panel{grid-template-columns:1fr;padding:28px 20px}}
+  </style>
+
 </head>
 <body>
   <header class="topbar">
@@ -110,9 +123,10 @@
         <a href="#demo" data-en="Live demo" data-vi="Demo thực tế">Live demo</a>
         <a href="#process" data-en="How it works" data-vi="Cách hoạt động">How it works</a>
         <a href="#for-who" data-en="For hosts" data-vi="Dành cho host">For hosts</a>
+        <a href="#contact" data-en="Contact" data-vi="Liên hệ">Contact</a>
       </nav>
       <div class="nav-actions">
-        <div class="lang"><button type="button" id="lang-en">EN</button><button type="button" id="lang-vi" class="active">VI</button></div>
+        <div class="lang"><button type="button" id="lang-vi" class="active">🇻🇳 <span>VI</span></button><button type="button" id="lang-en">🇬🇧 <span>EN</span></button></div>
         <a class="mini-cta" href="/vietnam/apartment-vinhomes-q9.html" data-en="View demo" data-vi="Xem demo">View demo</a>
       </div>
     </div>
@@ -145,14 +159,44 @@
     <section class="block" id="for-who"><div class="container"><div class="section-head reveal"><div class="section-label" data-en="Made for hosts" data-vi="Dành cho host">Made for hosts</div><h2 data-en="Useful whether you manage one stay or a portfolio." data-vi="Hữu ích dù bạn quản lý một căn hay cả danh mục nhiều căn.">Useful whether you manage one stay or a portfolio.</h2></div><div class="audience-grid"><article class="audience-card reveal"><h3 data-en="Individual hosts" data-vi="Host cá nhân">Individual hosts</h3><p data-en="Give guests a more polished arrival experience without adding another app." data-vi="Mang lại trải nghiệm check-in chuyên nghiệp hơn mà không cần thêm một ứng dụng khác.">Give guests a more polished arrival experience without adding another app.</p></article><article class="audience-card reveal"><h3 data-en="Co-hosts" data-vi="Co-host">Co-hosts</h3><p data-en="Standardize guest instructions while still keeping each property's unique details." data-vi="Chuẩn hóa hướng dẫn cho khách nhưng vẫn giữ được thông tin riêng của từng căn.">Standardize guest instructions while still keeping each property's unique details.</p></article><article class="audience-card reveal"><h3 data-en="Property managers" data-vi="Đơn vị quản lý căn hộ">Property managers</h3><p data-en="Create a consistent guest experience across multiple short-stay properties." data-vi="Tạo trải nghiệm nhất quán cho khách trên nhiều căn hộ lưu trú ngắn hạn.">Create a consistent guest experience across multiple short-stay properties.</p></article></div></div></section>
 
     <section class="block"><div class="container"><div class="cta-panel reveal"><div><h2 data-en="Make arrival easier for your next guest." data-vi="Giúp lần check-in tiếp theo của khách trở nên dễ dàng hơn.">Make arrival easier for your next guest.</h2><p data-en="Start by exploring the live guest guide, then build a personalized version around your own property." data-vi="Bắt đầu bằng cách xem Guest Guide demo, sau đó xây dựng phiên bản cá nhân hóa dành riêng cho căn của bạn.">Start by exploring the live guest guide, then build a personalized version around your own property.</p></div><div class="cta-actions"><a class="btn btn-primary" href="/vietnam/apartment-vinhomes-q9.html"><span data-en="View live demo" data-vi="Xem demo">View live demo</span> ↗</a><a class="btn btn-secondary" href="#features" data-en="Explore features" data-vi="Xem tính năng">Explore features</a></div></div></div></section>
+  
+    <section class="block" id="contact">
+      <div class="container">
+        <div class="contact-panel reveal">
+          <div>
+            <div class="section-label" data-en="Contact" data-vi="Liên hệ">Contact</div>
+            <h2 data-en="Want a Guest Guide for your property?" data-vi="Muốn có Guest Guide riêng cho căn của bạn?">Want a Guest Guide for your property?</h2>
+            <p data-en="Send your property details, check-in flow, Wi-Fi, amenities and house rules. I can turn them into a mobile-first bilingual Vietnamese–English guest website that is easy to share with every booking."
+               data-vi="Gửi thông tin căn hộ, quy trình check-in, Wi‑Fi, tiện ích và nội quy. Tôi có thể biến chúng thành một website Guest Guide song ngữ Việt–Anh, tối ưu cho điện thoại và dễ gửi cho mọi booking.">
+               Gửi thông tin căn hộ, quy trình check-in, Wi‑Fi, tiện ích và nội quy. Tôi có thể biến chúng thành một website Guest Guide song ngữ Việt–Anh, tối ưu cho điện thoại và dễ gửi cho mọi booking.
+            </p>
+          </div>
+          <div class="contact-links">
+            <a class="contact-link" href="tel:+84367676119">
+              <span class="contact-icon">☎</span>
+              <span><strong data-en="Phone" data-vi="Điện thoại">Phone</strong><small>0367676119</small></span>
+            </a>
+            <a class="contact-link" href="https://zalo.me/0367676119" target="_blank" rel="noopener">
+              <span class="contact-icon">💬</span>
+              <span><strong>Zalo</strong><small data-en="Chat directly on Zalo" data-vi="Nhắn trực tiếp qua Zalo">Chat directly on Zalo</small></span>
+            </a>
+            <a class="contact-link" href="https://www.facebook.com/trinkse61538/" target="_blank" rel="noopener">
+              <span class="contact-icon">ⓕ</span>
+              <span><strong data-en="Facebook / Messenger" data-vi="Facebook / Messenger">Facebook / Messenger</strong><small>facebook.com/trinkse61538</small></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer><div class="container footer-row"><div><div class="footer-brand">AirbnbHosted</div><div>© 2026 AirbnbHosted</div></div><div class="footer-note" data-en="Independent digital guest-guide service for short-stay hosts. AirbnbHosted is not affiliated with, endorsed by, or sponsored by Airbnb, Inc." data-vi="Dịch vụ Guest Guide điện tử độc lập dành cho chủ căn hộ lưu trú ngắn hạn. AirbnbHosted không liên kết, được bảo trợ hoặc tài trợ bởi Airbnb, Inc.">Independent digital guest-guide service for short-stay hosts. AirbnbHosted is not affiliated with, endorsed by, or sponsored by Airbnb, Inc.</div></div></footer>
 
   <script>
     const enButton=document.getElementById('lang-en'),viButton=document.getElementById('lang-vi');
-    function setLanguage(lang){document.documentElement.lang=lang==='vi'?'vi':'en';document.querySelectorAll('[data-en],[data-vi]').forEach(el=>{const v=el.getAttribute('data-'+lang);if(v!==null)el.textContent=v});document.querySelectorAll('[data-en-html],[data-vi-html]').forEach(el=>{const v=el.getAttribute('data-'+lang+'-html');if(v!==null)el.innerHTML=v});enButton.classList.toggle('active',lang==='en');viButton.classList.toggle('active',lang==='vi');document.title=lang==='vi'?'AirbnbHosted | Guest Guide cá nhân hóa cho chủ căn hộ':'AirbnbHosted | Personalized Digital Guest Guides';const d=document.querySelector('meta[name="description"]');if(d)d.content=lang==='vi'?'Guest Guide điện tử cá nhân hóa cho chủ Airbnb và short-stay: check-in, đỗ xe, Wi-Fi và checkout trong một đường link tối ưu cho điện thoại.':'Personalized digital guest guides for Airbnb and short-stay hosts. Check-in, parking, Wi-Fi and checkout in one mobile-friendly link.';try{localStorage.setItem('airbnbhosted-language-v3-v2',lang)}catch(e){}}
-    enButton.addEventListener('click',()=>setLanguage('en'));viButton.addEventListener('click',()=>setLanguage('vi'));let saved='vi';try{saved=localStorage.getItem('airbnbhosted-language-v3-v2')||'vi'}catch(e){}setLanguage(saved==='en'?'en':'vi');
+    function setLanguage(lang){document.documentElement.lang=lang==='vi'?'vi':'en';document.querySelectorAll('[data-en],[data-vi]').forEach(el=>{const v=el.getAttribute('data-'+lang);if(v!==null)el.textContent=v});document.querySelectorAll('[data-en-html],[data-vi-html]').forEach(el=>{const v=el.getAttribute('data-'+lang+'-html');if(v!==null)el.innerHTML=v});enButton.classList.toggle('active',lang==='en');viButton.classList.toggle('active',lang==='vi');document.title=lang==='vi'?'AirbnbHosted | Guest Guide cá nhân hóa cho chủ căn hộ':'AirbnbHosted | Personalized Digital Guest Guides';const d=document.querySelector('meta[name="description"]');if(d)d.content=lang==='vi'?'Guest Guide điện tử cá nhân hóa cho chủ Airbnb và short-stay: check-in, đỗ xe, Wi-Fi và checkout trong một đường link tối ưu cho điện thoại.':'Personalized digital guest guides for Airbnb and short-stay hosts. Check-in, parking, Wi-Fi and checkout in one mobile-friendly link.';try{localStorage.setItem('airbnbhosted-global-language-v1-v2',lang)}catch(e){}}
+    enButton.addEventListener('click',()=>setLanguage('en'));viButton.addEventListener('click',()=>setLanguage('vi'));let saved='vi';try{saved=localStorage.getItem('airbnbhosted-global-language-v1-v2')||'vi'}catch(e){}setLanguage(saved==='en'?'en':'vi');
     const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}})},{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
   </script>
 </body>
