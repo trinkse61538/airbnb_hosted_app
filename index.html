@@ -113,6 +113,85 @@
     @media(max-width:820px){.contact-panel{grid-template-columns:1fr;padding:28px 20px}}
   </style>
 
+
+  <style id="home-floating-contact-style">
+    .home-contact-float{
+      position:fixed;
+      right:18px;
+      bottom:calc(18px + env(safe-area-inset-bottom));
+      z-index:1800;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:10px;
+    }
+    .home-contact-menu{
+      width:292px;
+      padding:10px;
+      border:1px solid #e7e7ea;
+      border-radius:22px;
+      background:rgba(255,255,255,.97);
+      box-shadow:0 24px 70px rgba(17,24,39,.22);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      transform:translateY(12px) scale(.97);
+      transform-origin:bottom right;
+      transition:.18s ease;
+    }
+    .home-contact-float.open .home-contact-menu{
+      opacity:1;
+      visibility:visible;
+      pointer-events:auto;
+      transform:none;
+    }
+    .home-contact-head{
+      padding:8px 8px 11px;
+      border-bottom:1px solid #ececef;
+      margin-bottom:7px;
+    }
+    .home-contact-head strong{display:block;color:#171717;font-size:.94rem}
+    .home-contact-head span{display:block;color:#74777d;font-size:.76rem;margin-top:3px;line-height:1.4}
+    .home-contact-action{
+      display:flex;align-items:center;gap:12px;min-height:57px;padding:9px 10px;
+      border-radius:15px;text-decoration:none;transition:background .15s ease,transform .15s ease
+    }
+    .home-contact-action:hover{background:#f6f7f9;transform:translateX(-2px)}
+    .home-contact-icon{
+      width:40px;height:40px;flex:0 0 40px;display:grid;place-items:center;
+      border-radius:13px;font-weight:950;font-size:1.05rem
+    }
+    .home-contact-action.messenger .home-contact-icon{color:#fff;background:linear-gradient(135deg,#00b2ff,#7b4dff)}
+    .home-contact-action.zalo .home-contact-icon{color:#fff;background:#0068ff}
+    .home-contact-action.call .home-contact-icon{color:#fff;background:#0b9a74}
+    .home-contact-action strong{display:block;color:#171717;font-size:.88rem}
+    .home-contact-action small{display:block;color:#767b83;font-size:.73rem;margin-top:2px}
+    .home-contact-toggle{
+      min-height:58px;padding:0 18px;border:0;border-radius:999px;background:#171717;color:#fff;
+      box-shadow:0 14px 35px rgba(17,24,39,.26);display:inline-flex;align-items:center;
+      justify-content:center;gap:9px;font:inherit;font-weight:900;cursor:pointer;
+      transition:transform .16s ease,box-shadow .16s ease
+    }
+    .home-contact-toggle:hover{transform:translateY(-2px);box-shadow:0 18px 42px rgba(17,24,39,.31)}
+    .home-contact-toggle-icon{
+      width:28px;height:28px;display:grid;place-items:center;border-radius:50%;
+      background:#fff;color:#171717;font-size:.9rem
+    }
+    .home-contact-toggle:focus-visible,.home-contact-action:focus-visible{
+      outline:3px solid rgba(37,99,235,.24);outline-offset:3px
+    }
+    @media(max-width:620px){
+      body{padding-bottom:82px}
+      .home-contact-float{right:13px;bottom:calc(13px + env(safe-area-inset-bottom))}
+      .home-contact-menu{width:min(300px,calc(100vw - 26px))}
+      .home-contact-toggle{width:60px;height:60px;min-height:60px;padding:0;border-radius:50%}
+      .home-contact-toggle-label{display:none}
+      .home-contact-toggle-icon{width:34px;height:34px;font-size:1.05rem}
+    }
+  </style>
+
 </head>
 <body>
   <header class="topbar">
@@ -180,9 +259,9 @@
               <span class="contact-icon">💬</span>
               <span><strong>Zalo</strong><small data-en="Chat directly on Zalo" data-vi="Nhắn trực tiếp qua Zalo">Chat directly on Zalo</small></span>
             </a>
-            <a class="contact-link" href="https://www.facebook.com/trinkse61538/" target="_blank" rel="noopener">
+            <a class="contact-link" href="https://m.me/trinkse61538" target="_blank" rel="noopener">
               <span class="contact-icon">ⓕ</span>
-              <span><strong data-en="Facebook / Messenger" data-vi="Facebook / Messenger">Facebook / Messenger</strong><small>facebook.com/trinkse61538</small></span>
+              <span><strong data-en="Messenger" data-vi="Messenger">Messenger</strong><small data-en="Chat directly on Messenger" data-vi="Nhắn trực tiếp qua Messenger">Nhắn trực tiếp qua Messenger</small></span>
             </a>
           </div>
         </div>
@@ -193,10 +272,80 @@
 
   <footer><div class="container footer-row"><div><div class="footer-brand">AirbnbHosted</div><div>© 2026 AirbnbHosted</div></div><div class="footer-note" data-en="Independent digital guest-guide service for short-stay hosts. AirbnbHosted is not affiliated with, endorsed by, or sponsored by Airbnb, Inc." data-vi="Dịch vụ Guest Guide điện tử độc lập dành cho chủ căn hộ lưu trú ngắn hạn. AirbnbHosted không liên kết, được bảo trợ hoặc tài trợ bởi Airbnb, Inc.">Independent digital guest-guide service for short-stay hosts. AirbnbHosted is not affiliated with, endorsed by, or sponsored by Airbnb, Inc.</div></div></footer>
 
+  
+  <div class="home-contact-float" id="homeContactFloat">
+    <div class="home-contact-menu" id="homeContactMenu" aria-hidden="true">
+      <div class="home-contact-head">
+        <strong data-en="Contact AirbnbHosted" data-vi="Liên hệ AirbnbHosted">Liên hệ AirbnbHosted</strong>
+        <span data-en="Choose the most convenient way to discuss your property Guest Guide."
+              data-vi="Chọn kênh thuận tiện nhất để trao đổi về Guest Guide cho căn của bạn.">
+          Chọn kênh thuận tiện nhất để trao đổi về Guest Guide cho căn của bạn.
+        </span>
+      </div>
+
+      <a class="home-contact-action messenger" href="https://m.me/trinkse61538" target="_blank" rel="noopener">
+        <span class="home-contact-icon">⚡</span>
+        <span>
+          <strong>Messenger</strong>
+          <small data-en="Open a direct Messenger chat" data-vi="Mở chat Messenger trực tiếp">Mở chat Messenger trực tiếp</small>
+        </span>
+      </a>
+
+      <a class="home-contact-action zalo" href="https://zalo.me/0367676119" target="_blank" rel="noopener">
+        <span class="home-contact-icon">Z</span>
+        <span>
+          <strong>Zalo</strong>
+          <small data-en="Chat via Zalo" data-vi="Nhắn tin qua Zalo">Nhắn tin qua Zalo</small>
+        </span>
+      </a>
+
+      <a class="home-contact-action call" href="tel:+84367676119">
+        <span class="home-contact-icon">☎</span>
+        <span>
+          <strong data-en="Call 0367676119" data-vi="Gọi 0367676119">Gọi 0367676119</strong>
+          <small data-en="Call directly" data-vi="Gọi trực tiếp">Gọi trực tiếp</small>
+        </span>
+      </a>
+    </div>
+
+    <button class="home-contact-toggle" id="homeContactToggle" type="button"
+            aria-expanded="false" aria-controls="homeContactMenu" aria-label="Contact">
+      <span class="home-contact-toggle-icon">✦</span>
+      <span class="home-contact-toggle-label" data-en="Contact" data-vi="Liên hệ">Liên hệ</span>
+    </button>
+  </div>
+
+
   <script>
     const enButton=document.getElementById('lang-en'),viButton=document.getElementById('lang-vi');
     function setLanguage(lang){document.documentElement.lang=lang==='vi'?'vi':'en';document.querySelectorAll('[data-en],[data-vi]').forEach(el=>{const v=el.getAttribute('data-'+lang);if(v!==null)el.textContent=v});document.querySelectorAll('[data-en-html],[data-vi-html]').forEach(el=>{const v=el.getAttribute('data-'+lang+'-html');if(v!==null)el.innerHTML=v});enButton.classList.toggle('active',lang==='en');viButton.classList.toggle('active',lang==='vi');document.title=lang==='vi'?'AirbnbHosted | Guest Guide cá nhân hóa cho chủ căn hộ':'AirbnbHosted | Personalized Digital Guest Guides';const d=document.querySelector('meta[name="description"]');if(d)d.content=lang==='vi'?'Guest Guide điện tử cá nhân hóa cho chủ Airbnb và short-stay: check-in, đỗ xe, Wi-Fi và checkout trong một đường link tối ưu cho điện thoại.':'Personalized digital guest guides for Airbnb and short-stay hosts. Check-in, parking, Wi-Fi and checkout in one mobile-friendly link.';try{localStorage.setItem('airbnbhosted-global-language-v1-v2',lang)}catch(e){}}
     enButton.addEventListener('click',()=>setLanguage('en'));viButton.addEventListener('click',()=>setLanguage('vi'));let saved='vi';try{saved=localStorage.getItem('airbnbhosted-global-language-v1-v2')||'vi'}catch(e){}setLanguage(saved==='en'?'en':'vi');
+
+    const homeContactFloat=document.getElementById('homeContactFloat');
+    const homeContactToggle=document.getElementById('homeContactToggle');
+    const homeContactMenu=document.getElementById('homeContactMenu');
+
+    function setHomeContactOpen(open){
+      if(!homeContactFloat||!homeContactToggle||!homeContactMenu)return;
+      homeContactFloat.classList.toggle('open',open);
+      homeContactToggle.setAttribute('aria-expanded',String(open));
+      homeContactMenu.setAttribute('aria-hidden',String(!open));
+    }
+
+    if(homeContactToggle){
+      homeContactToggle.addEventListener('click',(event)=>{
+        event.stopPropagation();
+        setHomeContactOpen(!homeContactFloat.classList.contains('open'));
+      });
+    }
+    if(homeContactMenu){
+      homeContactMenu.addEventListener('click',event=>event.stopPropagation());
+    }
+    document.addEventListener('click',()=>setHomeContactOpen(false));
+    document.addEventListener('keydown',event=>{
+      if(event.key==='Escape')setHomeContactOpen(false);
+    });
+
     const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}})},{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
   </script>
 </body>
