@@ -2,132 +2,197 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Demo check-in căn hộ dịch vụ | AirbnbHosted</title>
-  <meta name="description" content="Demo Guest Guide kiểu Việt Nam cho căn hộ dịch vụ: lễ tân, thang máy và cửa phòng." />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Demo Guest Guide đầy đủ cho căn hộ dịch vụ tại Việt Nam với lễ tân, keycard, map, Wi-Fi, tiện ích và checkout." />
+  <title>Lotus Residence · Quận 3, TP.HCM | AirbnbHosted</title>
   <style>
 :root{
-  --bg:#faf8f4;
-  --card:#ffffff;
-  --ink:#18202a;
-  --muted:#64707d;
-  --line:#e8e4db;
-  --soft:#f1ece2;
-  --primary:#2159c5;
-  --accent:#dd6b20;
+  --bg:#f6f7f9;
+  --surface:#ffffff;
+  --ink:#172033;
+  --muted:#667085;
+  --line:#e7eaf0;
+  --soft:#f0f4f8;
+  --primary:#111827;
+  --blue:#2563eb;
+  --green:#0f9f75;
+  --orange:#e87923;
+  --red:#e5484d;
+  --shadow:0 18px 50px rgba(17,24,39,.08);
   --radius:24px;
-  --shadow:0 12px 32px rgba(19,34,53,.08);
+  --radius-sm:18px;
+  --max:1120px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
 body{
   margin:0;
+  background:
+    radial-gradient(circle at 10% 0,rgba(37,99,235,.06),transparent 28%),
+    linear-gradient(180deg,#fff 0,#f7f8fa 440px,var(--bg) 100%);
   color:var(--ink);
-  background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  line-height:1.6;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.58;
+  -webkit-font-smoothing:antialiased;
 }
-img{max-width:100%;display:block}
 a{color:inherit}
-.container{width:min(1120px,calc(100% - 32px));margin:0 auto}
+img{display:block;max-width:100%}
+button,a{-webkit-tap-highlight-color:transparent}
+.container{width:min(calc(100% - 32px),var(--max));margin-inline:auto}
 .topbar{
-  position:sticky;top:0;z-index:20;
-  backdrop-filter:saturate(160%) blur(10px);
-  background:rgba(255,255,255,.82);
-  border-bottom:1px solid rgba(232,228,219,.75);
+  position:sticky;top:0;z-index:1000;
+  background:rgba(255,255,255,.9);
+  border-bottom:1px solid rgba(0,0,0,.06);
+  backdrop-filter:blur(16px);
 }
-.topbar-inner{
-  min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px
-}
-.brand{display:flex;align-items:center;gap:12px;font-weight:800;text-decoration:none}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:900}
 .brand-mark{
-  width:40px;height:40px;border-radius:14px;display:grid;place-items:center;
-  background:linear-gradient(135deg,#0f172a,#334155);color:#fff;font-size:18px
+  width:38px;height:38px;border-radius:13px;display:grid;place-items:center;
+  color:#fff;background:linear-gradient(135deg,#111827,#374151)
 }
-.top-actions{display:flex;gap:10px;flex-wrap:wrap}
+.nav-actions{display:flex;gap:8px;align-items:center}
 .btn{
+  min-height:46px;padding:0 16px;border-radius:14px;border:1px solid transparent;
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  min-height:46px;padding:0 16px;border-radius:14px;border:0;text-decoration:none;
-  font-weight:800;cursor:pointer
+  text-decoration:none;font-weight:850;font-size:.9rem;cursor:pointer;
 }
-.btn.primary{background:var(--ink);color:#fff}
-.btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.primary{background:var(--primary);color:#fff}
+.btn.secondary{background:#fff;border-color:var(--line)}
+.btn.blue{background:var(--blue);color:#fff}
+.btn.green{background:var(--green);color:#fff}
 .hero{padding:34px 0 28px}
-.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:stretch}
-.hero-copy,.hero-card,.panel,.step-card,.gallery-card,.callout{
-  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:22px;align-items:stretch}
+.hero-copy,.hero-media,.card,.panel,.step-card,.manual-card,.checkout-card,.contact-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow)
 }
-.hero-copy{padding:28px}
+.hero-copy{padding:30px}
 .kicker{
-  display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
-  background:#eef4ff;color:#234ba1;font-size:.78rem;font-weight:800;margin-bottom:14px
+  display:inline-flex;align-items:center;gap:8px;
+  border-radius:999px;background:#eef4ff;color:#244a9a;
+  padding:7px 11px;font-size:.76rem;font-weight:900;letter-spacing:.03em
 }
-h1{font-size:clamp(1.9rem,4vw,3rem);line-height:1.1;margin:0 0 14px}
-h2{font-size:clamp(1.35rem,2.7vw,2rem);line-height:1.2;margin:0 0 12px}
+h1{font-size:clamp(2rem,4.5vw,3.35rem);line-height:1.05;letter-spacing:-.045em;margin:16px 0 14px}
+h2{font-size:clamp(1.55rem,3vw,2.3rem);line-height:1.12;letter-spacing:-.03em;margin:0 0 10px}
+h3{margin:0 0 8px;font-size:1.04rem}
 p{margin:0 0 14px}
 .muted{color:var(--muted)}
-.hero-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
-.meta-pill{
-  background:var(--soft);border-radius:18px;padding:14px 14px 12px
+.hero-media{padding:16px}
+.hero-media>img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:18px}
+.thumb-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.thumb-row img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px}
+.quick-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;
+  margin-top:20px
 }
-.meta-pill strong{display:block;font-size:.95rem}
-.meta-pill span{display:block;color:var(--muted);font-size:.85rem}
-.hero-card{padding:18px}
-.hero-shot{
-  width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:18px;margin-bottom:14px
+.quick{
+  padding:14px;border-radius:18px;background:var(--soft);border:1px solid #e5eaf1
 }
-.mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.mini-grid img{aspect-ratio:4/3;object-fit:cover;border-radius:16px}
-.section{padding:18px 0 30px}
-.section-head{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
-.section-label{font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#6b7280}
-.note-list,.chip-row,.overview-grid,.steps-grid{display:grid;gap:16px}
-.chip-row{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
-.chip{
-  background:var(--soft);padding:14px 16px;border-radius:18px;border:1px solid #e5ddcf;font-weight:700
+.quick span{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:#7b8492;font-weight:850}
+.quick strong{display:block;margin-top:4px;font-size:.94rem}
+.section{padding:26px 0}
+.section-head{max-width:760px;margin-bottom:18px}
+.label{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;font-weight:900;margin-bottom:8px}
+.info-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+.panel{padding:24px}
+.detail-list{display:grid;gap:0}
+.detail{
+  display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;
+  padding:14px 0;border-top:1px solid var(--line)
 }
-.overview-grid{grid-template-columns:1.1fr .9fr}
-.panel{padding:22px}
-.tip{
-  display:flex;gap:12px;padding:14px 0;border-top:1px solid var(--line)
+.detail:first-child{border-top:0;padding-top:0}
+.detail-icon{
+  width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--soft);font-size:1.1rem
 }
-.tip:first-child{border-top:0;padding-top:0}
-.tip-num{
-  flex:0 0 34px;width:34px;height:34px;border-radius:12px;background:#eef4ff;
-  color:#234ba1;display:grid;place-items:center;font-weight:800
+.detail-label{color:var(--muted);font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.detail-value{font-weight:850}
+.copy-btn{
+  border:1px solid var(--line);background:#fff;border-radius:12px;min-height:38px;padding:0 11px;
+  font:inherit;font-size:.78rem;font-weight:850;cursor:pointer
 }
-.steps-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.action-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.contact-card{padding:22px;background:linear-gradient(135deg,#111827,#293346);color:#fff}
+.contact-card .muted{color:#c9d0da}
+.contact-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.contact-actions .btn{width:100%}
+.steps-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .step-card{overflow:hidden}
 .step-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
 .step-body{padding:18px}
-.badge{
-  display:inline-flex;align-items:center;gap:8px;background:#fff4e8;color:#9a4b0a;
-  border:1px solid #f1d3b3;border-radius:999px;padding:6px 10px;font-size:.78rem;font-weight:800;margin-bottom:10px
+.step-no{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:6px 10px;border-radius:999px;background:#fff4e8;color:#9a4b0a;
+  border:1px solid #f1d3b3;font-size:.75rem;font-weight:900;margin-bottom:10px
 }
-.step-body h3{margin:0 0 8px;font-size:1.08rem}
-.callout{padding:22px}
+.wifi-card{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+  background:linear-gradient(135deg,#f8fbff,#f4f7fb);border:1px solid #dfe6ef;
+  border-radius:22px;padding:20px
+}
+.wifi-box{
+  border:1px dashed #bcc7d5;border-radius:18px;background:#fff;padding:18px
+}
+.wifi-label{font-size:.72rem;font-weight:900;color:#7a8491;text-transform:uppercase;letter-spacing:.06em}
+.wifi-value{font-size:1.12rem;font-weight:900;margin:3px 0 12px;overflow-wrap:anywhere}
+.amenities-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.amenity{
+  min-height:105px;border:1px solid var(--line);border-radius:18px;background:#fff;padding:16px
+}
+.amenity b{display:block;font-size:1.4rem;margin-bottom:8px}
+.amenity span{display:block;font-weight:800;font-size:.88rem}
+.manual-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.manual-card{padding:20px}
+.manual-icon{font-size:1.5rem;margin-bottom:12px}
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rule{
+  display:flex;gap:12px;padding:16px;border-radius:18px;background:#fff;border:1px solid var(--line)
+}
+.rule-icon{font-size:1.2rem}
+.checkout-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.checkout-card{padding:22px}
+.checklist{list-style:none;padding:0;margin:14px 0 0}
+.checklist li{padding:11px 0;border-top:1px solid var(--line);display:flex;gap:10px}
+.checklist li::before{content:"✓";font-weight:950;color:var(--green)}
 .privacy{
-  font-size:.95rem;color:#4b5563;background:#f8fafc;border:1px dashed #cdd8eb;border-radius:18px;padding:14px 16px
+  padding:15px 16px;border-radius:16px;background:#f8fafc;border:1px dashed #cbd5e1;
+  color:#596273;font-size:.88rem
 }
-.footer{padding:26px 0 48px;color:#6b7280;font-size:.9rem}
-@media (max-width: 920px){
-  .hero-grid,.overview-grid,.steps-grid{grid-template-columns:1fr}
+.footer{padding:30px 0 48px;color:#737d8b;font-size:.84rem}
+.toast{
+  position:fixed;left:50%;bottom:26px;z-index:2000;transform:translate(-50%,12px);
+  opacity:0;pointer-events:none;transition:.2s ease;
+  background:#111827;color:#fff;padding:10px 14px;border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,.24);font-size:.85rem;font-weight:800
 }
-@media (max-width: 640px){
-  .hero-copy,.hero-card,.panel,.callout{padding:20px}
-  .container{width:min(1120px,calc(100% - 22px))}
-  .hero-meta{grid-template-columns:1fr}
-  .mini-grid{grid-template-columns:1fr 1fr}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:920px){
+  .hero-grid,.info-grid,.checkout-grid{grid-template-columns:1fr}
+  .quick-grid,.amenities-grid{grid-template-columns:repeat(2,1fr)}
+  .manual-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .container{width:min(calc(100% - 22px),var(--max))}
+  .hero-copy,.panel,.contact-card,.checkout-card{padding:20px}
+  .nav-actions .secondary{display:none}
+  .quick-grid,.steps-grid,.wifi-card,.manual-grid,.rules,.contact-actions{grid-template-columns:1fr}
+  .amenities-grid{grid-template-columns:1fr 1fr}
+  .detail{grid-template-columns:42px 1fr}
+  .detail .copy-btn{grid-column:2}
 }
 </style>
 </head>
 <body>
   <header class="topbar">
-    <div class="container topbar-inner">
-      <a class="brand" href="/"><span class="brand-mark">🛎️</span><span>AirbnbHosted · Demo Việt Nam</span></a>
-      <div class="top-actions">
-        <a class="btn secondary" href="/">← Về trang chủ</a>
-        <a class="btn primary" href="#steps">Xem các bước check-in</a>
+    <div class="container nav">
+      <a class="brand" href="/">
+        <span class="brand-mark">🛎️</span>
+        <span>AirbnbHosted · Guest Guide</span>
+      </a>
+      <div class="nav-actions">
+        <a class="btn secondary" href="/">← Trang chủ</a>
+        <a class="btn primary" href="tel:+84367676119">☎ Gọi host</a>
       </div>
     </div>
   </header>
@@ -137,86 +202,297 @@ p{margin:0 0 14px}
       <div class="container hero-grid">
         <div class="hero-copy">
           <div class="kicker">Demo 03 · Căn hộ dịch vụ</div>
-          <h1>Check-in căn hộ dịch vụ / serviced apartment</h1>
-          <p class="muted">Mẫu này phù hợp với các toà nhà có <strong>lễ tân, thẻ phòng và quy trình check-in bán khách sạn</strong>. Flow cơ bản là: <strong>đến quầy lễ tân → nhận keycard → lên tầng → mở cửa phòng</strong>.</p>
-          <div class="hero-meta">
-            <div class="meta-pill"><strong>Loại hình</strong><span>Serviced apartment</span></div>
-            <div class="meta-pill"><strong>Bối cảnh demo</strong><span>Toà nhà có lễ tân tại TP.HCM</span></div>
-            <div class="meta-pill"><strong>Phù hợp với</strong><span>Đơn vị quản lý nhiều căn / nhiều khách</span></div>
+          <h1>Lotus Residence · Quận 3, TP.HCM</h1>
+          <p class="muted">Mẫu dành cho serviced apartment hoặc tòa nhà có lễ tân. Khách nhận keycard tại quầy, dùng thẻ cho thang máy và mở cửa phòng, đồng thời có toàn bộ thông tin sử dụng căn ngay trên một trang.</p>
+          <div class="quick-grid"><div class="quick"><span>Check-in</span><strong>14:00</strong></div>
+<div class="quick"><span>Check-out</span><strong>12:00</strong></div>
+<div class="quick"><span>Phòng demo</span><strong>602</strong></div>
+<div class="quick"><span>Lễ tân</span><strong>07:00–23:00</strong></div></div>
+          <div class="action-row">
+            <a class="btn blue" href="https://www.google.com/maps/search/?api=1&query=Nguyen+Dinh+Chieu+District+3+Ho+Chi+Minh+City" target="_blank" rel="noopener">📍 Mở Google Maps</a>
+            <a class="btn green" href="https://zalo.me/0367676119" target="_blank" rel="noopener">💬 Nhắn Zalo host</a>
           </div>
         </div>
-
-        <div class="hero-card">
-          <img class="hero-shot" src="/assets/images/demos/vietnam/serviced-apartment/step-1-reception.webp" alt="Nhận keycard ở lễ tân" />
-          <div class="mini-grid">
-            <img src="/assets/images/demos/vietnam/serviced-apartment/step-2-elevator.webp" alt="Quét thẻ tại thang máy" />
-            <img src="/assets/images/demos/vietnam/serviced-apartment/step-3-room.webp" alt="Mở cửa phòng" />
-            <img src="/assets/images/properties/48high/03-bedroom.webp" alt="Ví dụ không gian phòng" />
-          </div>
+        <div class="hero-media">
+          <img src="/assets/images/demos/vietnam/serviced-apartment/step-1-reception.webp" alt="Lotus Residence · Quận 3, TP.HCM" />
+          <div class="thumb-row"><img src="/assets/images/demos/vietnam/serviced-apartment/step-2-elevator.webp" alt="Ảnh minh họa căn" loading="lazy" /><img src="/assets/images/demos/vietnam/serviced-apartment/step-3-room.webp" alt="Ảnh minh họa căn" loading="lazy" /><img src="/assets/images/properties/48high/03-bedroom.webp" alt="Ảnh minh họa căn" loading="lazy" /></div>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container overview-grid">
+    <section class="section" id="info">
+      <div class="container info-grid">
         <div class="panel">
           <div class="section-head">
-            <div class="section-label">Vì sao mẫu này khác</div>
-            <h2>Check-in thiên về quy trình lễ tân hơn là self check-in</h2>
-            <p class="muted">Khách thường cần biết <strong>đi đâu để nhận thẻ, giờ trực lễ tân, cách quét thẻ lên tầng và cách vào phòng</strong>. Trang hướng dẫn giúp mọi thứ rõ ràng hơn trước khi khách tới nơi.</p>
+            <div class="label">Thông tin lưu trú</div>
+            <h2>Mọi thông tin quan trọng trong một nơi</h2>
+            <p class="muted">Khách có thể mở lại trang này bất cứ lúc nào trong suốt thời gian lưu trú.</p>
           </div>
-          <div class="chip-row">
-            <div class="chip">🛎️ Check-in tại quầy</div>
-            <div class="chip">💳 Nhận keycard</div>
-            <div class="chip">🛗 Lên đúng tầng</div>
-            <div class="chip">🚪 Vào đúng phòng</div>
-          </div>
+          <div class="detail-list">
+    <div class="detail">
+      <div class="detail-icon">📍</div>
+      <div>
+        <div class="detail-label">Địa chỉ</div>
+        <div class="detail-value">Đường Nguyễn Đình Chiểu, Quận 3, TP.HCM · địa chỉ demo</div>
+        <div class="action-row"><a class="btn blue" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Nguyen+Dinh+Chieu+District+3+Ho+Chi+Minh+City">Mở Google Maps</a></div>
+      </div>
+      
+    </div>
+    
+
+    <div class="detail">
+      <div class="detail-icon">🚪</div>
+      <div>
+        <div class="detail-label">Phòng</div>
+        <div class="detail-value">602</div>
+        
+      </div>
+      
+    </div>
+    
+
+    <div class="detail">
+      <div class="detail-icon">⏰</div>
+      <div>
+        <div class="detail-label">Check-in</div>
+        <div class="detail-value">14:00</div>
+        
+      </div>
+      
+    </div>
+    
+
+    <div class="detail">
+      <div class="detail-icon">🧳</div>
+      <div>
+        <div class="detail-label">Check-out</div>
+        <div class="detail-value">12:00</div>
+        
+      </div>
+      
+    </div>
+    
+
+    <div class="detail">
+      <div class="detail-icon">🛎️</div>
+      <div>
+        <div class="detail-label">Giờ lễ tân</div>
+        <div class="detail-value">07:00–23:00</div>
+        
+      </div>
+      
+    </div>
+    
+
+    <div class="detail">
+      <div class="detail-icon">🔐</div>
+      <div>
+        <div class="detail-label">Mã cửa dự phòng</div>
+        <div class="detail-value">602#</div>
+        
+      </div>
+      <button class="copy-btn" type="button" onclick="copyText("602#", "M\u00e3 c\u1eeda d\u1ef1 ph\u00f2ng")">Sao chép</button>
+    </div>
+    
+
+    <div class="detail">
+      <div class="detail-icon">📞</div>
+      <div>
+        <div class="detail-label">Host</div>
+        <div class="detail-value">0367676119</div>
+        <div class="action-row"><a class="btn green" href="https://zalo.me/0367676119" target="_blank" rel="noopener">Nhắn Zalo</a></div>
+      </div>
+      <button class="copy-btn" type="button" onclick="copyText("0367676119", "Host")">Sao chép</button>
+    </div>
+    </div>
         </div>
 
-        <div class="callout">
-          <h2>Host nên bổ sung gì</h2>
-          <div class="tip"><div class="tip-num">1</div><div><strong>Khung giờ nhận phòng</strong><br><span class="muted">Ví dụ: lễ tân hoạt động 24/7 hoặc nhận phòng sau 14:00.</span></div></div>
-          <div class="tip"><div class="tip-num">2</div><div><strong>Thông tin giấy tờ</strong><br><span class="muted">Nếu cần CCCD / passport để làm thủ tục, nên ghi rõ trước.</span></div></div>
-          <div class="tip"><div class="tip-num">3</div><div><strong>Nội quy toà nhà</strong><br><span class="muted">Ví dụ: không hút thuốc, yên lặng sau 22:00, quy định thang máy.</span></div></div>
+        <aside class="contact-card">
+          <div class="label" style="color:#b9c4d3">Liên hệ host</div>
+          <h2 style="color:#fff">Cần hỗ trợ?</h2>
+          <p class="muted">Nếu gặp vấn đề khi check-in, khóa cửa, Wi‑Fi hoặc thiết bị trong nhà, hãy liên hệ trực tiếp.</p>
+          <div style="font-size:1.35rem;font-weight:900;margin:12px 0">0367676119</div>
+          <div class="contact-actions">
+            <a class="btn secondary" href="tel:+84367676119">☎ Gọi điện</a>
+            <a class="btn green" href="https://zalo.me/0367676119" target="_blank" rel="noopener">💬 Zalo</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="checkin">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">Hướng dẫn check-in</div>
+          <h2>Nhận phòng qua lễ tân</h2>
+          <p class="muted">Flow phù hợp với các căn hộ dịch vụ có nhân viên trực quầy và keycard.</p>
+        </div>
+        <div class="steps-grid">
+        <article class="step-card">
+          <img src="/assets/images/demos/vietnam/serviced-apartment/step-1-reception.webp" alt="Check-in tại quầy lễ tân" loading="lazy" />
+          <div class="step-body">
+            <div class="step-no">Bước 1</div>
+            <h3>Check-in tại quầy lễ tân</h3>
+            <p class="muted">Đưa tên booking và giấy tờ tùy thân cho lễ tân. Nhận <strong>keycard phòng 602</strong> và hướng dẫn cơ bản.</p>
+          </div>
+        </article>
+        
+
+        <article class="step-card">
+          <img src="/assets/images/demos/vietnam/serviced-apartment/step-2-elevator.webp" alt="Quét thẻ tại thang máy" loading="lazy" />
+          <div class="step-body">
+            <div class="step-no">Bước 2</div>
+            <h3>Quét thẻ tại thang máy</h3>
+            <p class="muted">Chạm keycard vào đầu đọc, chọn tầng 6 và giữ thẻ bên mình trong suốt thời gian lưu trú.</p>
+          </div>
+        </article>
+        
+
+        <article class="step-card">
+          <img src="/assets/images/demos/vietnam/serviced-apartment/step-3-room.webp" alt="Mở cửa phòng 602" loading="lazy" />
+          <div class="step-body">
+            <div class="step-no">Bước 3</div>
+            <h3>Mở cửa phòng 602</h3>
+            <p class="muted">Chạm keycard vào khóa cửa. Nếu thẻ lỗi, dùng mã dự phòng <strong>602#</strong> hoặc liên hệ lễ tân / host.</p>
+          </div>
+        </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="steps">
+    <section class="section" id="wifi">
       <div class="container">
         <div class="section-head">
-          <div class="section-label">Các bước check-in</div>
-          <h2>3 bước cơ bản cho căn hộ dịch vụ</h2>
-          <p class="muted">Phù hợp với những nơi có lễ tân hỗ trợ hoặc quy trình nhận phòng bán tự động.</p>
+          <div class="label">Wi‑Fi</div>
+          <h2>Kết nối internet</h2>
         </div>
+        <div class="wifi-card">
+          <div class="wifi-box">
+            <div class="wifi-label">Tên Wi‑Fi</div>
+            <div class="wifi-value">LotusResidence-Guest</div>
+            <button class="copy-btn" type="button" onclick="copyText("LotusResidence-Guest",'Tên Wi‑Fi')">Sao chép tên mạng</button>
+          </div>
+          <div class="wifi-box">
+            <div class="wifi-label">Mật khẩu</div>
+            <div class="wifi-value">Welcome602</div>
+            <button class="copy-btn" type="button" onclick="copyText("Welcome602",'Mật khẩu Wi‑Fi')">Sao chép mật khẩu</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <div class="steps-grid">
-          <article class="step-card">
-            <img src="/assets/images/demos/vietnam/serviced-apartment/step-1-reception.webp" alt="Nhận keycard ở quầy lễ tân" />
-            <div class="step-body">
-              <div class="badge">Bước 1</div>
-              <h3>Đến quầy lễ tân và nhận keycard</h3>
-              <p>Khách tới quầy, xác nhận booking và nhận thẻ phòng / keycard cùng hướng dẫn cơ bản từ nhân viên.</p>
-            </div>
-          </article>
+    <section class="section" id="amenities">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">Tiện ích trong căn</div>
+          <h2>Các tiện nghi có sẵn</h2>
+          <p class="muted">Danh sách này giúp khách biết trước căn nhà có gì và cần chuẩn bị thêm những gì.</p>
+        </div>
+        <div class="amenities-grid"><div class="amenity"><b>❄️</b><span>Máy lạnh</span></div>
+<div class="amenity"><b>📺</b><span>Smart TV</span></div>
+<div class="amenity"><b>🧺</b><span>Máy giặt chung / riêng</span></div>
+<div class="amenity"><b>🍽️</b><span>Kitchenette</span></div>
+<div class="amenity"><b>🧊</b><span>Tủ lạnh mini</span></div>
+<div class="amenity"><b>♨️</b><span>Nước nóng</span></div>
+<div class="amenity"><b>☕</b><span>Cà phê / trà</span></div>
+<div class="amenity"><b>💨</b><span>Máy sấy tóc</span></div>
+<div class="amenity"><b>🧴</b><span>Amenities phòng tắm</span></div>
+<div class="amenity"><b>🧹</b><span>Dọn phòng theo lịch</span></div>
+<div class="amenity"><b>📶</b><span>Wi‑Fi</span></div>
+<div class="amenity"><b>🛎️</b><span>Lễ tân hỗ trợ</span></div></div>
+      </div>
+    </section>
 
-          <article class="step-card">
-            <img src="/assets/images/demos/vietnam/serviced-apartment/step-2-elevator.webp" alt="Quét keycard tại thang máy" />
-            <div class="step-body">
-              <div class="badge">Bước 2</div>
-              <h3>Quét keycard để lên tầng</h3>
-              <p>Nhiều tòa serviced apartment yêu cầu quẹt thẻ để gọi thang máy hoặc kích hoạt tầng được phép lên.</p>
-            </div>
-          </article>
+    <section class="section" id="manual">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">Hướng dẫn sử dụng căn</div>
+          <h2>Cách sử dụng các thiết bị chính</h2>
+          <p class="muted">Host có thể thay thế các nội dung demo này bằng model thiết bị thật và ảnh thật của từng căn.</p>
+        </div>
+        <div class="manual-grid"><article class="manual-card"><div class="manual-icon">🛎️</div><h3>Lễ tân</h3><p class="muted">Nếu cần thêm khăn, đổi keycard hoặc hỗ trợ phòng, liên hệ lễ tân trong giờ trực.</p></article>
+<article class="manual-card"><div class="manual-icon">❄️</div><h3>Máy lạnh</h3><p class="muted">Dùng remote trên bàn. Vui lòng đóng cửa ban công/cửa sổ khi bật máy lạnh.</p></article>
+<article class="manual-card"><div class="manual-icon">📺</div><h3>Smart TV</h3><p class="muted">Có YouTube/Netflix. Nếu đăng nhập tài khoản cá nhân, hãy đăng xuất khi checkout.</p></article>
+<article class="manual-card"><div class="manual-icon">🍽️</div><h3>Kitchenette</h3><p class="muted">Dùng bếp điện / microwave theo hướng dẫn. Không nấu món có nhiều khói.</p></article>
+<article class="manual-card"><div class="manual-icon">🧺</div><h3>Giặt đồ</h3><p class="muted">Nếu dùng khu giặt chung, kiểm tra giờ hoạt động và không để quần áo qua đêm.</p></article>
+<article class="manual-card"><div class="manual-icon">🗑️</div><h3>Rác</h3><p class="muted">Đặt túi rác kín tại điểm collection của tầng hoặc báo lễ tân hỗ trợ.</p></article></div>
+      </div>
+    </section>
 
-          <article class="step-card">
-            <img src="/assets/images/demos/vietnam/serviced-apartment/step-3-room.webp" alt="Mở cửa phòng bằng keycard" />
-            <div class="step-body">
-              <div class="badge">Bước 3</div>
-              <h3>Đến cửa phòng và mở cửa</h3>
-              <p>Khách di chuyển đến phòng, dùng keycard hoặc khóa điện tử để mở cửa và bắt đầu lưu trú.</p>
-            </div>
-          </article>
+    <section class="section" id="rules">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">Nội quy lưu trú</div>
+          <h2>Một vài lưu ý để kỳ nghỉ thuận tiện hơn</h2>
+        </div>
+        <div class="rules"><div class="rule"><div class="rule-icon">🚭</div><div><strong>Không hút thuốc</strong><div class="muted">Không hút thuốc trong phòng.</div></div></div>
+<div class="rule"><div class="rule-icon">🔇</div><div><strong>Giữ yên lặng</strong><div class="muted">Hạn chế tiếng ồn sau 22:00.</div></div></div>
+<div class="rule"><div class="rule-icon">🪪</div><div><strong>Giữ keycard</strong><div class="muted">Không đưa thẻ phòng cho người ngoài booking.</div></div></div>
+<div class="rule"><div class="rule-icon">👤</div><div><strong>Khách ngoài</strong><div class="muted">Khách đến thăm cần tuân thủ quy định tòa nhà / lễ tân.</div></div></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="checkout">
+      <div class="container checkout-grid">
+        <div class="checkout-card">
+          <div class="label">Checkout</div>
+          <h2>Trước khi rời đi</h2>
+          <p class="muted">Giờ checkout: <strong>12:00</strong></p>
+          <ul class="checklist"><li>Thu dọn đồ cá nhân và kiểm tra két / tủ.</li>
+<li>Tắt máy lạnh, TV và đèn.</li>
+<li>Đóng cửa phòng.</li>
+<li>Trả keycard tại quầy lễ tân.</li>
+<li>Nhắn Zalo host nếu cần hóa đơn hoặc hỗ trợ sau checkout.</li></ul>
+        </div>
+        <div class="checkout-card">
+          <div class="label">Thông tin nhanh</div>
+          <h2>Cần nhớ</h2>
+          <div class="detail-list">
+            
+    <div class="detail">
+      <div class="detail-icon">⏰</div>
+      <div>
+        <div class="detail-label">Check-in</div>
+        <div class="detail-value">14:00</div>
+        
+      </div>
+      
+    </div>
+    
+            
+    <div class="detail">
+      <div class="detail-icon">🧳</div>
+      <div>
+        <div class="detail-label">Check-out</div>
+        <div class="detail-value">12:00</div>
+        
+      </div>
+      
+    </div>
+    
+            
+    <div class="detail">
+      <div class="detail-icon">📞</div>
+      <div>
+        <div class="detail-label">Host</div>
+        <div class="detail-value">0367676119</div>
+        
+      </div>
+      <button class="copy-btn" type="button" onclick="copyText("0367676119", "Host")">Sao chép</button>
+    </div>
+    
+            
+    <div class="detail">
+      <div class="detail-icon">🔐</div>
+      <div>
+        <div class="detail-label">Mã cửa</div>
+        <div class="detail-value">602#</div>
+        
+      </div>
+      <button class="copy-btn" type="button" onclick="copyText("602#", "M\u00e3 c\u1eeda")">Sao chép</button>
+    </div>
+    
+          </div>
         </div>
       </div>
     </section>
@@ -224,14 +500,39 @@ p{margin:0 0 14px}
     <section class="section">
       <div class="container">
         <div class="privacy">
-          <strong>Lưu ý:</strong> Toàn bộ tên, số phòng và hình minh họa trong demo chỉ là dữ liệu mô phỏng, dùng để trình bày cấu trúc Guest Guide phù hợp hơn với thị trường Việt Nam.
+          <strong>Demo công khai:</strong> địa chỉ chi tiết, số căn, mã cửa và thông tin Wi‑Fi ở đây là dữ liệu minh họa. Khi triển khai thật cho host, có thể dùng thông tin thật và tùy chọn ẩn một phần dữ liệu nhạy cảm khỏi trang demo công khai.
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">© 2026 AirbnbHosted · Demo Guest Guide cho thị trường Việt Nam</div>
+    <div class="container">© 2026 AirbnbHosted · Guest Guide demo cho thị trường Việt Nam</div>
   </footer>
+
+  <div class="toast" id="toast"></div>
+  <script>
+const toast = document.getElementById('toast');
+function showToast(message){
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(()=>toast.classList.remove('show'),1800);
+}
+async function copyText(value,label){
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(value);
+    }else{
+      const t=document.createElement('textarea');
+      t.value=value;t.style.position='fixed';t.style.opacity='0';
+      document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();
+    }
+    showToast((label||'Nội dung')+' đã được sao chép');
+  }catch(e){
+    showToast(value);
+  }
+}
+</script>
 </body>
 </html>
