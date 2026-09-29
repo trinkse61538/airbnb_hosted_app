@@ -190,6 +190,12 @@
       height: 100%;
       min-height: 360px;
       object-fit: cover;
+      object-position: center;
+      transition: transform .8s ease;
+    }
+
+    .swiper-slide-active img {
+      transform: scale(1.015);
     }
 
     .swiper-pagination-bullet {
@@ -457,6 +463,31 @@
       margin-bottom: 4px;
     }
 
+    .parking-text-step {
+      min-height: 170px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px;
+      background:
+        linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+    }
+
+    .parking-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: var(--primary);
+      background: #fff0f3;
+      font-size: 1.05rem;
+    }
+
+    .parking-text-step .copy {
+      padding: 18px 0 0;
+    }
+
     .note {
       margin-top: 16px;
       padding: 14px 15px;
@@ -577,14 +608,12 @@
       }
 
       .parking-step {
-        display: grid;
-        grid-template-columns: minmax(125px, .85fr) minmax(0, 1.15fr);
+        display: flex;
+        flex-direction: column;
       }
 
-      .parking-step img {
-        height: 100%;
-        aspect-ratio: auto;
-        min-height: 132px;
+      .parking-text-step {
+        min-height: 0;
       }
     }
 
@@ -611,11 +640,7 @@
       }
 
       .parking-step {
-        grid-template-columns: 1fr;
-      }
-
-      .parking-step img {
-        aspect-ratio: 16 / 10;
+        width: 100%;
       }
 
       .btn {
@@ -660,11 +685,12 @@
     <section id="property" class="hero" aria-label="Property overview">
       <div class="swiper mySwiper" aria-label="Property photo gallery">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"><img loading="eager" src="https://raw.githubusercontent.com/trinkse61538/CV/main/check-in/3BDR_Historic_Waterside_Enclave/48HighSt_1.avif" alt="Demo property exterior" /></div>
-          <div class="swiper-slide"><img loading="lazy" src="https://raw.githubusercontent.com/trinkse61538/CV/main/check-in/3BDR_Historic_Waterside_Enclave/48HighSt_2.avif" alt="Demo property living area" /></div>
-          <div class="swiper-slide"><img loading="lazy" src="https://raw.githubusercontent.com/trinkse61538/CV/main/check-in/3BDR_Historic_Waterside_Enclave/48HighSt_3.avif" alt="Demo property bedroom" /></div>
-          <div class="swiper-slide"><img loading="lazy" src="https://raw.githubusercontent.com/trinkse61538/CV/main/check-in/3BDR_Historic_Waterside_Enclave/48HighSt_4.avif" alt="Demo property interior" /></div>
-          <div class="swiper-slide"><img loading="lazy" src="https://raw.githubusercontent.com/trinkse61538/CV/main/check-in/3BDR_Historic_Waterside_Enclave/48HighSt_5.avif" alt="Demo property amenity" /></div>
+          <div class="swiper-slide"><img loading="eager" src="./801886836_2252648808848241_4448948898572277432_n.webp" alt="Demo stay photo 1" /></div>
+          <div class="swiper-slide"><img loading="lazy" src="./808008321_2511831655969334_578979240942118100_n.webp" alt="Demo stay photo 2" /></div>
+          <div class="swiper-slide"><img loading="lazy" src="./813546300_1058242503641677_9111472557670433_n.webp" alt="Demo stay photo 3" /></div>
+          <div class="swiper-slide"><img loading="lazy" src="./814660825_122137491183239170_4542455363321972287_n.webp" alt="Demo stay photo 4" /></div>
+          <div class="swiper-slide"><img loading="lazy" src="./814660834_122137491099239170_6282167281841649775_n.webp" alt="Demo stay photo 5" /></div>
+          <div class="swiper-slide"><img loading="lazy" src="./814818338_1058242460308348_6503615135353276174_n.webp" alt="Demo stay photo 6" /></div>
         </div>
         <div class="swiper-pagination"></div>
       </div>
@@ -753,23 +779,23 @@
           </button>
         </div>
 
-        <div class="parking-grid">
-          <div class="parking-step">
-            <img loading="lazy" src="https://raw.githubusercontent.com/trinkse61538/CV/main/check-in/3BDR_Historic_Waterside_Enclave/Parking_48HighSt_1.jpg" alt="Example parking entrance" />
-            <div class="copy"><strong>1 · Enter</strong>Follow the guest parking signage and continue to the public levels.</div>
+        <div class="parking-grid parking-guide-grid">
+          <div class="parking-step parking-text-step">
+            <div class="parking-icon"><i class="fa-solid fa-arrow-right-to-bracket"></i></div>
+            <div class="copy"><strong>1 · Enter</strong>Follow the guest parking signs and continue to the public parking levels.</div>
           </div>
-          <div class="parking-step">
-            <img loading="lazy" src="https://raw.githubusercontent.com/trinkse61538/CV/main/check-in/3BDR_Historic_Waterside_Enclave/Parking_48HighSt_2.jpg" alt="Example parking access reader" />
-            <div class="copy"><strong>2 · Access</strong>Tap the demo parking pass at the marked reader and wait for the green light.</div>
+          <div class="parking-step parking-text-step">
+            <div class="parking-icon"><i class="fa-solid fa-credit-card"></i></div>
+            <div class="copy"><strong>2 · Access</strong>Use the demo parking pass or access code shown in your booking message.</div>
           </div>
-          <div class="parking-step">
-            <img loading="lazy" src="https://raw.githubusercontent.com/trinkse61538/CV/main/check-in/3BDR_Historic_Waterside_Enclave/Parking_48HighSt_3.jpg" alt="Example parking pass" />
-            <div class="copy"><strong>3 · Exit</strong>Keep the pass with you and use it again when leaving the car park.</div>
+          <div class="parking-step parking-text-step">
+            <div class="parking-icon"><i class="fa-solid fa-car-side"></i></div>
+            <div class="copy"><strong>3 · Park & Exit</strong>Use marked guest bays only and keep the access pass with you until checkout.</div>
           </div>
         </div>
 
         <div class="note">
-          <strong>Demo parking notes:</strong> Use marked public bays only, observe posted height limits, and keep the access pass secure during your stay.
+          <strong>Demo parking notes:</strong> Exact car park address, bay number and access credentials are intentionally hidden in this public showcase.
         </div>
       </article>
 
