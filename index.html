@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#ffffff" />
-  <meta name="description" content="Personalized digital guest guides for Airbnb and short-stay hosts. Check-in, parking, Wi-Fi and checkout in one mobile-friendly link." />
-  <title>AirbnbHosted | Personalized Digital Guest Guides</title>
+  <meta name="description" content="Guest Guide điện tử cá nhân hóa cho chủ Airbnb và căn hộ lưu trú ngắn hạn: check-in, đỗ xe, Wi-Fi và checkout trong một đường link tối ưu cho điện thoại." />
+  <title>AirbnbHosted | Guest Guide cá nhân hóa cho chủ căn hộ</title>
   <style>
     :root{--ink:#171717;--muted:#666b73;--line:#e8e8e8;--surface:#fff;--soft:#f7f7f7;--pink:#ff385c;--pink-dark:#d92f4f;--teal:#008489;--green:#0d8b6f;--shadow:0 22px 60px rgba(20,20,20,.09);--radius:28px;--radius-sm:18px;--max:1160px}
     *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:92px}body{margin:0;color:var(--ink);background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}body::before{content:"";position:fixed;inset:0 0 auto 0;height:520px;z-index:-1;background:radial-gradient(circle at 14% 5%,rgba(255,56,92,.11),transparent 28%),radial-gradient(circle at 84% 8%,rgba(0,132,137,.09),transparent 27%),linear-gradient(180deg,#fff 0%,#fff 72%,rgba(247,247,247,.6) 100%);pointer-events:none}a{color:inherit}.container{width:min(calc(100% - 36px),var(--max));margin-inline:auto}
@@ -19,6 +19,18 @@
     @media(max-width:620px){.container{width:min(calc(100% - 26px),var(--max))}.nav{min-height:66px}.mini-cta{display:none}h1{font-size:clamp(2.65rem,14vw,4.1rem)}.hero{min-height:auto;padding:44px 0 54px}.hero-actions{flex-direction:column}.btn{width:100%}.device-stage{min-height:470px}.blob{width:350px;height:350px}.phone{width:260px;height:492px;border-width:8px}.phone-hero{height:150px}.fc1{left:-2px;top:90px}.fc2{right:-1px;bottom:83px}.float-card{font-size:.67rem;padding:10px 12px}section.block{padding:76px 0}.pain-grid,.feature-grid,.audience-grid,.process{grid-template-columns:1fr}.demo-wrap{padding:26px 20px;border-radius:24px}.demo-shot{min-height:330px}.browser{transform:none}.browser-banner{height:100px}.cta-panel{padding:34px 22px;border-radius:24px}.cta-actions{width:100%;flex-direction:column}.footer-row{flex-direction:column}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
   </style>
+
+  <style id="property-preview-image">
+    .phone-hero{
+      background:
+        linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.20)),
+        url('/assets/images/properties/48high/01-studio-wide.webp') center/cover no-repeat !important;
+    }
+    .browser-banner{
+      background:url('/assets/images/properties/48high/01-studio-wide.webp') center/cover no-repeat !important;
+    }
+  </style>
+
 </head>
 <body>
   <header class="topbar">
@@ -31,7 +43,7 @@
         <a href="#for-who" data-en="For hosts" data-vi="Dành cho host">For hosts</a>
       </nav>
       <div class="nav-actions">
-        <div class="lang"><button type="button" id="lang-en" class="active">EN</button><button type="button" id="lang-vi">VI</button></div>
+        <div class="lang"><button type="button" id="lang-en">EN</button><button type="button" id="lang-vi" class="active">VI</button></div>
         <a class="mini-cta" href="/australia/48high.html" data-en="View demo" data-vi="Xem demo">View demo</a>
       </div>
     </div>
@@ -68,8 +80,8 @@
 
   <script>
     const enButton=document.getElementById('lang-en'),viButton=document.getElementById('lang-vi');
-    function setLanguage(lang){document.documentElement.lang=lang==='vi'?'vi':'en';document.querySelectorAll('[data-en],[data-vi]').forEach(el=>{const v=el.getAttribute('data-'+lang);if(v!==null)el.textContent=v});document.querySelectorAll('[data-en-html],[data-vi-html]').forEach(el=>{const v=el.getAttribute('data-'+lang+'-html');if(v!==null)el.innerHTML=v});enButton.classList.toggle('active',lang==='en');viButton.classList.toggle('active',lang==='vi');document.title=lang==='vi'?'AirbnbHosted | Guest Guide cá nhân hóa cho chủ căn hộ':'AirbnbHosted | Personalized Digital Guest Guides';const d=document.querySelector('meta[name="description"]');if(d)d.content=lang==='vi'?'Guest Guide điện tử cá nhân hóa cho chủ Airbnb và short-stay: check-in, đỗ xe, Wi-Fi và checkout trong một đường link tối ưu cho điện thoại.':'Personalized digital guest guides for Airbnb and short-stay hosts. Check-in, parking, Wi-Fi and checkout in one mobile-friendly link.';try{localStorage.setItem('airbnbhosted-language',lang)}catch(e){}}
-    enButton.addEventListener('click',()=>setLanguage('en'));viButton.addEventListener('click',()=>setLanguage('vi'));let saved='en';try{saved=localStorage.getItem('airbnbhosted-language')||'en'}catch(e){}setLanguage(saved==='vi'?'vi':'en');
+    function setLanguage(lang){document.documentElement.lang=lang==='vi'?'vi':'en';document.querySelectorAll('[data-en],[data-vi]').forEach(el=>{const v=el.getAttribute('data-'+lang);if(v!==null)el.textContent=v});document.querySelectorAll('[data-en-html],[data-vi-html]').forEach(el=>{const v=el.getAttribute('data-'+lang+'-html');if(v!==null)el.innerHTML=v});enButton.classList.toggle('active',lang==='en');viButton.classList.toggle('active',lang==='vi');document.title=lang==='vi'?'AirbnbHosted | Guest Guide cá nhân hóa cho chủ căn hộ':'AirbnbHosted | Personalized Digital Guest Guides';const d=document.querySelector('meta[name="description"]');if(d)d.content=lang==='vi'?'Guest Guide điện tử cá nhân hóa cho chủ Airbnb và short-stay: check-in, đỗ xe, Wi-Fi và checkout trong một đường link tối ưu cho điện thoại.':'Personalized digital guest guides for Airbnb and short-stay hosts. Check-in, parking, Wi-Fi and checkout in one mobile-friendly link.';try{localStorage.setItem('airbnbhosted-language-v2',lang)}catch(e){}}
+    enButton.addEventListener('click',()=>setLanguage('en'));viButton.addEventListener('click',()=>setLanguage('vi'));let saved='vi';try{saved=localStorage.getItem('airbnbhosted-language-v2')||'vi'}catch(e){}setLanguage(saved==='en'?'en':'vi');
     const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}})},{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
   </script>
 </body>
