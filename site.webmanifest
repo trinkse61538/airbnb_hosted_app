@@ -1,7 +1,7 @@
 {
   "name": "AirbnbHosted",
   "short_name": "AirbnbHosted",
-  "description": "Guest Guide song ngữ cho Airbnb, homestay và căn hộ dịch vụ tại Việt Nam.",
+  "description": "Bilingual digital Guest Guides for Airbnb, homestay, serviced-apartment and short-stay hosts.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
